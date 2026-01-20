@@ -232,31 +232,76 @@ function selectPetType(type) {
 function generateAndShowStory() {
     app.goDashboard();
 
+    // Update Header with personal welcome
+    const heroName = StoryConfig.hero.name || "Kahraman";
+    document.getElementById('dash-hero-name').textContent = `Hoş geldin, ${heroName} 👋`;
+    document.getElementById('dash-hero-name').parentElement.style.opacity = "1"; // Ensure vis
+
     const dashboard = document.getElementById('story-list');
-    dashboard.innerHTML = ''; // Clear
+    dashboard.innerHTML = ''; // Clear existing
 
-    // Create a card for "Çiko's Adventure"
-    // Create a HEADLINE card (Hero Style)
-    const card = document.createElement('div');
-    card.className = 'hero-story-card animate-in';
-    card.onclick = () => loadStoryReader('adventure_01');
+    // 1. FILTER STORIES
+    const validStories = STORY_DB.filter(story => {
+        const reqs = story.requirements || [];
 
-    // Use specific COVER image if available, otherwise fallback to the forest scene
-    const coverImage = "images/scene_forest_pixar.png";
+        // Check Sibling Requirement
+        if (reqs.includes('sibling') && !StoryConfig.family.sibling.name) return false;
 
-    card.innerHTML = `
-        <div class="hero-story-bg" style="background-image: url('${coverImage}');">
-            <div class="hero-story-overlay">
-                <div class="hero-story-content">
-                    <h3 class="hero-story-title">Gizemli Orman</h3>
-                    <p class="hero-story-subtitle">${StoryConfig.hero.name} ve ${StoryConfig.pets.heroPet.name}'nun Büyülü Yolculuğu</p>
-                    <button class="btn-primary big-pulse-btn" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+        // Check Pet Requirement
+        if (reqs.includes('pet') && !StoryConfig.pets.heroPet.name) return false;
+
+        return true;
+    });
+
+    if (validStories.length === 0) {
+        dashboard.innerHTML = '<p style="text-align:center; opacity:0.7;">Şu an senin için uygun bir hikaye bulamadık.</p>';
+        return;
+    }
+
+    // 2. RENDER STORIES
+    validStories.forEach((story, index) => {
+        const card = document.createElement('div');
+
+        // First story is featured (Hero Card), others are compact
+        if (index === 0) {
+            card.className = 'hero-story-card animate-in';
+            // Use specific COVER image if available, otherwise fallback to the forest scene
+            // For now hardcoding the forest scene for the main story, random for others? 
+            // Better: stick to forest for main, maybe generated for others later.
+            const coverImage = "images/scene_forest_pixar.png";
+
+            card.innerHTML = `
+                <div class="hero-story-bg" style="background-image: url('${coverImage}');">
+                    <div class="hero-story-overlay">
+                        <div class="hero-story-content">
+                            <h3 class="hero-story-title">${story.title}</h3>
+                            <p class="hero-story-subtitle">${story.summary}</p>
+                            <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    `;
+            `;
+        } else {
+            // Standard Card for secondary stories
+            card.className = 'glass-card animate-in';
+            card.style.cursor = 'pointer';
+            card.style.marginTop = '20px';
+            card.style.textAlign = 'left';
+            card.onclick = () => loadStoryReader(story.id);
 
-    dashboard.appendChild(card);
+            card.innerHTML = `
+                <div style="display:flex; align-items:center;">
+                    <div style="width: 80px; height: 80px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:2rem;">📖</div>
+                    <div>
+                        <h3 style="margin-bottom:5px; color: var(--primary);">${story.title}</h3>
+                        <p style="font-size:0.9rem; opacity:0.8; line-height:1.2;">${story.summary}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        dashboard.appendChild(card);
+    });
 }
 
 function loadStoryReader(storyId) {

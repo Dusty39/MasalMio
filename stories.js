@@ -5,6 +5,7 @@ const STORY_DB = [
         summary: "Evinin bahçesinden sihirli bir ormana açılan kapıyı keşfetmeye hazır mısın?",
         genre: "adventure",
         coverColor: "#4CAF50",
+        requirements: ["sibling", "pet"],
         pages: [
             {
                 text: "Bir zamanlar {{heroPetName}} adında çok sevimli bir dostumuz vardı. Tüyleri pırıl pırıl, gözleri ise merakla parlıyordu. En sevdiği şey, güneşli günlerde bahçedeki renkli kelebeklerin peşinden koşmaktı.",
@@ -126,6 +127,34 @@ const STORY_DB = [
                 text: "SON",
                 image: "images/masalmio_logo.png"
             }
+        ]
+    },
+    {
+        id: "solo_01",
+        title: "Gökyüzü Macerası",
+        summary: "Bulutların üzerinde ne saklı? Cesaretini topla ve tırmanmaya başla!",
+        genre: "adventure",
+        coverColor: "#2196F3",
+        requirements: [], // No special requirements
+        pages: [
+            { text: "{{heroName}}, bahçede otururken gökyüzünde parlayan garip bir bulut fark etti.", image: "images/hero_boy_1.png" },
+            { text: "Bulut sanki onu çağırıyordu. 'Acaba oraya nasıl çıkarım?' diye düşündü.", image: "images/scene_garden_pixar.png" },
+            { text: "Büyük bir balon buldu ve macerası başladı!", image: "images/scene_forest_pixar.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "pet_01",
+        title: "Kayıp Kemik Vakası",
+        summary: "Dedektif şapkanı tak! Sevimli dostunla birlikte gizemi çöz.",
+        genre: "mystery",
+        coverColor: "#FF9800",
+        requirements: ["pet"], // Needs pet
+        pages: [
+            { text: "{{heroName}} ve {{heroPetName}} bahçede oyun oynuyordu.", image: "images/hero_boy_1.png" },
+            { text: "Aniden {{heroPetName}} yerleri koklamaya başladı. Bir iz bulmuştu!", image: "images/pet_dog_1.png" },
+            { text: "Çalıların arasında parlayan eski bir kutu buldular.", image: "images/scene_mushrooms_pixar.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
         ]
     }
 ];
