@@ -61,6 +61,12 @@ const wizard = {
     render() {
         const container = document.getElementById('wizard-steps');
         const progressBar = document.getElementById('wizard-progress');
+        // Hide header back button on first step
+        const headerBackBtn = document.querySelector('.wizard-header .btn-icon');
+        if (headerBackBtn) {
+            headerBackBtn.style.visibility = this.step === 0 ? 'hidden' : 'visible';
+        }
+
         const currentStepConfig = this.steps[this.step];
 
         // Update Progress
@@ -107,7 +113,7 @@ const wizard = {
 function renderHeroStep(container) {
     container.innerHTML = `
         <div class="input-group" style="margin: 0 auto 20px auto;">
-            <input type="text" class="glass-input" placeholder="Kahramanın Adı (Örn: Aras)" 
+            <input type="text" class="glass-input" placeholder="İsim Yazınız..." autocomplete="off"
                 value="${StoryConfig.hero.name}" 
                 oninput="StoryConfig.hero.name = this.value">
         </div>
@@ -140,7 +146,7 @@ function renderFamilyStep(container) {
             <div style="flex:1;">
                 <div style="font-size:0.9rem; opacity:0.8;">${label}</div>
                 <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem; text-align:left;" 
-                    placeholder="İsim Yaz..." 
+                    placeholder="İsim..." autocomplete="off"
                     value="${StoryConfig.family[key].name}" 
                     oninput="StoryConfig.family['${key}'].name = this.value">
             </div>
@@ -148,14 +154,13 @@ function renderFamilyStep(container) {
     `;
 
     container.innerHTML = `
-        <div class="family-list" style="max-height: 300px; overflow-y: auto; padding-right:5px;">
+        <div class="family-list" style="padding-right:5px;">
             ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
             ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
             ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
             ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
             ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
         </div>
-        <p style="font-size:0.8rem; opacity:0.6; margin-top:10px;">* Boş bıraktıklarınız hikayede varsayılan isimle anılır.</p>
     `;
 }
 
@@ -163,7 +168,7 @@ function renderPetStep(container) {
     container.innerHTML = `
         <div class="input-group" style="margin: 0 auto 20px auto;">
             <label style="display:block; margin-bottom:5px;">Evcil Hayvanın Adı</label>
-            <input type="text" class="glass-input" placeholder="Örn: Boncuk" 
+            <input type="text" class="glass-input" placeholder="İsim Yazınız..." autocomplete="off"
                 value="${StoryConfig.pets.heroPet.name}" 
                 oninput="StoryConfig.pets.heroPet.name = this.value">
         </div>

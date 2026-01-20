@@ -63,7 +63,14 @@
         <section id="view-dashboard" class="view hidden">
             <div class="glass-header"
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <button class="btn-icon" onclick="app.goHome()" style="font-size: 1.5rem;">🏠</button>
+                <button class="btn-icon" onclick="app.goHome()"
+                    style="background: rgba(255,255,255,0.15); border-radius: 50%; padding: 8px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
+                        fill="#ffffff">
+                        <path
+                            d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                    </svg>
+                </button>
                 <h2>Hikaye Seçimi 📚</h2>
                 <div class="user-chip">
                     <span id="dash-hero-name">Kahraman</span>
