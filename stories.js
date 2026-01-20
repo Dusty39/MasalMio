@@ -144,16 +144,121 @@ const STORY_DB = [
         ]
     },
     {
-        id: "pet_01",
-        title: "Kayıp Kemik Vakası",
-        summary: "Dedektif şapkanı tak! Sevimli dostunla birlikte gizemi çöz.",
-        genre: "mystery",
-        coverColor: "#FF9800",
-        requirements: ["pet"], // Needs pet
+        id: "space_01",
+        title: "Minik Astronotun Uzay Yolculuğu",
+        summary: "3-2-1 Fırlatma! Yıldızların arasında dans etmeye hazır mısın?",
+        genre: "adventure",
+        coverColor: "#673AB7",
+        requirements: [],
         pages: [
-            { text: "{{heroName}} ve {{heroPetName}} bahçede oyun oynuyordu.", image: "images/hero_boy_1.png" },
-            { text: "Aniden {{heroPetName}} yerleri koklamaya başladı. Bir iz bulmuştu!", image: "images/pet_cat_1.png" },
-            { text: "Çalıların arasında parlayan eski bir kutu buldular.", image: "images/scene_mushrooms_pixar.png" },
+            { text: "{{heroName}}, o gece gökyüzüne bakarken yıldızların ona göz kırptığını hissetti. 'Acaba orada kimler yaşıyor?' diye düşündü.", image: "images/hero_boy_1.png" },
+            { text: "Bahçedeki eski karton kutuyu boyadı, üzerine düğmeler çizdi. İşte hazırdı! Bu onun süper hızlı roketiydi.", image: "images/scene_garden_pixar.png" },
+            { text: "Kaskını (yani bisiklet kaskını) taktı ve geri sayıma başladı. 10.. 9.. 8.. Motorlar çalışıyor!", image: "images/hero_boy_1.png" },
+            { text: "Gözlerini açtığında her yer mordu! Yerçekimi yoktu, havada süzülüyordu. Karton kutu gerçekten uçmuştu!", image: "images/scene_portal_pixar.png" },
+            { text: "Pencereden baktığında Dünya kocaman mavi bir bilye gibi görünüyordu. {{heroName}} el salladı: 'Görüşürüz Dünya!'", image: "images/scene_portal_pixar.png" },
+            { text: "Bir süre sonra parlayan tozların arasından geçti. Bu bir kuyruklu yıldızdı! Arkasında simli bir iz bırakıyordu.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Yolculuk yorucuydu ama harikaydı. {{heroName}}, 'Bir gün gerçekten gideceğim,' diye söz verdi kendi kendine.", image: "images/hero_boy_1.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "submarine_01",
+        title: "Derin Deniz Kaşifi",
+        summary: "Okyanusun en derinlerinde, ışıklı balıkların dünyasına dalıyoruz.",
+        genre: "adventure",
+        coverColor: "#00BCD4",
+        requirements: [],
+        pages: [
+            { text: "{{heroName}} denizaltı belgeseli izlerken hayallere daldı. Mavi suların altı ne kadar da gizemliydi.", image: "images/hero_boy_1.png" },
+            { text: "Hayalindeki denizaltıya bindi ve kapakları kapattı. Fokur fokur sesler eşliğinde derinlere inmeye başladı.", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "Aşağı indikçe güneş ışığı azaldı ama etraf karanlık olmadı. Çünkü burada bitkiler ışık saçıyordu!", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Yanından geçen balıklar gökkuşağı gibi renkliydi. {{heroName}} cama burnunu dayayıp onları izledi.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Aniden kocaman bir gölge geçti! Bu dost canlısı bir balinaydı. {{heroName}}'e 'Merhaba' der gibi su püskürttü.", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "Hava tankı azalmadan yukarı çıkmalıydı. Yüzeye çıktığında derin bir nefes aldı. Deniz kokusu harikaydı.", image: "images/scene_garden_pixar.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "camp_01",
+        title: "Ormandaki Çadır Kampı",
+        summary: "Kamp ateşi, yıldızlar ve ormanın sesleri. Doğayla baş başa bir gece.",
+        genre: "adventure",
+        coverColor: "#795548",
+        requirements: [],
+        pages: [
+            { text: "Hafta sonu gelmişti! {{heroName}} ve ailesi, eşyaları arabaya yükleyip ormanın yolunu tuttular.", image: "images/hero_boy_1.png" },
+            { text: "Orman yemyeşildi ve kuş cıvıltılarıyla doluydu. {{heroName}} derin bir nefes aldı; hava tertemizdi.", image: "images/scene_forest_pixar.png" },
+            { text: "Hemen çadırı kurmaya başladılar. {{heroName}}, çekiçle çadır kazıklarını çakarken kendini çok güçlü hissetti.", image: "images/scene_forest_pixar.png" },
+            { text: "Akşam olunca ateş yaktılar. Ateşin çıtırtısı ve turuncu ışığı herkesi ısıtıyordu.", image: "images/scene_fox_encounter_pixar.png" },
+            { text: "Tam o sırada çalıların arasından bir hışırtı geldi. {{heroName}} fenerini o yöne tuttu. O da ne?", image: "images/scene_fox_encounter_pixar.png" },
+            { text: "Meraklı bir tilki onlara bakıyordu! {{heroName}} sessizce onu izledi. Tilki de ona baktı ve sakince ormana döndü.", image: "images/scene_fox_encounter_pixar.png" },
+            { text: "Gece çadırda uyku tulumuna girdiğinde, ormanın ninnisiyle hemen uykuya daldı.", image: "images/scene_mushrooms_pixar.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "holiday_01",
+        title: "Unutulmaz Yaz Tatili",
+        summary: "Kumsalda kumdan kaleler ve dondurma keyfi!",
+        genre: "adventure",
+        coverColor: "#FFC107",
+        requirements: [],
+        pages: [
+            { text: "Okullar kapanmış, tatil zamanı gelmişti! {{heroName}} bavulunu hazırlarken çok heyecanlıydı.", image: "images/hero_boy_1.png" },
+            { text: "Yolculuk boyunca camdan ağaçları, dağları ve köyleri izledi. Dünya ne kadar da büyüktü.", image: "images/scene_garden_pixar.png" },
+            { text: "Otele vardıklarında hemen mayosunu giyip koştu. Deniz masmavi ve çarşaf gibiydi.", image: "images/scene_garden_pixar.png" },
+            { text: "Kumsalda dev gibi bir kale yaptı. Etrafına hendekler kazdı, deniz kabuklarıyla süsledi.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Akşamüzeri en sevdiği dondurmadan yedi. Tatil hiç bitmesin istiyordu.", image: "images/hero_boy_1.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "plane_01",
+        title: "Bulutların Üzerinde Yolculuk",
+        summary: "Kemerlerinizi bağlayın, uçuşa geçiyoruz!",
+        genre: "adventure",
+        coverColor: "#03A9F4",
+        requirements: [],
+        pages: [
+            { text: "Bugün {{heroName}} için büyük gündü. İlk defa uçağa binecekti!", image: "images/hero_boy_1.png" },
+            { text: "Havalimanı o kadar kalabalıktı ki! Herkes bir yerlere yetişmeye çalışıyordu.", image: "images/scene_garden_pixar.png" },
+            { text: "Uçaktaki koltuğuna oturdu. Motorlar gürledi ve birden koltuğa yapıştı. Havalanıyorlardı!", image: "images/scene_garden_pixar.png" },
+            { text: "Pencereden aşağı baktı. Arabalar karınca kadar, evler ise kibrit kutusu kadar küçüktü.", image: "images/scene_portal_pixar.png" },
+            { text: "Bulutların içine girdiklerinde her yer bembeyaz oldu. 'Sanki pamuk tarlasındayız,' dedi.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "İniş yaptıklarında {{heroName}} pilot olmak istediğine karar vermişti bile.", image: "images/hero_boy_1.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "train_01",
+        title: "Çuf Çuf Tren Gezisi",
+        summary: "Rayların üzerindeki ritmik ses eşliğinde keyifli bir gezi.",
+        genre: "adventure",
+        coverColor: "#FF5722",
+        requirements: [],
+        pages: [
+            { text: "İstasyon düdük sesiyle yankılandı. Tren geliyordu! {{heroName}} trene binmeyi çok severdi.", image: "images/hero_boy_1.png" },
+            { text: "Kompartımana yerleştiler. Tren 'Çuf çuf!' diyerek hareket etti. Ağaçlar geriye doğru akmaya başladı.", image: "images/scene_forest_pixar.png" },
+            { text: "Tünellere girdiklerinde her yer karanlık oluyor, {{heroName}} heyecanla çığlık atıyordu.", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "Yemekli vagona gidip tost yediler. Sallanan trende yürümek çok komikti, sürekli sağa sola yalpalıyorlardı.", image: "images/scene_forest_pixar.png" },
+            { text: "Gidecekleri yere vardıklarında {{heroName}}, 'Keşke biraz daha sürseydi,' dedi.", image: "images/scene_garden_pixar.png" },
+            { text: "SON", image: "images/masalmio_logo.png" }
+        ]
+    },
+    {
+        id: "polar_01",
+        title: "Karlı Kutup Bekçisi",
+        summary: "Burası çok soğuk ama penguenler çok sıcakkanlı!",
+        genre: "adventure",
+        coverColor: "#E0F7FA",
+        requirements: [],
+        pages: [
+            { text: "{{heroName}} kalın montunu, beresini ve eldivenlerini giydi. Hayalinde Kuzey Kutbu'ndaydı.", image: "images/hero_boy_1.png" },
+            { text: "Her yer bembeyaz karla kaplıydı. Nefes alırken ağzından dumanlar çıkıyordu.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "İleride paytak paytak yürüyen siyah beyaz kuşlar gördü. Bunlar penguenlerdi!", image: "images/hero_boy_1.png" },
+            { text: "Bir tanesi kaydı ve buzun üzerine düştü. {{heroName}} yardım etmek için koştu.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Birlikte buzdan bir kale yaptılar. Penguenler ona teşekkür etmek için balık hediye etti (tabii ki şakacıktan!).", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "Eve döndüğünde burnu kızarmıştı ama kalbi sıcacıktı.", image: "images/scene_garden_pixar.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
         ]
     }
