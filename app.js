@@ -9,7 +9,7 @@ const StoryConfig = {
         mentor: { name: "", avatar: "images/mentor_grandpa_1.png", title: "Bilge Kişi" }
     },
     pets: {
-        heroPet: { name: "Boncuk", type: "cat", avatar: "images/pet_cat_1.png" }
+        heroPet: { name: "", type: "cat", avatar: "images/pet_cat_1.png" }
     }
 };
 
