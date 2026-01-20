@@ -201,21 +201,24 @@ function generateAndShowStory() {
     dashboard.innerHTML = ''; // Clear
 
     // Create a card for "Çiko's Adventure"
+    // Create a HEADLINE card (Hero Style)
     const card = document.createElement('div');
-    card.className = 'glass-card story-card';
-    card.style.cursor = 'pointer';
+    card.className = 'hero-story-card animate-in';
     card.onclick = () => loadStoryReader('adventure_01');
 
-    // Use Hero avatar and Pet avatar for the cover composition
+    // Use specific COVER image if available, otherwise fallback to the forest scene
+    const coverImage = "images/scene_forest_pixar.png";
+
     card.innerHTML = `
-        <div style="position:relative; width:100%; height:150px; background:#4CAF50; border-radius:15px; overflow:hidden; margin-bottom:10px;">
-             <!-- Composite Cover -->
-             <img src="${StoryConfig.hero.avatar}" style="position:absolute; bottom:0; left:10px; height:90%; object-fit:contain;">
-             <img src="${StoryConfig.pets.heroPet.avatar}" style="position:absolute; bottom:0; right:10px; height:70%; object-fit:contain;">
+        <div class="hero-story-bg" style="background-image: url('${coverImage}');">
+            <div class="hero-story-overlay">
+                <div class="hero-story-content">
+                    <h3 class="hero-story-title">Gizemli Orman</h3>
+                    <p class="hero-story-subtitle">${StoryConfig.hero.name} ve ${StoryConfig.pets.heroPet.name}'nun Büyülü Yolculuğu</p>
+                    <button class="btn-primary big-pulse-btn" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                </div>
+            </div>
         </div>
-        <h3>Gizemli Ormanın Sırları</h3>
-        <p style="font-size:0.9rem;">${StoryConfig.hero.name || 'Kahraman'} ve ${StoryConfig.pets.heroPet.name || 'Dostu'}'nun büyülü yolculuğu.</p>
-        <button class="btn-primary" style="margin-top:10px; font-size:1rem; padding:8px 20px;">Oku 📖</button>
     `;
 
     dashboard.appendChild(card);
