@@ -304,8 +304,8 @@ h3 {
 .page-text {
     font-size: 1.3rem;
     line-height: 1.6;
-    color: #fff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--text);
+    text-shadow: none;
     padding: 0 10px;
 }
 
