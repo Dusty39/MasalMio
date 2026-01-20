@@ -41,8 +41,43 @@ const app = {
 
     goDashboard() {
         this.navigateTo('view-dashboard');
+    },
+
+    // --- Theme Logic ---
+    toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        this.updateThemeIcon(newTheme);
+    },
+
+    updateThemeIcon(theme) {
+        const icon = document.getElementById('theme-icon');
+        if (icon) {
+            icon.innerText = theme === 'dark' ? '🌙' : '☀️';
+        }
+    },
+
+    initTheme() {
+        // Check storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            this.updateThemeIcon('dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme'); // Default is Light
+            this.updateThemeIcon('light');
+        }
     }
 };
+
+// Initialize Theme on Load
+document.addEventListener('DOMContentLoaded', () => {
+    app.initTheme();
+});
 
 // --- Wizard Logic ---
 const wizard = {

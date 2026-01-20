@@ -29,7 +29,13 @@
     <div id="app">
 
         <!-- 1. WELCOME SCREEN -->
-        <section id="view-welcome" class="view active-view">
+        <section id="view-welcome" class="view active-view" style="justify-content: center; align-items: center;">
+            <div style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+                <button class="btn-icon" onclick="app.toggleTheme()"
+                    style="background: var(--glass); padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px var(--shadow-color);">
+                    <span id="theme-icon" style="font-size: 1.5rem;">🌓</span>
+                </button>
+            </div>
             <div class="glass-card hero-card">
                 <img src="images/masalmio_logo.png" alt="MasalMio Logo" class="app-logo big-pulse-btn"
                     style="width: 150px; border-radius: 25px; margin-bottom: 20px;">
