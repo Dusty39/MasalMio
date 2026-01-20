@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>StoryMaker - Kendi Masalını Yaz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <meta name="theme-color" content="#2d1b4e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="magical-bg">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="app">
+
+        <!-- 1. WELCOME SCREEN -->
+        <section id="view-welcome" class="view active-view">
+            <div class="glass-card hero-card">
+                <img src="images/masalmio_logo.png" alt="MasalMio Logo" class="app-logo big-pulse-btn"
+                    style="width: 150px; border-radius: 25px; margin-bottom: 20px;">
+                <h1>MasalMio</h1>
+                <p>Kendi masalının kahramanı ol!</p>
+                <button class="btn-primary" onclick="app.startWizard()">Masal Oluştur 🪄</button>
+            </div>
+        </section>
+
+        <!-- 2. CHARACTER WIZARD (Step-by-Step) -->
+        <section id="view-wizard" class="view hidden">
+            <div class="wizard-header">
+                <button class="btn-icon" onclick="app.goHome()">↩</button>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="wizard-progress"></div>
+                </div>
+            </div>
+
+            <!-- Wizard Steps Container -->
+            <div id="wizard-steps">
+                <!-- Dynamic Content Injected via JS -->
+            </div>
+
+            <div class="wizard-footer">
+                <button class="btn-secondary" id="btn-prev" onclick="wizard.prevStep()">Geri</button>
+                <button class="btn-primary" id="btn-next" onclick="wizard.nextStep()">İleri ➔</button>
+            </div>
+        </section>
+
+        <!-- 3. DASHBOARD (Story Selection) -->
+        <section id="view-dashboard" class="view hidden">
+            <div class="glass-header">
+                <h2>Hikaye Seçimi 📚</h2>
+                <div class="user-chip">
+                    <span id="dash-hero-name">Kahraman</span>
+                </div>
+            </div>
+            <div class="story-grid" id="story-list">
+                <!-- Stories injected here -->
+            </div>
+        </section>
+
+        <!-- 4. READER (Flipbook) -->
+        <section id="view-reader" class="view hidden">
+            <div class="reader-toolbar">
+                <button class="btn-icon" onclick="app.goDashboard()">✖</button>
+                <span id="page-indicator">1 / 20</span>
+            </div>
+            <div class="book-container">
+                <div class="book-page" id="book-content">
+                    <!-- Dynamic Story Content -->
+                </div>
+            </div>
+            <div class="reader-nav">
+                <button class="nav-btn" onclick="reader.prevPage()">❮</button>
+                <button class="nav-btn" onclick="reader.nextPage()">❯</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="stories.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
