@@ -232,42 +232,75 @@ function selectPetType(type) {
 function generateAndShowStory() {
     app.goDashboard();
 
-    // Update Header with personal welcome
+    // Update Header
     const heroName = StoryConfig.hero.name || "Kahraman";
     document.getElementById('dash-hero-name').textContent = `Hoş geldin, ${heroName} 👋`;
-    document.getElementById('dash-hero-name').parentElement.style.opacity = "1"; // Ensure vis
+    document.getElementById('dash-hero-name').parentElement.style.opacity = "1";
 
     const dashboard = document.getElementById('story-list');
-    dashboard.innerHTML = ''; // Clear existing
+    dashboard.innerHTML = ''; // Clear
 
-    // 1. FILTER STORIES
+    // --- 1. My Stories (Continue Reading) ---
+    const savedProgress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+    const startedStories = Object.keys(savedProgress);
+
+    if (startedStories.length > 0) {
+        const myStoriesSection = document.createElement('div');
+        myStoriesSection.innerHTML = `<h3 style="margin: 10px 0 15px; opacity:0.8;">Hikayelerim 🔖</h3>`;
+
+        startedStories.forEach(id => {
+            const progress = savedProgress[id];
+            const story = STORY_DB.find(s => s.id === id);
+            if (!story) return;
+
+            const card = document.createElement('div');
+            card.className = 'glass-card animate-in';
+            card.style.cursor = 'pointer';
+            card.style.marginBottom = '20px';
+            card.style.textAlign = 'left';
+            card.style.borderLeft = '4px solid var(--primary)';
+            card.onclick = () => loadStoryReader(id, progress.page);
+
+            card.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h4 style="margin-bottom:5px; color: var(--primary);">${story.title}</h4>
+                        <p style="font-size:0.9rem; opacity:0.8;">Kaldığın Yer: ${progress.page + 1} / ${story.pages.length}</p>
+                    </div>
+                    <button class="btn-primary" style="padding: 8px 15px; font-size: 0.9rem; margin:0;">Devam Et ▶</button>
+                </div>
+            `;
+            myStoriesSection.appendChild(card);
+        });
+
+        dashboard.appendChild(myStoriesSection);
+    }
+
+    // --- 2. For You (New Stories) ---
+    const forYouSection = document.createElement('div');
+    if (startedStories.length > 0) {
+        forYouSection.innerHTML = `<h3 style="margin: 20px 0 15px; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>`;
+    }
+
     const validStories = STORY_DB.filter(story => {
         const reqs = story.requirements || [];
-
-        // Check Sibling Requirement
         if (reqs.includes('sibling') && !StoryConfig.family.sibling.name) return false;
-
-        // Check Pet Requirement
         if (reqs.includes('pet') && !StoryConfig.pets.heroPet.name) return false;
-
         return true;
     });
 
     if (validStories.length === 0) {
-        dashboard.innerHTML = '<p style="text-align:center; opacity:0.7;">Şu an senin için uygun bir hikaye bulamadık.</p>';
+        dashboard.innerHTML += '<p style="text-align:center; opacity:0.7;">Şu an senin için uygun bir hikaye bulamadık.</p>';
         return;
     }
 
-    // 2. RENDER STORIES
     validStories.forEach((story, index) => {
         const card = document.createElement('div');
 
-        // First story is featured (Hero Card), others are compact
-        if (index === 0) {
+        const isFeatured = index === 0 && startedStories.length === 0;
+
+        if (isFeatured) {
             card.className = 'hero-story-card animate-in';
-            // Use specific COVER image if available, otherwise fallback to the forest scene
-            // For now hardcoding the forest scene for the main story, random for others? 
-            // Better: stick to forest for main, maybe generated for others later.
             const coverImage = "images/scene_forest_pixar.png";
 
             card.innerHTML = `
@@ -282,32 +315,33 @@ function generateAndShowStory() {
                 </div>
             `;
         } else {
-            // Standard Card for secondary stories
             card.className = 'glass-card animate-in';
             card.style.cursor = 'pointer';
-            card.style.marginTop = '20px';
+            card.style.marginBottom = '15px';
             card.style.textAlign = 'left';
             card.onclick = () => loadStoryReader(story.id);
 
             card.innerHTML = `
                 <div style="display:flex; align-items:center;">
-                    <div style="width: 80px; height: 80px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:2rem;">📖</div>
+                    <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
                     <div>
-                        <h3 style="margin-bottom:5px; color: var(--primary);">${story.title}</h3>
-                        <p style="font-size:0.9rem; opacity:0.8; line-height:1.2;">${story.summary}</p>
+                        <h4 style="margin-bottom:3px; color: var(--text);">${story.title}</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${story.summary}</p>
                     </div>
                 </div>
             `;
         }
 
-        dashboard.appendChild(card);
+        forYouSection.appendChild(card);
     });
+
+    dashboard.appendChild(forYouSection);
 }
 
-function loadStoryReader(storyId) {
+function loadStoryReader(storyId, startPage = 0) {
     const story = StoryEngine.generate(storyId, StoryConfig);
     if (story) {
-        renderBook(story);
+        renderBook(story, startPage);
         app.navigateTo('view-reader');
     }
 }
@@ -317,10 +351,22 @@ const reader = {
     story: null,
     pageIndex: 0,
 
-    init(story) {
+    init(story, startPage = 0) {
         this.story = story;
-        this.pageIndex = 0;
+        this.pageIndex = startPage;
         this.renderPage();
+        this.saveProgress();
+    },
+
+    saveProgress() {
+        if (!this.story) return;
+        const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+        progress[this.story.id] = {
+            page: this.pageIndex,
+            title: this.story.title,
+            updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem('masalmio_progress', JSON.stringify(progress));
     },
 
     renderPage() {
@@ -341,6 +387,7 @@ const reader = {
         `;
 
         indicator.textContent = `${this.pageIndex + 1} / ${this.story.pages.length}`;
+        this.saveProgress();
     },
 
     nextPage() {
@@ -358,6 +405,6 @@ const reader = {
     }
 };
 
-function renderBook(story) {
-    reader.init(story);
+function renderBook(story, startPage = 0) {
+    reader.init(story, startPage);
 }

@@ -12,11 +12,11 @@ const STORY_DB = [
                 image: "images/scene_garden_pixar.png"
             },
             {
-                text: "Onun en yakın arkadaşları {{heroName}} ve {{siblingName}} idi. {{siblingName}} 12 yaşında, akıllı ve her zaman hazırlıklı bir ablaydı. Kardeşini ve sevimli dostlarını korumayı her şeyden çok severdi.",
+                text: "Onun en yakın arkadaşları {{heroName}} ve {{siblingName}} idi. {{siblingName}}, akıllı ve her zaman hazırlıklı bir ablaydı. Kardeşini ve sevimli dostlarını korumayı her şeyden çok severdi.",
                 image: "images/sibling_girl_1.png"
             },
             {
-                text: "{{heroName}} ise henüz 7 yaşındaydı ama hayalleri boyundan büyüktü. Enerjisi hiç bitmez, aklı hep oyunlarda ve yeni keşiflerdeydi. Özellikle bloklarla yeni dünyalar inşa etmeye bayılırdı.",
+                text: "{{heroName}}'in hayalleri boyundan büyüktü. Enerjisi hiç bitmez, aklı hep oyunlarda ve yeni keşiflerdeydi. Özellikle bloklarla yeni dünyalar inşa etmeye bayılırdı.",
                 image: "images/hero_boy_1.png"
             },
             {
@@ -152,7 +152,7 @@ const STORY_DB = [
         requirements: ["pet"], // Needs pet
         pages: [
             { text: "{{heroName}} ve {{heroPetName}} bahçede oyun oynuyordu.", image: "images/hero_boy_1.png" },
-            { text: "Aniden {{heroPetName}} yerleri koklamaya başladı. Bir iz bulmuştu!", image: "images/pet_dog_1.png" },
+            { text: "Aniden {{heroPetName}} yerleri koklamaya başladı. Bir iz bulmuştu!", image: "images/pet_cat_1.png" },
             { text: "Çalıların arasında parlayan eski bir kutu buldular.", image: "images/scene_mushrooms_pixar.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
         ]
