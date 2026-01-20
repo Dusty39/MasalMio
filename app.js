@@ -2,14 +2,14 @@
 const StoryConfig = {
     hero: { name: "", gender: "boy", avatar: "images/hero_boy_1.png" },
     family: {
-        sibling: { name: "", gender: "girl", avatar: "images/sibling_girl_1.png", title: "Kardeş" },
-        friend: { name: "", gender: "boy", avatar: "images/friend_boy_1.png", title: "Arkadaş" },
-        mom: { name: "", avatar: "images/parent_mom_1.png", title: "Anne" },
-        dad: { name: "", avatar: "images/parent_dad_1.png", title: "Baba" },
-        mentor: { name: "", avatar: "images/mentor_grandpa_1.png", title: "Bilge Kişi" }
+        sibling: { name: "", gender: "girl", avatar: "images/sibling_girl_1.png", title: "Kardeş", included: false },
+        friend: { name: "", gender: "boy", avatar: "images/friend_boy_1.png", title: "Arkadaş", included: false },
+        mom: { name: "", avatar: "images/parent_mom_1.png", title: "Anne", included: false },
+        dad: { name: "", avatar: "images/parent_dad_1.png", title: "Baba", included: false },
+        mentor: { name: "", avatar: "images/mentor_grandpa_1.png", title: "Bilge Kişi", included: false }
     },
     pets: {
-        heroPet: { name: "", type: "cat", avatar: "images/pet_cat_1.png" }
+        heroPet: { name: "", type: "cat", avatar: "images/pet_cat_1.png", included: false }
     }
 };
 
@@ -84,8 +84,8 @@ const wizard = {
     step: 0,
     steps: [
         { id: 'hero', title: 'Kahramanı Seç', render: renderHeroStep },
-        { id: 'family', title: 'Aileni Oluştur', render: renderFamilyStep },
-        { id: 'pets', title: 'Evcil Hayvanlar', render: renderPetStep }
+        { id: 'family', title: 'Aileni ve Dostlarını Seç', render: renderFamilyStep }
+        // Pet step merged into family
     ],
 
     init() {
@@ -175,58 +175,96 @@ function selectHeroGender(gender) {
 
 function renderFamilyStep(container) {
     // Helper to render a family member row
-    const renderRow = (key, label, avatarPath) => `
+    // Click on avatar toggles inclusion
+    const renderRow = (key, label, avatarPath) => {
+        const member = StoryConfig.family[key];
+        const isSelected = member.included;
+
+        return `
         <div class="family-row" style="display:flex; align-items:center; margin-bottom:15px; text-align:left;">
-            <img src="${avatarPath}" style="width:50px; height:50px; border-radius:50%; margin-right:10px; object-fit:cover;">
-            <div style="flex:1;">
-                <div style="font-size:0.9rem; opacity:0.8;">${label}</div>
+            <div onclick="toggleFamilyMember('${key}')" class="avatar-selectable ${isSelected ? 'avatar-selected' : ''}"
+                 style="position:relative; width:60px; height:60px; border-radius:50%; margin-right:15px; flex-shrink:0;">
+                <img src="${avatarPath}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                ${isSelected ? '<span style="position:absolute; bottom:0; right:0; background:#4CAF50; color:white; border-radius:50%; width:20px; height:20px; font-size:12px; display:flex; align-items:center; justify-content:center;">✓</span>' : ''}
+            </div>
+            <div style="flex:1; opacity: ${isSelected ? '1' : '0.5'}; transition:opacity 0.3s;">
+                <div style="font-size:0.9rem; margin-bottom:4px;">${label}</div>
                 <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem; text-align:left;" 
                     placeholder="İsim..." autocomplete="off"
-                    value="${StoryConfig.family[key].name}" 
+                    value="${member.name}" 
+                    ${!isSelected ? 'disabled' : ''}
                     oninput="StoryConfig.family['${key}'].name = this.value">
             </div>
         </div>
+        `;
+    };
+
+    // Pet Logic
+    const pet = StoryConfig.pets.heroPet;
+    const isCatSelected = pet.included && pet.type === 'cat';
+    const isDogSelected = pet.included && pet.type === 'dog';
+
+    const petSection = `
+        <div class="pet-selection-container">
+            <div style="text-align:center;">
+                <div onclick="selectPet('cat')" class="avatar-selectable ${isCatSelected ? 'avatar-selected' : ''}"
+                     style="width:70px; height:70px; border-radius:50%; margin-bottom:5px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                    <img src="images/pet_cat_1.png" style="width:90%; height:90%; border-radius:50%; object-fit:cover;">
+                </div>
+                <span style="font-size:0.8rem;">Kedi</span>
+            </div>
+            <div style="text-align:center;">
+                <div onclick="selectPet('dog')" class="avatar-selectable ${isDogSelected ? 'avatar-selected' : ''}"
+                     style="width:70px; height:70px; border-radius:50%; margin-bottom:5px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                    <img src="images/pet_dog_1.png" style="width:90%; height:90%; border-radius:50%; object-fit:cover;">
+                </div>
+                <span style="font-size:0.8rem;">Köpek</span>
+            </div>
+        </div>
+        ${pet.included ? `
+            <div class="animate-in" style="margin-top:10px;">
+                <input type="text" class="glass-input" placeholder="Evcil Hayvanın Adı..." 
+                       value="${pet.name}" oninput="StoryConfig.pets.heroPet.name = this.value">
+            </div>
+        ` : ''}
     `;
 
     container.innerHTML = `
-        <div class="family-list" style="padding-right:5px;">
+        <div class="family-list" style="padding-right:5px; max-height: 400px; overflow-y:auto;">
             ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
             ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
             ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
             ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
             ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
+            
+            <div style="margin: 20px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.2);"></div>
+            <label style="display:block; text-align:left; font-size:0.9rem; opacity:0.8;">Evcil Hayvan Ekle</label>
+            ${petSection}
         </div>
     `;
 }
 
-function renderPetStep(container) {
-    container.innerHTML = `
-        <div class="input-group" style="margin: 0 auto 20px auto;">
-            <label style="display:block; margin-bottom:5px;">Evcil Hayvanın Adı</label>
-            <input type="text" class="glass-input" placeholder="İsim Yazınız..." autocomplete="off"
-                value="${StoryConfig.pets.heroPet.name}" 
-                oninput="StoryConfig.pets.heroPet.name = this.value">
-        </div>
-        <div class="avatar-grid">
-            <div class="avatar-option ${StoryConfig.pets.heroPet.type === 'cat' ? 'selected' : ''}" 
-                 onclick="selectPetType('cat')">
-                 <img src="images/pet_cat_1.png" class="avatar-img">
-                 <span>Kedi</span>
-            </div>
-            <div class="avatar-option ${StoryConfig.pets.heroPet.type === 'dog' ? 'selected' : ''}" 
-                 onclick="selectPetType('dog')">
-                 <img src="images/pet_dog_1.png" class="avatar-img">
-                 <span>Köpek</span>
-            </div>
-        </div>
-    `;
-}
-
-function selectPetType(type) {
-    StoryConfig.pets.heroPet.type = type;
-    StoryConfig.pets.heroPet.avatar = type === 'cat' ? 'images/pet_cat_1.png' : 'images/pet_dog_1.png';
+function toggleFamilyMember(key) {
+    const member = StoryConfig.family[key];
+    member.included = !member.included;
+    // Auto-focus input if enabled? For now just re-render
     wizard.render();
 }
+
+function selectPet(type) {
+    const pet = StoryConfig.pets.heroPet;
+
+    // If clicking the SAME type that is selected, toggle off?
+    if (pet.included && pet.type === type) {
+        pet.included = false;
+    } else {
+        pet.included = true;
+        pet.type = type;
+        pet.avatar = type === 'cat' ? 'images/pet_cat_1.png' : 'images/pet_dog_1.png';
+    }
+    wizard.render();
+}
+
 
 // --- Story Generation Logic ---
 function generateAndShowStory() {
@@ -276,7 +314,7 @@ function generateAndShowStory() {
         dashboard.appendChild(myStoriesSection);
     }
 
-    // --- 2. For You (New Stories) ---
+    // --- 2. For You (Recommendation Logic) ---
     const forYouSection = document.createElement('div');
     if (startedStories.length > 0) {
         forYouSection.innerHTML = `<h3 style="margin: 20px 0 15px; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>`;
@@ -284,8 +322,11 @@ function generateAndShowStory() {
 
     const validStories = STORY_DB.filter(story => {
         const reqs = story.requirements || [];
-        if (reqs.includes('sibling') && !StoryConfig.family.sibling.name) return false;
-        if (reqs.includes('pet') && !StoryConfig.pets.heroPet.name) return false;
+
+        // Strict filtering based on INCLUDED flag
+        if (reqs.includes('sibling') && !StoryConfig.family.sibling.included) return false;
+        if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
+
         return true;
     });
 
