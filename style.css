@@ -68,6 +68,8 @@ h3 {
     transition: opacity 0.4s ease, transform 0.4s ease;
     transform: scale(0.95);
     padding: 20px;
+    overflow-y: auto;
+    /* Allow scrolling within views if needed */
 }
 
 .view.active-view {
@@ -96,6 +98,7 @@ h3 {
 .hero-card {
     margin: auto;
     max-width: 400px;
+    width: 100%;
 }
 
 .hero-card h1 {
@@ -171,11 +174,12 @@ h3 {
 
 #wizard-steps {
     flex: 1;
-    overflow-y: auto;
+    /* overflow-y: auto;  Handled by .view now */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 /* Selection Grids */
@@ -247,15 +251,52 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    /* Hide scrollbars during transition */
+    /* overflow: hidden; */
     position: relative;
+    width: 100%;
+}
+
+.reader-card {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-image-container {
+    width: 100%;
+    height: 300px;
+    /* Default height for desktop/tablet */
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page-text {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 0 10px;
 }
 
 .reader-nav {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 10px 0;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .nav-btn {
@@ -307,5 +348,52 @@ h3 {
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* --- Mobile / Tablet Responsiveness --- */
+@media (max-width: 768px) {
+    .view {
+        padding: 15px;
+    }
+
+    .hero-card h1 {
+        font-size: 2.2rem;
+    }
+
+    .glass-card {
+        padding: 20px;
+    }
+
+    .page-image-container {
+        height: auto;
+        aspect-ratio: 4/3;
+        /* Better for mobile */
+        max-height: 50vh;
+    }
+
+    .page-text {
+        font-size: 1.1rem;
+    }
+
+    .avatar-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .btn-primary {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-card h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-image-container {
+        aspect-ratio: 1/1;
+        /* Square for small screens */
     }
 }

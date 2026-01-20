@@ -242,11 +242,11 @@ const reader = {
 
         // Dynamic Page Layout
         content.innerHTML = `
-            <div class="glass-card animate-in-right" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-                <div class="page-image-container" style="width: 100%; height: 300px; overflow: hidden; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                    <img src="${page.image}" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="glass-card animate-in-right reader-card">
+                <div class="page-image-container">
+                    <img src="${page.image}" class="page-image">
                 </div>
-                <p style="font-size: 1.3rem; line-height: 1.6; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); padding: 0 10px;">
+                <p class="page-text">
                     ${page.text}
                 </p>
             </div>
