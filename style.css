@@ -147,6 +147,35 @@ h3 {
     transform: scale(0.95);
 }
 
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 20px;
+    /* Consistent with primary */
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.btn-secondary:active {
+    transform: scale(0.95);
+}
+
+/* Specific override for modal buttons to remove top margin if using flex gap */
+.modal-card .btn-primary,
+.modal-card .btn-secondary {
+    margin-top: 0;
+}
+
 .big-pulse-btn {
     animation: pulse 2s infinite;
 }

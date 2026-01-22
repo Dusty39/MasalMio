@@ -140,7 +140,7 @@ const wizard = {
         } else {
             // FINISH
             console.log("Wizard Complete:", StoryConfig);
-            app.renderDashboard();
+            app.renderDashboard(true);
         }
     },
 
@@ -271,7 +271,7 @@ function selectPet(type) {
 
 
 // --- Story Generation Logic ---
-app.renderDashboard = function () { // Renamed from generateAndShowStory
+app.renderDashboard = function (showRecommendations = false) { // Default false for Login
     app.goDashboard();
 
     // Update Header
@@ -512,7 +512,7 @@ app.confirmDelete = function () {
         const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
         delete progress[storyToDelete];
         localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-        app.renderDashboard(); // Refresh
+        app.renderDashboard(false); // Refresh without recommendations
         app.closeModal();
     }
 };
