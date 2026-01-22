@@ -516,68 +516,12 @@ h3 {
     }
 }
 
-.hero-story-title {
-    font-size: 2rem;
-}
+@media (max-width: 480px) {
+    .hero-story-bg {
+        height: 65vh;
+    }
 
-
-/* --- Dashboard Enhancements --- */
-.story-star-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.3);
-    transition: color 0.3s, transform 0.2s;
-    padding: 5px;
-    margin-right: -5px;
-}
-
-.story-star-btn:hover {
-    transform: scale(1.2);
-}
-
-.story-star-btn.is-favorite {
-    color: #FFD700;
-    /* Gold */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-.accordion-header {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    opacity: 0.9;
-    padding: 10px 0;
-    transition: opacity 0.3s;
-}
-
-.accordion-header:hover {
-    opacity: 1;
-}
-
-.accordion-content {
-    max-height: 1000px;
-    overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
-}
-
-.accordion-content.collapsed {
-    max-height: 0;
-}
-
-.arrow-icon {
-    transition: transform 0.3s;
-    font-size: 0.8rem;
-}
-
-.accordion-section {
-    margin-bottom: 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
-}
-
-.accordion-section:last-child {
-    border-bottom: none;
+    .hero-story-title {
+        font-size: 2rem;
+    }
 }

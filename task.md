@@ -25,6 +25,13 @@
   - [ ] Renkli ve çocuk dostu tasarım
   
 - [ ] **İçerik Üretimi**
-  - [ ] Hikaye metni yaz
-  - [ ] İllüstrasyonlar oluştur
-  - [ ] Sayfaları birleştir
+  - [x] Hikaye metni yaz
+  - [x] İllüstrasyonlar oluştur
+  - [x] Sayfaları birleştir
+
+- [ ] **PWA ve Bakım**
+  - [x] Service Worker (sw.js) oluştur
+  - [x] PWA güncelleme mekanizması kur (Version Check)
+  - [ ] Cache temizleme butonu
+
+

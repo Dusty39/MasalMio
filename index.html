@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>StoryMaker - Kendi Masalını Yaz</title>
-    <link rel="stylesheet" href="style.css?v=2.0">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="manifest" href="manifest.json">
     <link
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
@@ -41,6 +41,10 @@
                 <h1>MasalMio</h1>
                 <p>Kendi masalının kahramanı ol!</p>
                 <button class="btn-primary" onclick="app.startWizard()">Masal Oluştur 🪄</button>
+                <div style="margin-top: 15px; opacity: 0.5; font-size: 0.8rem;">
+                    <span>v3.1</span> | <span onclick="app.resetApp()"
+                        style="text-decoration: underline; cursor: pointer;">Uygulamayı Sıfırla ↻</span>
+                </div>
             </div>
         </section>
 
@@ -109,8 +113,22 @@
 
     </div>
 
-    <script src="stories.js?v=2.0"></script>
-    <script src="app.js?v=2.0"></script>
+    <script src="stories.js?v=3.0"></script>
+    <script src="app.js?v=3.0"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
 </body>
 
 </html>

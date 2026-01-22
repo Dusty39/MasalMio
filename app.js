@@ -63,13 +63,22 @@ const app = {
 
     initTheme() {
         // Check storage or system preference
-        const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
             this.updateThemeIcon('dark');
         } else {
             document.documentElement.removeAttribute('data-theme'); // Default is Light
             this.updateThemeIcon('light');
+        }
+    },
+
+    resetApp() {
+        if (confirm('Tüm kayıtlı hikayeler ve ayarlar silinecek. Emin misin?')) {
+            localStorage.removeItem('masalmio_progress');
+            localStorage.removeItem('masalmio_favorites');
+            // Keep theme maybe? Or clear all? Let's clear all for hard reset.
+            localStorage.clear();
+            window.location.reload(true);
         }
     }
 };
@@ -205,25 +214,20 @@ function renderFamilyStep(container) {
     const isDogSelected = pet.included && pet.type === 'dog';
 
     const petSection = `
-        <div class="pet-selection-container">
-            <div style="text-align:center;">
-                <div onclick="selectPet('cat')" class="avatar-selectable ${isCatSelected ? 'avatar-selected' : ''}"
-                     style="width:70px; height:70px; border-radius:50%; margin-bottom:5px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
-                    <img src="images/pet_cat_1.png" style="width:90%; height:90%; border-radius:50%; object-fit:cover;">
-                </div>
-                <span style="font-size:0.8rem;">Kedi</span>
+        <div class="pet-selection-container" style="display:flex; justify-content:center; gap:30px; margin: 20px 0;">
+            <div onclick="selectPet('cat')" class="avatar-selectable ${isCatSelected ? 'avatar-selected' : ''}"
+                 style="position:relative; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.2s;">
+                <img src="images/pet_cat_1.png" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border: 3px solid ${isCatSelected ? '#4CAF50' : 'transparent'};">
             </div>
-            <div style="text-align:center;">
-                <div onclick="selectPet('dog')" class="avatar-selectable ${isDogSelected ? 'avatar-selected' : ''}"
-                     style="width:70px; height:70px; border-radius:50%; margin-bottom:5px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
-                    <img src="images/pet_dog_1.png" style="width:90%; height:90%; border-radius:50%; object-fit:cover;">
-                </div>
-                <span style="font-size:0.8rem;">Köpek</span>
+            <div onclick="selectPet('dog')" class="avatar-selectable ${isDogSelected ? 'avatar-selected' : ''}"
+                 style="position:relative; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.2s;">
+                <img src="images/pet_dog_1.png" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border: 3px solid ${isDogSelected ? '#4CAF50' : 'transparent'};">
             </div>
         </div>
         ${pet.included ? `
-            <div class="animate-in" style="margin-top:10px;">
-                <input type="text" class="glass-input" placeholder="Evcil Hayvanın Adı..." 
+            <div class="animate-in" style="margin-top:10px; max-width: 200px; margin-left: auto; margin-right: auto;">
+                <input type="text" class="glass-input" placeholder="İsmi..." 
+                       style="width: 100%; text-align: center;"
                        value="${pet.name}" oninput="StoryConfig.pets.heroPet.name = this.value">
             </div>
         ` : ''}
@@ -238,7 +242,7 @@ function renderFamilyStep(container) {
             ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
             
             <div style="margin: 20px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.2);"></div>
-            <label style="display:block; text-align:left; font-size:0.9rem; opacity:0.8;">Evcil Hayvan Ekle</label>
+            <label style="display:block; text-align:center; font-size:1.1rem; opacity:0.9; margin-bottom:10px;">Sevimli Dostun 🐾</label>
             ${petSection}
         </div>
     `;
@@ -278,106 +282,196 @@ function generateAndShowStory() {
     const dashboard = document.getElementById('story-list');
     dashboard.innerHTML = ''; // Clear
 
-    // --- 1. My Stories (Continue Reading) ---
+    // --- Data Load ---
     const savedProgress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-    const startedStories = Object.keys(savedProgress);
+    const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
+    let startedStoriesIds = Object.keys(savedProgress);
 
-    if (startedStories.length > 0) {
-        const myStoriesSection = document.createElement('div');
-        myStoriesSection.innerHTML = `<h3 style="margin: 10px 0 15px; opacity:0.8;">Hikayelerim 🔖</h3>`;
+    // Filter "My Stories" based on filtering logic if needed, but usually we show all "Started" ones.
+    // However, for RE-Recommendation logic, we need to know the config of started stories.
 
-        startedStories.forEach(id => {
+    // 1. My Stories Section
+    if (startedStoriesIds.length > 0) {
+        // Sort: Favorites first, then by Last Updated (if we had it, but simpler: favorites first)
+        startedStoriesIds.sort((a, b) => {
+            const isFavA = favorites.includes(a);
+            const isFavB = favorites.includes(b);
+            if (isFavA && !isFavB) return -1;
+            if (!isFavA && isFavB) return 1;
+            return 0; // Keep original order otherwise
+        });
+
+        // Accordion Header
+        const section = document.createElement('div');
+        section.className = 'accordion-section';
+        section.innerHTML = `
+            <div class="accordion-header" onclick="toggleAccordion('my-stories-content', this)">
+                <h3 style="margin:0; opacity:0.8;">Hikayelerim 🔖</h3>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="my-stories-content" class="accordion-content"></div>
+        `;
+        dashboard.appendChild(section);
+
+        const contentDiv = section.querySelector('#my-stories-content');
+
+        startedStoriesIds.forEach(id => {
             const progress = savedProgress[id];
             const story = STORY_DB.find(s => s.id === id);
             if (!story) return;
 
+            const isFav = favorites.includes(id);
+
             const card = document.createElement('div');
             card.className = 'glass-card animate-in';
-            card.style.cursor = 'pointer';
-            card.style.marginBottom = '20px';
+            card.style.marginBottom = '15px';
             card.style.textAlign = 'left';
             card.style.borderLeft = '4px solid var(--primary)';
-            card.onclick = () => loadStoryReader(id, progress.page);
+            card.style.display = 'flex';
+            card.style.justifyContent = 'space-between';
+            card.style.alignItems = 'center';
 
+            // Click handling: Text content opens story, Star toggles favorite
             card.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <h4 style="margin-bottom:5px; color: var(--primary);">${story.title}</h4>
-                        <p style="font-size:0.9rem; opacity:0.8;">Kaldığın Yer: ${progress.page + 1} / ${story.pages.length}</p>
-                    </div>
-                    <button class="btn-primary" style="padding: 8px 15px; font-size: 0.9rem; margin:0;">Devam Et ▶</button>
+                <div style="flex:1; cursor:pointer;" onclick="loadStoryReader('${id}', ${progress.page})">
+                    <h4 style="margin-bottom:5px; color: var(--primary);">${story.title}</h4>
+                    <p style="font-size:0.9rem; opacity:0.8;">Kaldığın Yer: ${progress.page + 1} / ${story.pages.length}</p>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                     <button class="story-star-btn ${isFav ? 'is-favorite' : ''}" onclick="toggleFavorite('${id}', this)">★</button>
+                     <button class="btn-primary" style="padding: 8px 15px; font-size: 0.9rem; margin:0;" onclick="loadStoryReader('${id}', ${progress.page})">Devam Et ▶</button>
                 </div>
             `;
-            myStoriesSection.appendChild(card);
+            contentDiv.appendChild(card);
         });
-
-        dashboard.appendChild(myStoriesSection);
     }
 
     // --- 2. For You (Recommendation Logic) ---
     const forYouSection = document.createElement('div');
-    if (startedStories.length > 0) {
-        forYouSection.innerHTML = `<h3 style="margin: 20px 0 15px; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>`;
-    }
+    forYouSection.className = 'accordion-section';
 
+    // Header for For You
+    forYouSection.innerHTML = `
+        <div class="accordion-header" onclick="toggleAccordion('reco-content', this)">
+            <h3 style="margin:0; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>
+            <span class="arrow-icon">▼</span>
+        </div>
+        <div id="reco-content" class="accordion-content"></div>
+    `;
+
+    // Filter Logic: Exclude stories already started
     const validStories = STORY_DB.filter(story => {
-        const reqs = story.requirements || [];
+        // 1. Exclude if already in "My Stories"
+        if (savedProgress[story.id]) return false;
 
-        // Strict filtering based on INCLUDED flag
+        // 2. Check Requirements
+        const reqs = story.requirements || [];
         if (reqs.includes('sibling') && !StoryConfig.family.sibling.included) return false;
         if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
+        if (reqs.includes('friend') && !StoryConfig.family.friend.included) return false;
+        if (reqs.includes('mentor') && !StoryConfig.family.mentor.included) return false;
+        if (reqs.includes('mom') && !StoryConfig.family.mom.included) return false;
+        if (reqs.includes('dad') && !StoryConfig.family.dad.included) return false;
 
         return true;
     });
 
+    const recoContent = forYouSection.querySelector('#reco-content');
+
     if (validStories.length === 0) {
-        dashboard.innerHTML += '<p style="text-align:center; opacity:0.7;">Şu an senin için uygun bir hikaye bulamadık.</p>';
-        return;
-    }
+        if (startedStoriesIds.length === 0) {
+            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.</p>';
+        } else {
+            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Tüm hikayeleri keşfettiniz! Harika! 🎉</p>';
+        }
+    } else {
+        validStories.forEach((story, index) => {
+            const card = document.createElement('div');
+            // Logic for Featured vs Normal
+            const isFeatured = index === 0; // Always feature the first recommendation
 
-    validStories.forEach((story, index) => {
-        const card = document.createElement('div');
+            if (isFeatured) {
+                card.className = 'hero-story-card animate-in';
+                // Use the story's generic image as cover if available, or fallback
+                // Images are renamed now!
+                // We'll try to map genre/story to a nice cover or use the first page image
+                // Let's use 'scene_forest_pixar.png' or story specific if defined in future
+                // For now, use story.pages[0].image if it's a scene, else generic
+                let coverImage = story.pages.find(p => p.image.includes('scene'))?.image || "images/scene_forest_pixar.png";
 
-        const isFeatured = index === 0 && startedStories.length === 0;
+                // StoryEngine logic runs at runtime, here we just show static preview
+                // But we want it to look dynamic.
+                // Since images are renamed, we can use them directly.
 
-        if (isFeatured) {
-            card.className = 'hero-story-card animate-in';
-            const coverImage = "images/scene_forest_pixar.png";
-
-            card.innerHTML = `
-                <div class="hero-story-bg" style="background-image: url('${coverImage}');">
-                    <div class="hero-story-overlay">
-                        <div class="hero-story-content">
-                            <h3 class="hero-story-title">${story.title}</h3>
-                            <p class="hero-story-subtitle">${story.summary}</p>
-                            <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                card.innerHTML = `
+                    <div class="hero-story-bg" style="background-image: url('${coverImage}');">
+                        <div class="hero-story-overlay">
+                            <div class="hero-story-content">
+                                <h3 class="hero-story-title">${story.title}</h3>
+                                <p class="hero-story-subtitle">${story.summary}</p>
+                                <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-        } else {
-            card.className = 'glass-card animate-in';
-            card.style.cursor = 'pointer';
-            card.style.marginBottom = '15px';
-            card.style.textAlign = 'left';
-            card.onclick = () => loadStoryReader(story.id);
+                `;
+            } else {
+                card.className = 'glass-card animate-in';
+                card.style.cursor = 'pointer';
+                card.style.marginBottom = '15px';
+                card.style.textAlign = 'left';
+                card.onclick = () => loadStoryReader(story.id);
 
-            card.innerHTML = `
-                <div style="display:flex; align-items:center;">
-                    <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
-                    <div>
-                        <h4 style="margin-bottom:3px; color: var(--text);">${story.title}</h4>
-                        <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${story.summary}</p>
+                card.innerHTML = `
+                    <div style="display:flex; align-items:center;">
+                        <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
+                        <div>
+                            <h4 style="margin-bottom:3px; color: var(--text);">${story.title}</h4>
+                            <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${story.summary}</p>
+                        </div>
                     </div>
-                </div>
-            `;
-        }
-
-        forYouSection.appendChild(card);
-    });
-
+                `;
+            }
+            recoContent.appendChild(card);
+        });
+    }
     dashboard.appendChild(forYouSection);
 }
+
+// Helper for Accordion
+function toggleAccordion(contentId, headerEl) {
+    const content = document.getElementById(contentId);
+    const arrow = headerEl.querySelector('.arrow-icon');
+
+    // Need to manage state explicitly or via specific class
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        // Calculate Scroll Height for smooth animation if needed, or use max-height trick
+        // CSS handles max-height: 1000px vs 0
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('collapsed');
+        arrow.style.transform = 'rotate(-90deg)';
+    }
+}
+
+// Helper for Favorites
+function toggleFavorite(storyId, btnEl) {
+    const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
+    const index = favorites.indexOf(storyId);
+
+    if (index === -1) {
+        favorites.push(storyId);
+        btnEl.classList.add('is-favorite');
+    } else {
+        favorites.splice(index, 1);
+        btnEl.classList.remove('is-favorite');
+    }
+
+    localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
+    // Optional: Re-render dashboard to sort?
+    // generateAndShowStory(); 
+}
+
 
 function loadStoryReader(storyId, startPage = 0) {
     const story = StoryEngine.generate(storyId, StoryConfig);
@@ -402,10 +496,20 @@ const reader = {
     saveProgress() {
         if (!this.story) return;
         const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+
+        // Generate config signature to distinguish different "runs" or simple re-init
+        const configSig = JSON.stringify({
+            hero: StoryConfig.hero.gender,
+            family: Object.keys(StoryConfig.family).filter(k => StoryConfig.family[k].included).sort(),
+            pets: Object.keys(StoryConfig.pets).filter(k => StoryConfig.pets[k].included).sort(),
+            names: [StoryConfig.hero.name, StoryConfig.pets.heroPet.name]
+        });
+
         progress[this.story.id] = {
             page: this.pageIndex,
             title: this.story.title,
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
+            configSignature: configSig
         };
         localStorage.setItem('masalmio_progress', JSON.stringify(progress));
     },
