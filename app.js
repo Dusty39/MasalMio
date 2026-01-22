@@ -1,3 +1,17 @@
+// --- Constants ---
+const AVATAR_OPTIONS = {
+    mom: [
+        { id: 'mom1', src: 'images/parent_mom_1.png' },
+        { id: 'mom2', src: 'images/parent_mom_2_blonde.png' },
+        { id: 'mom3', src: 'images/parent_mom_3_curly.png' },
+        { id: 'mom4', src: 'images/parent_mom_4_glasses.png' }
+    ],
+    dad: [
+        { id: 'dad1', src: 'images/parent_dad_1.png' }
+        // Add more here when generated
+    ]
+};
+
 // --- StoryConfig (State) ---
 const StoryConfig = {
     hero: { name: "", gender: "boy", avatar: "images/hero_boy_1.png" },
@@ -161,9 +175,42 @@ function renderCombinedStep(container) {
     const renderRow = (key, label, avatarPath) => {
         const member = StoryConfig.family[key];
         const isSelected = member.included;
-        // Don't show input for mom/dad as requested
-        const showInput = key !== 'mom' && key !== 'dad';
 
+        // Special Layout for Parents with Multiple Avatars
+        if (AVATAR_OPTIONS[key]) {
+            const options = AVATAR_OPTIONS[key];
+            let avatarsHtml = options.map(opt => {
+                const isActive = member.included && member.avatar === opt.src;
+                // If not included but this is the "selected" avatar in config (last used), we might show it selected but dim?
+                // Simpler: Just show all options. If one matches member.avatar, it gets special border if included.
+                // If not included, all dim?
+                // Let's go with: Click to select & include.
+
+                const isCurrent = member.avatar === opt.src;
+                const showCheck = isCurrent && member.included;
+
+                return `
+                <div onclick="selectParentAvatar('${key}', '${opt.src}')" 
+                     class="avatar-selectable"
+                     style="position:relative; width: 55px; height: 55px; border-radius: 50%; border: 3px solid ${showCheck ? '#4CAF50' : 'transparent'}; cursor: pointer; flex-shrink: 0; opacity: ${showCheck || !member.included ? '1' : '0.5'}; transform: scale(${showCheck ? '1.1' : '1'}); transition: all 0.2s;">
+                    <img src="${opt.src}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                    ${showCheck ? '<span style="position:absolute; bottom:-5px; right:-5px; background:#4CAF50; color:white; border-radius:50%; width:18px; height:18px; font-size:10px; display:flex; align-items:center; justify-content:center;">✓</span>' : ''}
+                </div>
+                `;
+            }).join('');
+
+            return `
+            <div class="family-row" style="margin-bottom:20px; text-align:left;">
+                <div style="font-size:0.9rem; margin-bottom:8px; opacity:0.9; padding-left:5px;">${label} Seçimi</div>
+                <div style="display:flex; gap:15px; overflow-x:auto; padding: 5px; scrollbar-width:none;">
+                    ${avatarsHtml}
+                </div>
+            </div>
+            `;
+        }
+
+        // Standard Layout for Others
+        const showInput = key !== 'mom' && key !== 'dad'; // Should be true for others
         return `
         <div class="family-row" style="display:flex; align-items:center; margin-bottom:15px; text-align:left;">
             <div onclick="toggleFamilyMember('${key}')" class="avatar-selectable ${isSelected ? 'avatar-selected' : ''}"
@@ -190,13 +237,14 @@ function renderCombinedStep(container) {
         <div class="family-list" style="padding-right:5px; margin-bottom: 30px;">
             ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
             ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
+            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin: 15px 0;">
             ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
             ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
             ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
         </div>
     `;
 
-    // 3. Pet Section
+    // 3. Pet Section (unchanged)
     const pet = StoryConfig.pets.heroPet;
     const isCatSelected = pet.included && pet.type === 'cat';
     const isDogSelected = pet.included && pet.type === 'dog';
@@ -234,6 +282,20 @@ function selectHeroGender(gender) {
 function toggleFamilyMember(key) {
     const member = StoryConfig.family[key];
     member.included = !member.included;
+    wizard.render();
+}
+
+function selectParentAvatar(key, src) {
+    const member = StoryConfig.family[key];
+
+    // Logic: If clicking the ALREADY selected one -> Toggle inclusion
+    if (member.avatar === src) {
+        member.included = !member.included;
+    } else {
+        // If clicking a new one -> Select it AND Include it
+        member.avatar = src;
+        member.included = true;
+    }
     wizard.render();
 }
 
