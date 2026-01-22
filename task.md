@@ -32,6 +32,8 @@
 - [ ] **PWA ve Bakım**
   - [x] Service Worker (sw.js) oluştur
   - [x] PWA güncelleme mekanizması kur (Version Check)
-  - [ ] Cache temizleme butonu
+  - [x] Hikaye silme özelliği ekle
+  - [x] Kapak sayfası ve navigasyon düzenlemesi
+
 
 

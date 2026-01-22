@@ -533,6 +533,7 @@ class StoryEngine {
         });
 
         // Dynamic Avatar/Scene Logic
+        // Dynamic Avatar/Scene Logic
         story.pages.forEach(page => {
             if (page.image === "images/hero_boy_1.png") {
                 page.image = config.hero.avatar;
@@ -574,6 +575,19 @@ class StoryEngine {
                 }
             }
         });
+
+        // --- Cover Page Injection ---
+        // Find a nice cover image (first scene or default)
+        let coverImg = "images/masalmio_logo.png";
+        const firstScene = story.pages.find(p => p.image.includes('scene_'));
+        if (firstScene) coverImg = firstScene.image;
+
+        const coverPage = {
+            text: `<strong style="font-size:1.5em; display:block; margin-bottom:10px;">${story.title}</strong>${story.summary}`,
+            image: coverImg
+        };
+
+        story.pages.unshift(coverPage);
 
         return story;
     }
