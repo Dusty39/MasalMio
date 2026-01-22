@@ -90,78 +90,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Wizard Logic ---
 const wizard = {
-    step: 0,
-    steps: [
-        { id: 'hero', title: 'Kahramanı Seç', render: renderHeroStep },
-        { id: 'family', title: 'Aileni ve Dostlarını Seç', render: renderFamilyStep }
-        // Pet step merged into family
-    ],
-
     init() {
-        this.step = 0;
         this.render();
     },
 
     render() {
         const container = document.getElementById('wizard-steps');
         const progressBar = document.getElementById('wizard-progress');
-        // Hide header back button on first step
-        const headerBackBtn = document.querySelector('.wizard-header .btn-icon');
-        if (headerBackBtn) {
-            headerBackBtn.style.visibility = this.step === 0 ? 'hidden' : 'visible';
-        }
 
-        const currentStepConfig = this.steps[this.step];
+        // Hide header back button if desired, or keep it to go Home.
+        // Keeping it visible since it goes Home.
 
-        // Update Progress
-        const percent = ((this.step + 1) / this.steps.length) * 100;
-        progressBar.style.width = `${percent}%`;
+        // Progress is 100% or 50%? Let's say 50% initially then 100%? 
+        // Or just full width since it is one page? Let's make it full.
+        progressBar.style.width = `100%`;
 
-        // Render Content
         container.innerHTML = `
             <div class="glass-card animate-in" style="width: 100%; max-width: 500px;">
-                <h2>${currentStepConfig.title}</h2>
+                <h2>Masalını Oluştur ✨</h2>
                 <div id="step-content" style="margin-top:20px;"></div>
             </div>
         `;
 
-        // Execute specific render function
-        currentStepConfig.render(document.getElementById('step-content'));
+        renderCombinedStep(document.getElementById('step-content'));
 
-        // Update Buttons
-        document.getElementById('btn-prev').disabled = this.step === 0;
-        document.getElementById('btn-next').innerText = this.step === this.steps.length - 1 ? "Hikaye Oluştur ✨" : "İleri ➔";
+        // Update Button
+        const nextBtn = document.getElementById('btn-next');
+        nextBtn.innerText = "Hikaye Oluştur ✨";
+        nextBtn.onclick = () => this.finish();
     },
 
-    nextStep() {
-        if (this.step < this.steps.length - 1) {
-            this.step++;
-            this.render();
-        } else {
-            // FINISH
-            console.log("Wizard Complete:", StoryConfig);
-            app.renderDashboard(true);
+    finish() {
+        // Validation could go here
+        if (!StoryConfig.hero.name) {
+            alert("Lütfen kahramanının ismini yaz! 🦸");
+            return;
         }
-    },
-
-    prevStep() {
-        if (this.step > 0) {
-            this.step--;
-            this.render();
-        }
+        console.log("Wizard Complete:", StoryConfig);
+        app.renderDashboard(true);
     }
 };
 
 // --- Step Renderers ---
 
-function renderHeroStep(container) {
-    container.innerHTML = `
+function renderCombinedStep(container) {
+    // 1. Hero Section
+    const heroSection = `
+        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Kahramanın</h3>
         <div class="input-group" style="margin: 0 auto 20px auto;">
             <input type="text" class="glass-input" placeholder="İsim Yazınız..." autocomplete="off"
                 value="${StoryConfig.hero.name}" 
                 oninput="StoryConfig.hero.name = this.value">
         </div>
-        <div class="avatar-grid">
+        <div class="avatar-grid" style="margin-bottom: 30px;">
             <div class="avatar-option ${StoryConfig.hero.gender === 'boy' ? 'selected' : ''}" 
                  onclick="selectHeroGender('boy')">
                  <img src="images/hero_boy_1.png" class="avatar-img">
@@ -174,17 +155,9 @@ function renderHeroStep(container) {
             </div>
         </div>
     `;
-}
 
-function selectHeroGender(gender) {
-    StoryConfig.hero.gender = gender;
-    StoryConfig.hero.avatar = gender === 'boy' ? 'images/hero_boy_1.png' : 'images/hero_girl_1.png';
-    wizard.render();
-}
-
-function renderFamilyStep(container) {
+    // 2. Family & Friends Section
     // Helper to render a family member row
-    // Click on avatar toggles inclusion
     const renderRow = (key, label, avatarPath) => {
         const member = StoryConfig.family[key];
         const isSelected = member.included;
@@ -208,12 +181,24 @@ function renderFamilyStep(container) {
         `;
     };
 
-    // Pet Logic
+    const familySection = `
+        <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Sevdiklerin</h3>
+        <div class="family-list" style="padding-right:5px; margin-bottom: 30px;">
+            ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
+            ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
+            ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
+            ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
+            ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
+        </div>
+    `;
+
+    // 3. Pet Section
     const pet = StoryConfig.pets.heroPet;
     const isCatSelected = pet.included && pet.type === 'cat';
     const isDogSelected = pet.included && pet.type === 'dog';
 
     const petSection = `
+        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Sevimli Dostun 🐾</h3>
         <div class="pet-selection-container" style="display:flex; justify-content:center; gap:30px; margin: 20px 0;">
             <div onclick="selectPet('cat')" class="avatar-selectable ${isCatSelected ? 'avatar-selected' : ''}"
                  style="position:relative; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.2s;">
@@ -233,32 +218,24 @@ function renderFamilyStep(container) {
         ` : ''}
     `;
 
-    container.innerHTML = `
-        <div class="family-list" style="padding-right:5px; max-height: 400px; overflow-y:auto;">
-            ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
-            ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
-            ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
-            ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
-            ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
-            
-            <div style="margin: 20px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.2);"></div>
-            <label style="display:block; text-align:center; font-size:1.1rem; opacity:0.9; margin-bottom:10px;">Sevimli Dostun 🐾</label>
-            ${petSection}
-        </div>
-    `;
+    container.innerHTML = heroSection + familySection + petSection;
+}
+
+function selectHeroGender(gender) {
+    StoryConfig.hero.gender = gender;
+    StoryConfig.hero.avatar = gender === 'boy' ? 'images/hero_boy_1.png' : 'images/hero_girl_1.png';
+    wizard.render(); // Re-render to show selection
 }
 
 function toggleFamilyMember(key) {
     const member = StoryConfig.family[key];
     member.included = !member.included;
-    // Auto-focus input if enabled? For now just re-render
     wizard.render();
 }
 
 function selectPet(type) {
     const pet = StoryConfig.pets.heroPet;
-
-    // If clicking the SAME type that is selected, toggle off?
+    // Toggle logic
     if (pet.included && pet.type === type) {
         pet.included = false;
     } else {
@@ -612,3 +589,4 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
     function renderBook(story, startPage = 0) {
         reader.init(story, startPage);
     }
+};
