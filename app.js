@@ -350,10 +350,101 @@ function generateAndShowStory() {
     }
 
     // --- 2. For You (Recommendation Logic) ---
-    // ... (rest of the file remains similar until reader logic) ...
-    // Note: I will only replace the parts needed.
+    const forYouSection = document.createElement('div');
+    forYouSection.className = 'accordion-section';
 
-    // ... (skipping to end of file for reader modifications) ...
+    // Header for For You
+    forYouSection.innerHTML = `
+        <div class="accordion-header" onclick="toggleAccordion('reco-content', this)">
+            <h3 style="margin:0; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>
+            <span class="arrow-icon">▼</span>
+        </div>
+        <div id="reco-content" class="accordion-content"></div>
+    `;
+
+    // Filter Logic: Exclude stories already started
+    const validStories = STORY_DB.filter(story => {
+        // 1. Exclude if already in "My Stories"
+        if (savedProgress[story.id]) return false;
+
+        // 2. Check Requirements
+        const reqs = story.requirements || [];
+        if (reqs.includes('sibling') && !StoryConfig.family.sibling.included) return false;
+        if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
+        if (reqs.includes('friend') && !StoryConfig.family.friend.included) return false;
+        if (reqs.includes('mentor') && !StoryConfig.family.mentor.included) return false;
+        if (reqs.includes('mom') && !StoryConfig.family.mom.included) return false;
+        if (reqs.includes('dad') && !StoryConfig.family.dad.included) return false;
+
+        return true;
+    });
+
+    const recoContent = forYouSection.querySelector('#reco-content');
+
+    if (validStories.length === 0) {
+        if (startedStoriesIds.length === 0) {
+            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.</p>';
+        } else {
+            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Tüm hikayeleri keşfettiniz! Harika! 🎉</p>';
+        }
+    } else {
+        validStories.forEach((story, index) => {
+            const card = document.createElement('div');
+            // Logic for Featured vs Normal
+            const isFeatured = index === 0; // Always feature the first recommendation
+
+            if (isFeatured) {
+                card.className = 'hero-story-card animate-in';
+                // Cover image logic: try to find a scene image or use default
+                let coverImage = story.pages.find(p => p.image.includes('scene'))?.image || "images/masalmio_logo.png";
+
+                card.innerHTML = `
+                    <div class="hero-story-bg" style="background-image: url('${coverImage}');">
+                        <div class="hero-story-overlay">
+                            <div class="hero-story-content">
+                                <h3 class="hero-story-title">${story.title}</h3>
+                                <p class="hero-story-subtitle">${story.summary}</p>
+                                <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                card.className = 'glass-card animate-in';
+                card.style.cursor = 'pointer';
+                card.style.marginBottom = '15px';
+                card.style.textAlign = 'left';
+                card.onclick = () => loadStoryReader(story.id);
+
+                card.innerHTML = `
+                    <div style="display:flex; align-items:center;">
+                        <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
+                        <div>
+                            <h4 style="margin-bottom:3px; color: var(--text);">${story.title}</h4>
+                            <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${story.summary}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            recoContent.appendChild(card);
+        });
+    }
+    dashboard.appendChild(forYouSection);
+}
+
+// Helper for Accordion
+function toggleAccordion(contentId, headerEl) {
+    const content = document.getElementById(contentId);
+    const arrow = headerEl.querySelector('.arrow-icon');
+
+    // Need to manage state explicitly or via specific class
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('collapsed');
+        arrow.style.transform = 'rotate(-90deg)';
+    }
 }
 
 // ... existing helpers ...
