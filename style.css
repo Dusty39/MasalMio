@@ -567,9 +567,9 @@ h3 {
 }
 
 .story-star-btn.is-favorite {
-    color: #FFD700;
-    /* Gold */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    color: #FF4500;
+    /* OrangeRed for better visibility */
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.4);
 }
 
 .accordion-header {

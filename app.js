@@ -260,23 +260,27 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
     dashboard.innerHTML = ''; // Clear
 
     // --- 0. NEW STORY BUTTON (Hero Section) ---
-    const createBtnContainer = document.createElement('div');
-    createBtnContainer.className = 'glass-card animate-in';
-    createBtnContainer.style.marginBottom = '25px';
-    createBtnContainer.style.display = 'flex';
-    createBtnContainer.style.alignItems = 'center';
-    createBtnContainer.style.justifyContent = 'space-between';
-    createBtnContainer.style.background = 'linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,107,107,0.1) 100%)';
-    createBtnContainer.style.border = '1px solid rgba(255,215,0,0.3)';
+    // --- 0. NEW STORY BUTTON (Hero Section) ---
+    // Only show if NOT showing recommendations (User request: remove it when showing recommendations)
+    if (!showRecommendations) {
+        const createBtnContainer = document.createElement('div');
+        createBtnContainer.className = 'glass-card animate-in';
+        createBtnContainer.style.marginBottom = '25px';
+        createBtnContainer.style.display = 'flex';
+        createBtnContainer.style.alignItems = 'center';
+        createBtnContainer.style.justifyContent = 'space-between';
+        createBtnContainer.style.background = 'linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,107,107,0.1) 100%)';
+        createBtnContainer.style.border = '1px solid rgba(255,215,0,0.3)';
 
-    createBtnContainer.innerHTML = `
-        <div style="text-align: left;">
-            <h3 style="margin-bottom: 5px; color: var(--primary);">Yeni Bir Masal Yaz 🪄</h3>
-            <p style="font-size: 0.9rem; opacity: 0.8;">Kendi maceranı oluşturmaya hazır mısın?</p>
-        </div>
-        <button class="btn-primary" style="margin:0; font-size:1rem; padding: 10px 20px;" onclick="app.startWizard()">Oluştur +</button>
-    `;
-    dashboard.appendChild(createBtnContainer);
+        createBtnContainer.innerHTML = `
+            <div style="text-align: left;">
+                <h3 style="margin-bottom: 5px; color: var(--primary);">Yeni Bir Masal Yaz 🪄</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Kendi maceranı oluşturmaya hazır mısın?</p>
+            </div>
+            <button class="btn-primary" style="margin:0; font-size:1rem; padding: 10px 20px;" onclick="app.startWizard()">Oluştur +</button>
+        `;
+        dashboard.appendChild(createBtnContainer);
+    }
 
     // --- Data Load ---
     const savedProgress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
