@@ -429,164 +429,135 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
         }
         dashboard.appendChild(forYouSection);
     }
+};
 
-    // Helper for Accordion
-    function toggleAccordion(contentId, headerEl) {
-        const content = document.getElementById(contentId);
-        const arrow = headerEl.querySelector('.arrow-icon');
+// --- Helper Functions (Global) ---
 
-        // Need to manage state explicitly or via specific class
-        if (content.classList.contains('collapsed')) {
-            content.classList.remove('collapsed');
-            arrow.style.transform = 'rotate(0deg)';
+// Helper for Accordion
+function toggleAccordion(contentId, headerEl) {
+    const content = document.getElementById(contentId);
+    const arrow = headerEl.querySelector('.arrow-icon');
+
+    // Need to manage state explicitly or via specific class
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('collapsed');
+        arrow.style.transform = 'rotate(-90deg)';
+    }
+}
+
+// Helper for Favorites
+function toggleFavorite(storyId, btnEl) {
+    const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
+    const index = favorites.indexOf(storyId);
+
+    // Prevent event bubbling if needed, but onclick on button usually handles it.
+    if (index === -1) {
+        favorites.push(storyId);
+        btnEl.classList.add('is-favorite');
+    } else {
+        favorites.splice(index, 1);
+        btnEl.classList.remove('is-favorite');
+    }
+
+    localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
+}
+
+// --- Reader Logic (Global) ---
+const reader = {
+    story: null,
+    pageIndex: 0,
+
+    init(story, startPage = 0) {
+        this.story = story;
+        this.pageIndex = startPage;
+        this.renderPage();
+        this.saveProgress();
+    },
+
+    saveProgress() {
+        if (!this.story) return;
+        const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+
+        // Generate config signature
+        const configSig = JSON.stringify({
+            hero: StoryConfig.hero.gender,
+            family: Object.keys(StoryConfig.family).filter(k => StoryConfig.family[k].included).sort(),
+            pets: Object.keys(StoryConfig.pets).filter(k => StoryConfig.pets[k].included).sort(),
+            names: [StoryConfig.hero.name, StoryConfig.pets.heroPet.name]
+        });
+
+        progress[this.story.id] = {
+            page: this.pageIndex,
+            title: this.story.title,
+            updatedAt: new Date().toISOString(),
+            configSignature: configSig
+        };
+        localStorage.setItem('masalmio_progress', JSON.stringify(progress));
+    },
+
+    renderPage() {
+        const page = this.story.pages[this.pageIndex];
+        const content = document.getElementById('book-content');
+        const indicator = document.getElementById('page-indicator');
+        const nextBtn = document.querySelector('.reader-nav button:last-child'); // The forward button
+
+        // Logic for Next Button Icon
+        if (this.pageIndex === this.story.pages.length - 1) {
+            nextBtn.innerText = '↺'; // Restart icon
         } else {
-            content.classList.add('collapsed');
-            arrow.style.transform = 'rotate(-90deg)';
-        }
-    }
-
-    // ... existing helpers ...
-
-    // Helper for Favorites
-    function toggleFavorite(storyId, btnEl) {
-        const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
-        const index = favorites.indexOf(storyId);
-
-        // Prevent event bubbling if needed, but onclick on button usually handles it.
-        // Actually need event.stopPropagation() if parent is clickable? 
-        // In our HTML above, parent div has onclick? No, sibling div has onclick. So we are good.
-
-        if (index === -1) {
-            favorites.push(storyId);
-            btnEl.classList.add('is-favorite');
-        } else {
-            favorites.splice(index, 1);
-            btnEl.classList.remove('is-favorite');
+            nextBtn.innerText = '❯';
         }
 
-        localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
-    }
-
-    // --- Modal Logic ---
-    let storyToDelete = null;
-
-    app.enterApp = function () {
-        this.renderDashboard();
-    };
-
-    app.deleteStory = function (storyId) {
-        storyToDelete = storyId;
-        const modal = document.getElementById('modal-delete');
-        modal.classList.remove('hidden');
-    };
-
-    app.closeModal = function () {
-        const modal = document.getElementById('modal-delete');
-        modal.classList.add('hidden');
-        storyToDelete = null;
-    };
-
-    app.confirmDelete = function () {
-        if (storyToDelete) {
-            const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-            delete progress[storyToDelete];
-            localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-            app.renderDashboard(false); // Refresh without recommendations
-            app.closeModal();
-        }
-    };
-
-
-    function loadStoryReader(storyId, startPage = 0) {
-        const story = StoryEngine.generate(storyId, StoryConfig);
-        if (story) {
-            renderBook(story, startPage);
-            app.navigateTo('view-reader');
-        }
-    }
-
-    // --- Reader Logic ---
-    const reader = {
-        story: null,
-        pageIndex: 0,
-
-        init(story, startPage = 0) {
-            this.story = story;
-            this.pageIndex = startPage;
-            this.renderPage();
-            this.saveProgress();
-        },
-
-        saveProgress() {
-            if (!this.story) return;
-            const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-
-            // Generate config signature
-            const configSig = JSON.stringify({
-                hero: StoryConfig.hero.gender,
-                family: Object.keys(StoryConfig.family).filter(k => StoryConfig.family[k].included).sort(),
-                pets: Object.keys(StoryConfig.pets).filter(k => StoryConfig.pets[k].included).sort(),
-                names: [StoryConfig.hero.name, StoryConfig.pets.heroPet.name]
-            });
-
-            progress[this.story.id] = {
-                page: this.pageIndex,
-                title: this.story.title,
-                updatedAt: new Date().toISOString(),
-                configSignature: configSig
-            };
-            localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-        },
-
-        renderPage() {
-            const page = this.story.pages[this.pageIndex];
-            const content = document.getElementById('book-content');
-            const indicator = document.getElementById('page-indicator');
-            const nextBtn = document.querySelector('.reader-nav button:last-child'); // The forward button
-
-            // Logic for Next Button Icon
-            if (this.pageIndex === this.story.pages.length - 1) {
-                nextBtn.innerText = '↺'; // Restart icon
-            } else {
-                nextBtn.innerText = '❯';
-            }
-
-            // Dynamic Page Layout
-            content.innerHTML = `
-            <div class="glass-card animate-in-right reader-card">
-                <div class="page-image-container">
-                    <img src="${page.image}" class="page-image">
-                </div>
-                <p class="page-text">
-                    ${page.text}
-                </p>
+        // Dynamic Page Layout
+        content.innerHTML = `
+        <div class="glass-card animate-in-right reader-card">
+            <div class="page-image-container">
+                <img src="${page.image}" class="page-image">
             </div>
-        `;
+            <p class="page-text">
+                ${page.text}
+            </p>
+        </div>
+    `;
 
-            indicator.textContent = `${this.pageIndex + 1} / ${this.story.pages.length}`;
-            this.saveProgress();
-        },
+        indicator.textContent = `${this.pageIndex + 1} / ${this.story.pages.length}`;
+        this.saveProgress();
+    },
 
-        nextPage() {
-            if (this.pageIndex < this.story.pages.length - 1) {
-                this.pageIndex++;
-                this.renderPage();
-            } else {
-                // Restart if on last page
-                this.pageIndex = 0;
-                this.renderPage();
-            }
-        },
-
-        prevPage() {
-            if (this.pageIndex > 0) {
-                this.pageIndex--;
-                this.renderPage();
-            }
+    nextPage() {
+        if (this.pageIndex < this.story.pages.length - 1) {
+            this.pageIndex++;
+            this.renderPage();
+        } else {
+            // Restart if on last page
+            this.pageIndex = 0;
+            this.renderPage();
         }
-    };
+    },
 
-    function renderBook(story, startPage = 0) {
-        reader.init(story, startPage);
+    prevPage() {
+        if (this.pageIndex > 0) {
+            this.pageIndex--;
+            this.renderPage();
+        }
     }
 };
+
+function loadStoryReader(storyId, startPage = 0) {
+    const story = StoryEngine.generate(storyId, StoryConfig);
+    if (story) {
+        renderBook(story, startPage);
+        app.navigateTo('view-reader');
+    }
+}
+
+function renderBook(story, startPage = 0) {
+    reader.init(story, startPage);
+}
+
+// Modal functions are attached to app, so they are fine.
+// app.deleteStory, app.closeModal etc are attached to app.
+
