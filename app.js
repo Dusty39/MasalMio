@@ -431,6 +431,35 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
     }
 };
 
+// --- Modal Logic ---
+let storyToDelete = null;
+
+app.enterApp = function () {
+    this.renderDashboard();
+};
+
+app.deleteStory = function (storyId) {
+    storyToDelete = storyId;
+    const modal = document.getElementById('modal-delete');
+    modal.classList.remove('hidden');
+};
+
+app.closeModal = function () {
+    const modal = document.getElementById('modal-delete');
+    modal.classList.add('hidden');
+    storyToDelete = null;
+};
+
+app.confirmDelete = function () {
+    if (storyToDelete) {
+        const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+        delete progress[storyToDelete];
+        localStorage.setItem('masalmio_progress', JSON.stringify(progress));
+        app.renderDashboard(false); // Refresh without recommendations
+        app.closeModal();
+    }
+};
+
 // --- Helper Functions (Global) ---
 
 // Helper for Accordion
