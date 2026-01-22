@@ -369,55 +369,57 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
     }
 
     // --- 2. For You (Recommendation Logic) ---
-    const forYouSection = document.createElement('div');
-    forYouSection.className = 'accordion-section';
+    // User Request: Only show this part AFTER creating a new story (Wizard completion)
+    if (showRecommendations) {
+        const forYouSection = document.createElement('div');
+        forYouSection.className = 'accordion-section';
 
-    // Header for For You
-    forYouSection.innerHTML = `
-        <div class="accordion-header" onclick="toggleAccordion('reco-content', this)">
-            <h3 style="margin:0; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>
-            <span class="arrow-icon">▼</span>
-        </div>
-        <div id="reco-content" class="accordion-content"></div>
-    `;
+        // Header for For You
+        forYouSection.innerHTML = `
+            <div class="accordion-header" onclick="toggleAccordion('reco-content', this)">
+                <h3 style="margin:0; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="reco-content" class="accordion-content"></div>
+        `;
 
-    // Filter Logic: Exclude stories already started
-    const validStories = STORY_DB.filter(story => {
-        // 1. Exclude if already in "My Stories"
-        if (savedProgress[story.id]) return false;
+        // Filter Logic: Exclude stories already started
+        const validStories = STORY_DB.filter(story => {
+            // 1. Exclude if already in "My Stories"
+            if (savedProgress[story.id]) return false;
 
-        // 2. Check Requirements
-        const reqs = story.requirements || [];
-        if (reqs.includes('sibling') && !StoryConfig.family.sibling.included) return false;
-        if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
-        if (reqs.includes('friend') && !StoryConfig.family.friend.included) return false;
-        if (reqs.includes('mentor') && !StoryConfig.family.mentor.included) return false;
-        if (reqs.includes('mom') && !StoryConfig.family.mom.included) return false;
-        if (reqs.includes('dad') && !StoryConfig.family.dad.included) return false;
+            // 2. Check Requirements
+            const reqs = story.requirements || [];
+            if (reqs.includes('sibling') && !StoryConfig.family.sibling.included) return false;
+            if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
+            if (reqs.includes('friend') && !StoryConfig.family.friend.included) return false;
+            if (reqs.includes('mentor') && !StoryConfig.family.mentor.included) return false;
+            if (reqs.includes('mom') && !StoryConfig.family.mom.included) return false;
+            if (reqs.includes('dad') && !StoryConfig.family.dad.included) return false;
 
-        return true;
-    });
+            return true;
+        });
 
-    const recoContent = forYouSection.querySelector('#reco-content');
+        const recoContent = forYouSection.querySelector('#reco-content');
 
-    if (validStories.length === 0) {
-        if (startedStoriesIds.length === 0) {
-            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.</p>';
+        if (validStories.length === 0) {
+            if (startedStoriesIds.length === 0) {
+                recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.</p>';
+            } else {
+                recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Tüm hikayeleri keşfettiniz! Harika! 🎉</p>';
+            }
         } else {
-            recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Tüm hikayeleri keşfettiniz! Harika! 🎉</p>';
-        }
-    } else {
-        validStories.forEach((story, index) => {
-            const card = document.createElement('div');
-            // Logic for Featured vs Normal
-            const isFeatured = index === 0; // Always feature the first recommendation
+            validStories.forEach((story, index) => {
+                const card = document.createElement('div');
+                // Logic for Featured vs Normal
+                const isFeatured = index === 0; // Always feature the first recommendation
 
-            if (isFeatured) {
-                card.className = 'hero-story-card animate-in';
-                // Cover image logic: try to find a scene image or use default
-                let coverImage = story.pages.find(p => p.image.includes('scene'))?.image || "images/masalmio_logo.png";
+                if (isFeatured) {
+                    card.className = 'hero-story-card animate-in';
+                    // Cover image logic: try to find a scene image or use default
+                    let coverImage = story.pages.find(p => p.image.includes('scene'))?.image || "images/masalmio_logo.png";
 
-                card.innerHTML = `
+                    card.innerHTML = `
                     <div class="hero-story-bg" style="background-image: url('${coverImage}');">
                         <div class="hero-story-overlay">
                             <div class="hero-story-content">
@@ -428,14 +430,14 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
                         </div>
                     </div>
                 `;
-            } else {
-                card.className = 'glass-card animate-in';
-                card.style.cursor = 'pointer';
-                card.style.marginBottom = '15px';
-                card.style.textAlign = 'left';
-                card.onclick = () => loadStoryReader(story.id);
+                } else {
+                    card.className = 'glass-card animate-in';
+                    card.style.cursor = 'pointer';
+                    card.style.marginBottom = '15px';
+                    card.style.textAlign = 'left';
+                    card.onclick = () => loadStoryReader(story.id);
 
-                card.innerHTML = `
+                    card.innerHTML = `
                     <div style="display:flex; align-items:center;">
                         <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
                         <div>
@@ -444,136 +446,136 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
                         </div>
                     </div>
                 `;
-            }
-            recoContent.appendChild(card);
-        });
-    }
-    dashboard.appendChild(forYouSection);
-}
-
-// Helper for Accordion
-function toggleAccordion(contentId, headerEl) {
-    const content = document.getElementById(contentId);
-    const arrow = headerEl.querySelector('.arrow-icon');
-
-    // Need to manage state explicitly or via specific class
-    if (content.classList.contains('collapsed')) {
-        content.classList.remove('collapsed');
-        arrow.style.transform = 'rotate(0deg)';
-    } else {
-        content.classList.add('collapsed');
-        arrow.style.transform = 'rotate(-90deg)';
-    }
-}
-
-// ... existing helpers ...
-
-// Helper for Favorites
-function toggleFavorite(storyId, btnEl) {
-    const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
-    const index = favorites.indexOf(storyId);
-
-    // Prevent event bubbling if needed, but onclick on button usually handles it.
-    // Actually need event.stopPropagation() if parent is clickable? 
-    // In our HTML above, parent div has onclick? No, sibling div has onclick. So we are good.
-
-    if (index === -1) {
-        favorites.push(storyId);
-        btnEl.classList.add('is-favorite');
-    } else {
-        favorites.splice(index, 1);
-        btnEl.classList.remove('is-favorite');
+                }
+                recoContent.appendChild(card);
+            });
+        }
+        dashboard.appendChild(forYouSection);
     }
 
-    localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
-}
+    // Helper for Accordion
+    function toggleAccordion(contentId, headerEl) {
+        const content = document.getElementById(contentId);
+        const arrow = headerEl.querySelector('.arrow-icon');
 
-// --- Modal Logic ---
-let storyToDelete = null;
-
-app.enterApp = function () {
-    this.renderDashboard();
-};
-
-app.deleteStory = function (storyId) {
-    storyToDelete = storyId;
-    const modal = document.getElementById('modal-delete');
-    modal.classList.remove('hidden');
-};
-
-app.closeModal = function () {
-    const modal = document.getElementById('modal-delete');
-    modal.classList.add('hidden');
-    storyToDelete = null;
-};
-
-app.confirmDelete = function () {
-    if (storyToDelete) {
-        const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-        delete progress[storyToDelete];
-        localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-        app.renderDashboard(false); // Refresh without recommendations
-        app.closeModal();
-    }
-};
-
-
-function loadStoryReader(storyId, startPage = 0) {
-    const story = StoryEngine.generate(storyId, StoryConfig);
-    if (story) {
-        renderBook(story, startPage);
-        app.navigateTo('view-reader');
-    }
-}
-
-// --- Reader Logic ---
-const reader = {
-    story: null,
-    pageIndex: 0,
-
-    init(story, startPage = 0) {
-        this.story = story;
-        this.pageIndex = startPage;
-        this.renderPage();
-        this.saveProgress();
-    },
-
-    saveProgress() {
-        if (!this.story) return;
-        const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-
-        // Generate config signature
-        const configSig = JSON.stringify({
-            hero: StoryConfig.hero.gender,
-            family: Object.keys(StoryConfig.family).filter(k => StoryConfig.family[k].included).sort(),
-            pets: Object.keys(StoryConfig.pets).filter(k => StoryConfig.pets[k].included).sort(),
-            names: [StoryConfig.hero.name, StoryConfig.pets.heroPet.name]
-        });
-
-        progress[this.story.id] = {
-            page: this.pageIndex,
-            title: this.story.title,
-            updatedAt: new Date().toISOString(),
-            configSignature: configSig
-        };
-        localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-    },
-
-    renderPage() {
-        const page = this.story.pages[this.pageIndex];
-        const content = document.getElementById('book-content');
-        const indicator = document.getElementById('page-indicator');
-        const nextBtn = document.querySelector('.reader-nav button:last-child'); // The forward button
-
-        // Logic for Next Button Icon
-        if (this.pageIndex === this.story.pages.length - 1) {
-            nextBtn.innerText = '↺'; // Restart icon
+        // Need to manage state explicitly or via specific class
+        if (content.classList.contains('collapsed')) {
+            content.classList.remove('collapsed');
+            arrow.style.transform = 'rotate(0deg)';
         } else {
-            nextBtn.innerText = '❯';
+            content.classList.add('collapsed');
+            arrow.style.transform = 'rotate(-90deg)';
+        }
+    }
+
+    // ... existing helpers ...
+
+    // Helper for Favorites
+    function toggleFavorite(storyId, btnEl) {
+        const favorites = JSON.parse(localStorage.getItem('masalmio_favorites') || '[]');
+        const index = favorites.indexOf(storyId);
+
+        // Prevent event bubbling if needed, but onclick on button usually handles it.
+        // Actually need event.stopPropagation() if parent is clickable? 
+        // In our HTML above, parent div has onclick? No, sibling div has onclick. So we are good.
+
+        if (index === -1) {
+            favorites.push(storyId);
+            btnEl.classList.add('is-favorite');
+        } else {
+            favorites.splice(index, 1);
+            btnEl.classList.remove('is-favorite');
         }
 
-        // Dynamic Page Layout
-        content.innerHTML = `
+        localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
+    }
+
+    // --- Modal Logic ---
+    let storyToDelete = null;
+
+    app.enterApp = function () {
+        this.renderDashboard();
+    };
+
+    app.deleteStory = function (storyId) {
+        storyToDelete = storyId;
+        const modal = document.getElementById('modal-delete');
+        modal.classList.remove('hidden');
+    };
+
+    app.closeModal = function () {
+        const modal = document.getElementById('modal-delete');
+        modal.classList.add('hidden');
+        storyToDelete = null;
+    };
+
+    app.confirmDelete = function () {
+        if (storyToDelete) {
+            const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+            delete progress[storyToDelete];
+            localStorage.setItem('masalmio_progress', JSON.stringify(progress));
+            app.renderDashboard(false); // Refresh without recommendations
+            app.closeModal();
+        }
+    };
+
+
+    function loadStoryReader(storyId, startPage = 0) {
+        const story = StoryEngine.generate(storyId, StoryConfig);
+        if (story) {
+            renderBook(story, startPage);
+            app.navigateTo('view-reader');
+        }
+    }
+
+    // --- Reader Logic ---
+    const reader = {
+        story: null,
+        pageIndex: 0,
+
+        init(story, startPage = 0) {
+            this.story = story;
+            this.pageIndex = startPage;
+            this.renderPage();
+            this.saveProgress();
+        },
+
+        saveProgress() {
+            if (!this.story) return;
+            const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
+
+            // Generate config signature
+            const configSig = JSON.stringify({
+                hero: StoryConfig.hero.gender,
+                family: Object.keys(StoryConfig.family).filter(k => StoryConfig.family[k].included).sort(),
+                pets: Object.keys(StoryConfig.pets).filter(k => StoryConfig.pets[k].included).sort(),
+                names: [StoryConfig.hero.name, StoryConfig.pets.heroPet.name]
+            });
+
+            progress[this.story.id] = {
+                page: this.pageIndex,
+                title: this.story.title,
+                updatedAt: new Date().toISOString(),
+                configSignature: configSig
+            };
+            localStorage.setItem('masalmio_progress', JSON.stringify(progress));
+        },
+
+        renderPage() {
+            const page = this.story.pages[this.pageIndex];
+            const content = document.getElementById('book-content');
+            const indicator = document.getElementById('page-indicator');
+            const nextBtn = document.querySelector('.reader-nav button:last-child'); // The forward button
+
+            // Logic for Next Button Icon
+            if (this.pageIndex === this.story.pages.length - 1) {
+                nextBtn.innerText = '↺'; // Restart icon
+            } else {
+                nextBtn.innerText = '❯';
+            }
+
+            // Dynamic Page Layout
+            content.innerHTML = `
             <div class="glass-card animate-in-right reader-card">
                 <div class="page-image-container">
                     <img src="${page.image}" class="page-image">
@@ -584,29 +586,29 @@ const reader = {
             </div>
         `;
 
-        indicator.textContent = `${this.pageIndex + 1} / ${this.story.pages.length}`;
-        this.saveProgress();
-    },
+            indicator.textContent = `${this.pageIndex + 1} / ${this.story.pages.length}`;
+            this.saveProgress();
+        },
 
-    nextPage() {
-        if (this.pageIndex < this.story.pages.length - 1) {
-            this.pageIndex++;
-            this.renderPage();
-        } else {
-            // Restart if on last page
-            this.pageIndex = 0;
-            this.renderPage();
-        }
-    },
+        nextPage() {
+            if (this.pageIndex < this.story.pages.length - 1) {
+                this.pageIndex++;
+                this.renderPage();
+            } else {
+                // Restart if on last page
+                this.pageIndex = 0;
+                this.renderPage();
+            }
+        },
 
-    prevPage() {
-        if (this.pageIndex > 0) {
-            this.pageIndex--;
-            this.renderPage();
+        prevPage() {
+            if (this.pageIndex > 0) {
+                this.pageIndex--;
+                this.renderPage();
+            }
         }
+    };
+
+    function renderBook(story, startPage = 0) {
+        reader.init(story, startPage);
     }
-};
-
-function renderBook(story, startPage = 0) {
-    reader.init(story, startPage);
-}
