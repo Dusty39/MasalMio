@@ -1,11 +1,12 @@
-const CACHE_NAME = 'chiko-adventure-v3.1';
+const CACHE_NAME = 'masalmio-v3.2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './style.css?v=3.0',
-    './app.js?v=3.0',
-    './stories.js?v=3.0',
+    './style.css?v=3.2',
+    './app.js?v=3.2',
+    './stories.js?v=3.2',
     './manifest.json',
+    './images/masalmio_icon_premium.png',
     './images/masalmio_logo.png',
     './images/hero_boy_1.png',
     './images/hero_girl_1.png',
