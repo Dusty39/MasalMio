@@ -140,7 +140,7 @@ const wizard = {
         } else {
             // FINISH
             console.log("Wizard Complete:", StoryConfig);
-            generateAndShowStory();
+            app.renderDashboard();
         }
     },
 
@@ -271,7 +271,7 @@ function selectPet(type) {
 
 
 // --- Story Generation Logic ---
-function generateAndShowStory() {
+app.renderDashboard = function () { // Renamed from generateAndShowStory
     app.goDashboard();
 
     // Update Header
@@ -281,6 +281,25 @@ function generateAndShowStory() {
 
     const dashboard = document.getElementById('story-list');
     dashboard.innerHTML = ''; // Clear
+
+    // --- 0. NEW STORY BUTTON (Hero Section) ---
+    const createBtnContainer = document.createElement('div');
+    createBtnContainer.className = 'glass-card animate-in';
+    createBtnContainer.style.marginBottom = '25px';
+    createBtnContainer.style.display = 'flex';
+    createBtnContainer.style.alignItems = 'center';
+    createBtnContainer.style.justifyContent = 'space-between';
+    createBtnContainer.style.background = 'linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,107,107,0.1) 100%)';
+    createBtnContainer.style.border = '1px solid rgba(255,215,0,0.3)';
+
+    createBtnContainer.innerHTML = `
+        <div style="text-align: left;">
+            <h3 style="margin-bottom: 5px; color: var(--primary);">Yeni Bir Masal Yaz 🪄</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Kendi maceranı oluşturmaya hazır mısın?</p>
+        </div>
+        <button class="btn-primary" style="margin:0; font-size:1rem; padding: 10px 20px;" onclick="app.startWizard()">Oluştur +</button>
+    `;
+    dashboard.appendChild(createBtnContainer);
 
     // --- Data Load ---
     const savedProgress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
@@ -469,13 +488,32 @@ function toggleFavorite(storyId, btnEl) {
     localStorage.setItem('masalmio_favorites', JSON.stringify(favorites));
 }
 
-// New Helper: Delete Story
+// --- Modal Logic ---
+let storyToDelete = null;
+
+app.enterApp = function () {
+    this.renderDashboard();
+};
+
 app.deleteStory = function (storyId) {
-    if (confirm('Bu hikayeyi silmek istediğine emin misin?')) {
+    storyToDelete = storyId;
+    const modal = document.getElementById('modal-delete');
+    modal.classList.remove('hidden');
+};
+
+app.closeModal = function () {
+    const modal = document.getElementById('modal-delete');
+    modal.classList.add('hidden');
+    storyToDelete = null;
+};
+
+app.confirmDelete = function () {
+    if (storyToDelete) {
         const progress = JSON.parse(localStorage.getItem('masalmio_progress') || '{}');
-        delete progress[storyId];
+        delete progress[storyToDelete];
         localStorage.setItem('masalmio_progress', JSON.stringify(progress));
-        generateAndShowStory(); // Refresh dashboard
+        app.renderDashboard(); // Refresh
+        app.closeModal();
     }
 };
 
