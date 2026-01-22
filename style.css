@@ -230,6 +230,13 @@ h3 {
     width: 100%;
 }
 
+.wizard-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 /* Selection Grids */
 .avatar-grid {
     display: grid;

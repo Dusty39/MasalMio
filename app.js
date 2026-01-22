@@ -291,7 +291,8 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
     // However, for RE-Recommendation logic, we need to know the config of started stories.
 
     // 1. My Stories Section
-    if (startedStoriesIds.length > 0) {
+    // User Request: Hide "My Stories" if showing recommendations (Wizard completion mode)
+    if (!showRecommendations && startedStoriesIds.length > 0) {
         // Sort: Favorites first, then by Last Updated (if we had it, but simpler: favorites first)
         startedStoriesIds.sort((a, b) => {
             const isFavA = favorites.includes(a);
