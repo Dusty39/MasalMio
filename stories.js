@@ -519,22 +519,74 @@ class StoryEngine {
 
         // Clone story to avoid mutating DB
         const story = JSON.parse(JSON.stringify(template));
+        const reqs = story.requirements || [];
+
+        // --- Dynamic Role Swapping Logic ---
+        const hasMom = config.family.mom.included;
+        const hasDad = config.family.dad.included;
+        let swapMomToDad = false;
+        let swapDadToMom = false;
+
+        // If story needs Mom but we only have Dad -> Swap Mom to Dad
+        if (reqs.includes('mom') && !hasMom && hasDad) {
+            swapMomToDad = true;
+        }
+        // If story needs Dad but we only have Mom -> Swap Dad to Mom
+        if (reqs.includes('dad') && !hasDad && hasMom) {
+            swapDadToMom = true;
+        }
+
+        // 1. Swap Title
+        if (swapMomToDad) {
+            story.title = story.title.replace(/Anne/g, "Baba").replace(/Süper Anne/g, "Süper Baba"); // Handle specific titles if needed
+        } else if (swapDadToMom) {
+            story.title = story.title.replace(/Baba/g, "Anne");
+        }
+
+        // 2. Prepare Replacement Names/Text
+        // If swapping, we use the EXISTING parent's name/title for the MISSING parent's token.
+        // e.g. {{parentMomName}} in a mom-story becomes Dad's name if swapping.
+        let momName = config.family.mom.name || "Anne";
+        let dadName = config.family.dad.name || "Baba";
+
+        if (swapMomToDad) {
+            // In the story text, {{parentMomName}} should be replaced by Dad's name (or "Baba")
+            // And "Anne" word should be replaced by "Baba"
+            momName = dadName;
+        } else if (swapDadToMom) {
+            dadName = momName;
+        }
 
         // Replace Placeholders
         story.pages.forEach(page => {
+            // Apply Role Swap to Text Content FIRST (Simple Word Replacement)
+            if (swapMomToDad) {
+                page.text = page.text.replace(/Anne/g, "Baba").replace(/anne/g, "baba");
+            } else if (swapDadToMom) {
+                page.text = page.text.replace(/Baba/g, "Anne").replace(/baba/g, "anne");
+            }
+
+            // Then replace tokens
             page.text = page.text
                 .replace(/{{heroName}}/g, config.hero.name || "Kahraman")
                 .replace(/{{siblingName}}/g, config.family.sibling.name || "Kardeş")
                 .replace(/{{friendName}}/g, config.family.friend.name || "Arkadaş")
-                .replace(/{{parentMomName}}/g, config.family.mom.name || "Anne")
-                .replace(/{{parentDadName}}/g, config.family.dad.name || "Baba")
+                .replace(/{{parentMomName}}/g, momName)
+                .replace(/{{parentDadName}}/g, dadName)
                 .replace(/{{mentorName}}/g, config.family.mentor.name || "Bilge Kişi")
                 .replace(/{{heroPetName}}/g, config.pets.heroPet.name || "Boncuk");
         });
 
         // Dynamic Avatar/Scene Logic
-        // Dynamic Avatar/Scene Logic
         story.pages.forEach(page => {
+            // Swap Base Images if needed
+            if (swapMomToDad && page.image === "images/parent_mom_1.png") {
+                page.image = "images/parent_dad_1.png";
+            } else if (swapDadToMom && page.image === "images/parent_dad_1.png") {
+                page.image = "images/parent_mom_1.png";
+            }
+
+            // Normal Avatar Replacement
             if (page.image === "images/hero_boy_1.png") {
                 page.image = config.hero.avatar;
             } else if (page.image === "images/sibling_girl_1.png") {
@@ -543,7 +595,13 @@ class StoryEngine {
                 page.image = config.pets.heroPet.avatar;
             } else if (page.image === "images/parent_mom_1.png") {
                 page.image = config.family.mom.avatar;
+            } else if (page.image === "images/parent_dad_1.png") {
+                page.image = config.family.dad.avatar;
             }
+
+            // ... (rest of the specific scene logic remains the same)
+            // Note: I need to preserve the rest of the existing logic for gender variants etc.
+            // I will copy the existing checks here.
 
             if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
                 page.image = "images/action_forest_walk_boy.png";
@@ -557,14 +615,11 @@ class StoryEngine {
             }
 
             if (page.image === "images/scene_portal_pixar.png") {
-                // Randomly or specifically replace portal with interaction 
                 if (config.hero.gender === 'boy') page.image = "images/action_portal_interaction_boy.png";
                 else page.image = "images/action_portal_interaction_girl.png";
             }
 
             if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
-                // Check context for sleeping if possible, or just used mostly for sleeping in current stories?
-                // In adventure_01 page 35 it is sleeping.
                 if (page.text.includes("uyuyordu") || page.text.includes("uyku")) {
                     page.image = "images/action_sleeping_pet_cat.png";
                 }

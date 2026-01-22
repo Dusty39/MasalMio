@@ -161,6 +161,8 @@ function renderCombinedStep(container) {
     const renderRow = (key, label, avatarPath) => {
         const member = StoryConfig.family[key];
         const isSelected = member.included;
+        // Don't show input for mom/dad as requested
+        const showInput = key !== 'mom' && key !== 'dad';
 
         return `
         <div class="family-row" style="display:flex; align-items:center; margin-bottom:15px; text-align:left;">
@@ -171,11 +173,13 @@ function renderCombinedStep(container) {
             </div>
             <div style="flex:1; opacity: ${isSelected ? '1' : '0.5'}; transition:opacity 0.3s;">
                 <div style="font-size:0.9rem; margin-bottom:4px;">${label}</div>
+                ${showInput ? `
                 <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem; text-align:left;" 
                     placeholder="İsim..." autocomplete="off"
                     value="${member.name}" 
                     ${!isSelected ? 'disabled' : ''}
                     oninput="StoryConfig.family['${key}'].name = this.value">
+                ` : ''}
             </div>
         </div>
         `;
@@ -376,8 +380,12 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
             if (reqs.includes('pet') && !StoryConfig.pets.heroPet.included) return false;
             if (reqs.includes('friend') && !StoryConfig.family.friend.included) return false;
             if (reqs.includes('mentor') && !StoryConfig.family.mentor.included) return false;
-            if (reqs.includes('mom') && !StoryConfig.family.mom.included) return false;
-            if (reqs.includes('dad') && !StoryConfig.family.dad.included) return false;
+
+            // Relaxed Parent Logic: Allow swap
+            // If story needs mom, but we have dad (or vice versa), it's okay.
+            // Only fail if BOTH are missing when one is needed.
+            const hasAnyParent = StoryConfig.family.mom.included || StoryConfig.family.dad.included;
+            if ((reqs.includes('mom') || reqs.includes('dad')) && !hasAnyParent) return false;
 
             return true;
         });
