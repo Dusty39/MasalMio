@@ -7,13 +7,99 @@ const AVATAR_OPTIONS = {
         { id: 'mom4', src: 'images/parent_mom_4_glasses.png' }
     ],
     dad: [
-        { id: 'dad1', src: 'images/parent_dad_1.png' }
-        // Add more here when generated
+        { id: 'dad1', src: 'images/parent_dad_1.png' },
+        { id: 'dad2', src: 'images/parent_dad_2_blonde.png' },
+        { id: 'dad3', src: 'images/parent_dad_3_mustache.png' },
+        { id: 'dad4', src: 'images/parent_dad_4_glasses.png' }
+    ],
+    mentor: [
+        { id: 'mentor1', src: 'images/mentor_grandpa_1.png' },
+        { id: 'mentor2', src: 'images/mentor_grandma_1.png' },
+        { id: 'mentor3', src: 'images/mentor_man_1.png' },
+        { id: 'mentor4', src: 'images/mentor_woman_1.png' }
     ]
+};
+
+const TRANSLATIONS = {
+    en: {
+        welcomeSubtitle: "Be the hero of your own fairy tale!",
+        enterApp: "Enter App 🚀",
+        heroDefault: "Hero",
+        wizardTitle: "Create Your Story ✨",
+        heroLabel: "Your Hero",
+        namePlaceholder: "Enter Name...",
+        boy: "Boy",
+        girl: "Girl",
+        lovedOnes: "Loved Ones",
+        mom: "Mom",
+        dad: "Dad",
+        sibling: "Sibling",
+        friend: "Friend",
+        mentor: "Mentor",
+        petLabel: "Cute Pet 🐾",
+        petNamePlaceholder: "Name...",
+        selectMom: "Select Mom",
+        selectDad: "Select Dad",
+        createStoryBtn: "Create Story ✨",
+        newStoryCardTitle: "Write a New Story 🪄",
+        newStoryCardDesc: "Ready to create your own adventure?",
+        createBtn: "Create +",
+        myStories: "My Stories 🔖",
+        recommended: "Recommended for You ✨",
+        welcomeBack: "Welcome back,",
+        deleteStory: "Delete Story?",
+        deleteConfirm: "This story will be lost forever. Are you sure?",
+        cancel: "Cancel",
+        yesDelete: "Yes, Delete",
+        emptyStories: "No new stories found for these characters right now. Try changing selection.",
+        allStoriesFound: "You've discovered all stories! Amazing! 🎉",
+        startStory: "Start Story 🚀",
+        page: "Page",
+        end: "THE END",
+        alertName: "Please enter a name for your hero! 🦸"
+    },
+    tr: {
+        welcomeSubtitle: "Kendi masalının kahramanı ol!",
+        enterApp: "Giriş Yap 🚀",
+        heroDefault: "Kahraman",
+        wizardTitle: "Masalını Oluştur ✨",
+        heroLabel: "Kahramanın",
+        namePlaceholder: "İsim Yazınız...",
+        boy: "Erkek",
+        girl: "Kız",
+        lovedOnes: "Sevdiklerin",
+        mom: "Anne",
+        dad: "Baba",
+        sibling: "Kardeş",
+        friend: "Arkadaş",
+        mentor: "Bilge Kişi",
+        petLabel: "Sevimli Dostun 🐾",
+        petNamePlaceholder: "İsmi...",
+        selectMom: "Anne Seçimi",
+        selectDad: "Baba Seçimi",
+        createStoryBtn: "Hikaye Oluştur ✨",
+        newStoryCardTitle: "Yeni Bir Masal Yaz 🪄",
+        newStoryCardDesc: "Kendi maceranı oluşturmaya hazır mısın?",
+        createBtn: "Oluştur +",
+        myStories: "Hikayelerim 🔖",
+        recommended: "Senin İçin Seçtiklerimiz ✨",
+        welcomeBack: "Hoş geldin,",
+        deleteStory: "Hikayeyi Sil?",
+        deleteConfirm: "Bu hikaye sonsuza dek kaybolacak. Emin misin?",
+        cancel: "Vazgeç",
+        yesDelete: "Evet, Sil",
+        emptyStories: "Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.",
+        allStoriesFound: "Tüm hikayeleri keşfettiniz! Harika! 🎉",
+        startStory: "Hikayeye Başla 🚀",
+        page: "Sayfa",
+        end: "SON",
+        alertName: "Lütfen kahramanının ismini yaz! 🦸"
+    }
 };
 
 // --- StoryConfig (State) ---
 const StoryConfig = {
+    lang: 'tr', // Default
     hero: { name: "", gender: "boy", avatar: "images/hero_boy_1.png" },
     family: {
         sibling: { name: "", gender: "girl", avatar: "images/sibling_girl_1.png", title: "Kardeş", included: false },
@@ -30,6 +116,46 @@ const StoryConfig = {
 // --- View Manager ---
 const app = {
     views: ['view-welcome', 'view-wizard', 'view-dashboard', 'view-reader'],
+
+    // Translation Helper
+    T(key) {
+        const lang = StoryConfig.lang || 'tr';
+        return TRANSLATIONS[lang][key] || key;
+    },
+
+    toggleLanguage() {
+        StoryConfig.lang = StoryConfig.lang === 'tr' ? 'en' : 'tr';
+        localStorage.setItem('masalmio_lang', StoryConfig.lang);
+        this.updateLangIcon();
+        this.refreshUI();
+    },
+
+    updateLangIcon() {
+        const icons = document.querySelectorAll('.lang-icon-text');
+        icons.forEach(icon => {
+            icon.innerText = StoryConfig.lang === 'tr' ? '🇹🇷' : '🇬🇧';
+        });
+    },
+
+    refreshUI() {
+        // Update Static Elements if they exist
+        const welcomeP = document.querySelector('#view-welcome p');
+        if (welcomeP) welcomeP.innerText = this.T('welcomeSubtitle');
+
+        const enterBtn = document.querySelector('#view-welcome .btn-primary');
+        if (enterBtn) enterBtn.innerText = this.T('enterApp');
+
+        // Re-render active view
+        if (document.getElementById('view-wizard').classList.contains('active-view')) {
+            wizard.render();
+        } else if (document.getElementById('view-dashboard').classList.contains('active-view')) {
+            this.renderDashboard();
+        } else if (document.getElementById('view-reader').classList.contains('active-view')) {
+            // Reader needs story regeneration usually, or just text update if structured rigtht.
+            // Simpler: Go back to dashboard to avoid complex state issues in reader
+            this.renderDashboard();
+        }
+    },
 
     navigateTo(viewId) {
         this.views.forEach(id => {
@@ -69,14 +195,21 @@ const app = {
     },
 
     updateThemeIcon(theme) {
-        const icon = document.getElementById('theme-icon');
-        if (icon) {
+        const icons = document.querySelectorAll('.theme-icon-text');
+        icons.forEach(icon => {
             icon.innerText = theme === 'dark' ? '🌙' : '☀️';
-        }
+        });
     },
 
     initTheme() {
-        // Check storage or system preference
+        // Language Init
+        const savedLang = localStorage.getItem('masalmio_lang');
+        if (savedLang) StoryConfig.lang = savedLang;
+        this.updateLangIcon();
+        this.refreshUI(); // Set initial texts
+
+        // Theme Init
+        const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
             this.updateThemeIcon('dark');
@@ -87,10 +220,10 @@ const app = {
     },
 
     resetApp() {
-        if (confirm('Tüm kayıtlı hikayeler ve ayarlar silinecek. Emin misin?')) {
+        if (confirm(this.T('deleteConfirm'))) {
             localStorage.removeItem('masalmio_progress');
             localStorage.removeItem('masalmio_favorites');
-            // Keep theme maybe? Or clear all? Let's clear all for hard reset.
+            // Keep theme/lang maybe?
             localStorage.clear();
             window.location.reload(true);
         }
@@ -121,7 +254,7 @@ const wizard = {
 
         container.innerHTML = `
             <div class="glass-card animate-in" style="width: 100%; max-width: 500px;">
-                <h2>Masalını Oluştur ✨</h2>
+                <h2>${app.T('wizardTitle')}</h2>
                 <div id="step-content" style="margin-top:20px;"></div>
             </div>
         `;
@@ -130,14 +263,14 @@ const wizard = {
 
         // Update Button
         const nextBtn = document.getElementById('btn-next');
-        nextBtn.innerText = "Hikaye Oluştur ✨";
+        nextBtn.innerText = app.T('createStoryBtn');
         nextBtn.onclick = () => this.finish();
     },
 
     finish() {
         // Validation could go here
         if (!StoryConfig.hero.name) {
-            alert("Lütfen kahramanının ismini yaz! 🦸");
+            alert(app.T('alertName'));
             return;
         }
         console.log("Wizard Complete:", StoryConfig);
@@ -150,9 +283,9 @@ const wizard = {
 function renderCombinedStep(container) {
     // 1. Hero Section
     const heroSection = `
-        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Kahramanın</h3>
+        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">${app.T('heroLabel')}</h3>
         <div class="input-group" style="margin: 0 auto 20px auto;">
-            <input type="text" class="glass-input" placeholder="İsim Yazınız..." autocomplete="off"
+            <input type="text" class="glass-input" placeholder="${app.T('namePlaceholder')}" autocomplete="off"
                 value="${StoryConfig.hero.name}" 
                 oninput="StoryConfig.hero.name = this.value">
         </div>
@@ -160,12 +293,12 @@ function renderCombinedStep(container) {
             <div class="avatar-option ${StoryConfig.hero.gender === 'boy' ? 'selected' : ''}" 
                  onclick="selectHeroGender('boy')">
                  <img src="images/hero_boy_1.png" class="avatar-img">
-                 <span>Erkek</span>
+                 <span>${app.T('boy')}</span>
             </div>
             <div class="avatar-option ${StoryConfig.hero.gender === 'girl' ? 'selected' : ''}" 
                  onclick="selectHeroGender('girl')">
                  <img src="images/hero_girl_1.png" class="avatar-img">
-                 <span>Kız</span>
+                 <span>${app.T('girl')}</span>
             </div>
         </div>
     `;
@@ -199,9 +332,11 @@ function renderCombinedStep(container) {
                 `;
             }).join('');
 
+            const selectTitle = key === 'mom' ? app.T('selectMom') : app.T('selectDad');
+
             return `
             <div class="family-row" style="margin-bottom:20px; text-align:left;">
-                <div style="font-size:0.9rem; margin-bottom:8px; opacity:0.9; padding-left:5px;">${label} Seçimi</div>
+                <div style="font-size:0.9rem; margin-bottom:8px; opacity:0.9; padding-left:5px;">${selectTitle}</div>
                 <div style="display:flex; gap:15px; overflow-x:auto; padding: 5px; scrollbar-width:none;">
                     ${avatarsHtml}
                 </div>
@@ -222,7 +357,7 @@ function renderCombinedStep(container) {
                 <div style="font-size:0.9rem; margin-bottom:4px;">${label}</div>
                 ${showInput ? `
                 <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem; text-align:left;" 
-                    placeholder="İsim..." autocomplete="off"
+                    placeholder="${app.T('namePlaceholder')}" autocomplete="off"
                     value="${member.name}" 
                     ${!isSelected ? 'disabled' : ''}
                     oninput="StoryConfig.family['${key}'].name = this.value">
@@ -233,24 +368,24 @@ function renderCombinedStep(container) {
     };
 
     const familySection = `
-        <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Sevdiklerin</h3>
+        <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">${app.T('lovedOnes')}</h3>
         <div class="family-list" style="padding-right:5px; margin-bottom: 30px;">
-            ${renderRow('mom', 'Anne', StoryConfig.family.mom.avatar)}
-            ${renderRow('dad', 'Baba', StoryConfig.family.dad.avatar)}
+            ${renderRow('mom', app.T('mom'), StoryConfig.family.mom.avatar)}
+            ${renderRow('dad', app.T('dad'), StoryConfig.family.dad.avatar)}
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-            ${renderRow('sibling', 'Kardeş', StoryConfig.family.sibling.avatar)}
-            ${renderRow('friend', 'Arkadaş', StoryConfig.family.friend.avatar)}
-            ${renderRow('mentor', 'Bilge Kişi', StoryConfig.family.mentor.avatar)}
+            ${renderRow('sibling', app.T('sibling'), StoryConfig.family.sibling.avatar)}
+            ${renderRow('friend', app.T('friend'), StoryConfig.family.friend.avatar)}
+            ${renderRow('mentor', app.T('mentor'), StoryConfig.family.mentor.avatar)}
         </div>
     `;
 
-    // 3. Pet Section (unchanged)
+    // 3. Pet Section
     const pet = StoryConfig.pets.heroPet;
     const isCatSelected = pet.included && pet.type === 'cat';
     const isDogSelected = pet.included && pet.type === 'dog';
 
     const petSection = `
-        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">Sevimli Dostun 🐾</h3>
+        <h3 style="margin: 0 0 15px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">${app.T('petLabel')}</h3>
         <div class="pet-selection-container" style="display:flex; justify-content:center; gap:30px; margin: 20px 0;">
             <div onclick="selectPet('cat')" class="avatar-selectable ${isCatSelected ? 'avatar-selected' : ''}"
                  style="position:relative; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.2s;">
@@ -263,7 +398,7 @@ function renderCombinedStep(container) {
         </div>
         ${pet.included ? `
             <div class="animate-in" style="margin-top:10px; max-width: 200px; margin-left: auto; margin-right: auto;">
-                <input type="text" class="glass-input" placeholder="İsmi..." 
+                <input type="text" class="glass-input" placeholder="${app.T('petNamePlaceholder')}" 
                        style="width: 100%; text-align: center;"
                        value="${pet.name}" oninput="StoryConfig.pets.heroPet.name = this.value">
             </div>
@@ -319,7 +454,7 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
 
     // Update Header
     const heroName = StoryConfig.hero.name || "Kahraman";
-    document.getElementById('dash-hero-name').textContent = `Hoş geldin, ${heroName} 👋`;
+    document.getElementById('dash-hero-name').textContent = `${app.T('welcomeBack')} ${heroName} 👋`;
     document.getElementById('dash-hero-name').parentElement.style.opacity = "1";
 
     const dashboard = document.getElementById('story-list');
@@ -340,10 +475,10 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
 
         createBtnContainer.innerHTML = `
             <div style="text-align: left;">
-                <h3 style="margin-bottom: 5px; color: var(--primary);">Yeni Bir Masal Yaz 🪄</h3>
-                <p style="font-size: 0.9rem; opacity: 0.8;">Kendi maceranı oluşturmaya hazır mısın?</p>
+                <h3 style="margin-bottom: 5px; color: var(--primary);">${app.T('newStoryCardTitle')}</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8;">${app.T('newStoryCardDesc')}</p>
             </div>
-            <button class="btn-primary" style="margin:0; font-size:1rem; padding: 10px 20px;" onclick="app.startWizard()">Oluştur +</button>
+            <button class="btn-primary" style="margin:0; font-size:1rem; padding: 10px 20px;" onclick="app.startWizard()">${app.T('createBtn')}</button>
         `;
         dashboard.appendChild(createBtnContainer);
     }
@@ -373,7 +508,7 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
         section.className = 'accordion-section';
         section.innerHTML = `
             <div class="accordion-header" onclick="toggleAccordion('my-stories-content', this)">
-                <h3 style="margin:0; opacity:0.8;">Hikayelerim 🔖</h3>
+                <h3 style="margin:0; opacity:0.8;">${app.T('myStories')}</h3>
                 <span class="arrow-icon">▼</span>
             </div>
             <div id="my-stories-content" class="accordion-content"></div>
@@ -402,7 +537,7 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
             card.innerHTML = `
                 <div style="flex:1; cursor:pointer;" onclick="loadStoryReader('${id}', ${progress.page})">
                     <h4 style="margin-bottom:5px; color: var(--primary);">${story.title}</h4>
-                    <p style="font-size:0.9rem; opacity:0.8;">Kaldığın Yer: ${progress.page + 1} / ${story.pages.length}</p>
+                    <p style="font-size:0.9rem; opacity:0.8;">${app.T('page')} ${progress.page + 1} / ${story.pages.length}</p>
                 </div>
                 <div style="display:flex; flex-direction: column; align-items:center; gap:5px; margin-left: 10px;">
                      <button class="story-star-btn ${isFav ? 'is-favorite' : ''}" onclick="toggleFavorite('${id}', this)">★</button>
@@ -425,7 +560,7 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
         // Header for For You
         forYouSection.innerHTML = `
             <div class="accordion-header" onclick="toggleAccordion('reco-content', this)">
-                <h3 style="margin:0; opacity:0.8;">Senin İçin Seçtiklerimiz ✨</h3>
+                <h3 style="margin:0; opacity:0.8;">${app.T('recommended')}</h3>
                 <span class="arrow-icon">▼</span>
             </div>
             <div id="reco-content" class="accordion-content"></div>
@@ -456,9 +591,9 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
 
         if (validStories.length === 0) {
             if (startedStoriesIds.length === 0) {
-                recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Şu an bu karakterlerle yeni bir hikaye bulamadık. Lütfen farklı karakterler seçmeyi dene.</p>';
+                recoContent.innerHTML = `<p style="text-align:center; opacity:0.7; padding:20px;">${app.T('emptyStories')}</p>`;
             } else {
-                recoContent.innerHTML = '<p style="text-align:center; opacity:0.7; padding:20px;">Tüm hikayeleri keşfettiniz! Harika! 🎉</p>';
+                recoContent.innerHTML = `<p style="text-align:center; opacity:0.7; padding:20px;">${app.T('allStoriesFound')}</p>`;
             }
         } else {
             validStories.forEach((story, index) => {
@@ -477,7 +612,7 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
                             <div class="hero-story-content">
                                 <h3 class="hero-story-title">${story.title}</h3>
                                 <p class="hero-story-subtitle">${story.summary}</p>
-                                <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">Hikayeye Başla 🚀</button>
+                                <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">${app.T('startStory')}</button>
                             </div>
                         </div>
                     </div>

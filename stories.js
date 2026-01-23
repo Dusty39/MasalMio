@@ -2,7 +2,9 @@ const STORY_DB = [
     {
         id: "adventure_01",
         title: "Gizemli Ormanın Sırları",
+        title_en: "Secrets of the Mystery Forest",
         summary: "Evinin bahçesinden sihirli bir ormana açılan kapıyı keşfetmeye hazır mısın?",
+        summary_en: "Are you ready to discover the door opening from your garden to a magical forest?",
         genre: "adventure",
         coverColor: "#4CAF50",
         requirements: ["sibling", "pet"],
@@ -10,20 +12,20 @@ const STORY_DB = [
             { text: "Bir zamanlar {{heroPetName}} adında çok sevimli bir dostumuz vardı. Tüyleri pırıl pırıl, gözleri ise merakla parlıyordu. En sevdiği şey, güneşli günlerde bahçedeki renkli kelebeklerin peşinden koşmaktı.", image: "images/scene_garden_pixar.png" },
             { text: "Onun en yakın arkadaşları {{heroName}} ve {{siblingName}} idi. {{siblingName}}, akıllı ve her zaman hazırlıklı bir ablaydı. Kardeşini ve sevimli dostlarını korumayı her şeyden çok severdi.", image: "images/sibling_girl_1.png" },
             { text: "{{heroName}}'in hayalleri boyundan büyüktü. Enerjisi hiç bitmez, aklı hep oyunlarda ve yeni keşiflerdeydi. Özellikle bloklarla yeni dünyalar inşa etmeye bayılırdı.", image: "images/hero_boy_1.png" },
-            { text: "Güneşli bir öğleden sonraydı. {{heroPetName}} bahçenin uzak köşesinde yine bir kelebeğin peşine düşmüştü. Çalıların arasında daha önce hiç görmediği, parıl parıl parlayan eski bir kapı fark etti!", image: "images/scene_portal_pixar.png" },
+            { text: "Güneşli bir öğleden sonraydı. {{heroPetName}} bahçenin uzak köşesinde yine bir kelebeğin peşine düşmüştü. Çalıların arasında daha önce hiç görmediği, parıl parıl parlayan eski bir kapı fark etti!", image: "images/scene_garden_door_glow.png" },
             { text: "Kapı, etrafına mor ışıklar ve sihirli tozlar saçıyordu. {{heroPetName}} merakına yenik düştü. Patiyle kapıya hafifçe dokundu ve hop! Bir anda kapının içinden geçip gözden kayboldu.", image: "images/scene_portal_pixar.png" },
             { text: "Bahçede sessizlik olunca {{siblingName}} ve {{heroName}} endişelendi. '{{heroPetName}}! Neredesin küçük dostum?' diye seslendiler. Ama yanıt gelmedi. İkisi de telaşla bahçeyi aramaya başladı.", image: "images/scene_garden_pixar.png" },
             { text: "Aramaları onları bahçenin en köşesine götürdü. {{heroName}}'in gözleri büyüdü: 'Abla bak! Bu kapı da nereden çıktı?' Kapıdan sızan mor ışık, ikisinin de yüzünü aydınlatıyordu.", image: "images/scene_portal_pixar.png" },
             { text: "{{siblingName}}, kardeşinin elini sıkıca tuttu. 'Sanırım {{heroPetName}} içeride. Onu yalnız bırakamayız, değil mi?' dedi. {{heroName}} başını salladı. Korkuyordu ama dostunu kurtarmak için cesur olmalıydı.", image: "images/scene_portal_pixar.png" },
             { text: "İkisi el ele tutuşup kapıdan geçtiler. Gözlerini açtıklarında, kendilerini bambaşka bir dünyada buldular! Burası mavi sislerle kaplı, ağaçların gökyüzüne uzandığı Büyülü Bir Orman'dı.", image: "images/scene_forest_pixar.png" },
             { text: "Etrafta ateş böcekleri uçuşuyor, yapraklar kendi kendine melodiler fısıldıyordu. Uzaktan cılız bir ses duydular. 'Bu {{heroPetName}}'in sesi!' diye bağırdı {{heroName}}. Ses ormanın derinliklerinden geliyordu.", image: "images/scene_forest_pixar.png" },
-            { text: "Hızla ormanın içine daldılar. Hava kararmaya başlamıştı ama {{siblingName}}, cebinden hazırlıklı olduğu fenerini çıkardı. 'Korkma,' dedi, 'Işık olduğu sürece yolumuzu kaybetmeyiz.'", image: "images/scene_forest_pixar.png" },
-            { text: "Yürürken yerlerde dev mantarlar gördüler. Ama bunlar sıradan mantar değildi! Neon mavisi ve yeşili renklerde parlıyorlardı. {{heroName}} hayranlıkla, 'Sanki oyunlardaki sihirli dünyalar gibi!' dedi.", image: "images/scene_mushrooms_pixar.png" },
+            { text: "Hızla ormanın içine daldılar. Hava kararmaya başlamıştı ama {{siblingName}}, cebinden hazırlıklı olduğu fenerini çıkardı. 'Korkma,' dedi, 'Işık olduğu sürece yolumuzu kaybetmeyiz.'", image: "images/action_running_forest_lantern.png" },
+            { text: "Yürürken yerlerde dev mantarlar gördü. Ama bunlar sıradan mantar değildi! Neon mavisi ve yeşili renklerde parlıyordu. {{heroName}} hayranlıkla, 'Sanki oyunlardaki sihirli dünyalar gibi!' dedi.", image: "images/scene_mushrooms_pixar.png" },
             { text: "Işıkları takip ederek ilerlediler ve sonunda devasa bir mağara girişine ulaştılar. Sesler buradan geliyordu. Mağaranın ağzı karanlıktı ve sarmaşıklarla kaplıydı.", image: "images/scene_cave_entrance_pixar.png" },
             { text: "{{heroName}} derin bir nefes aldı. 'Buraya girmemiz gerekiyor, değil mi?' diye sordu. {{siblingName}} gülümsedi: 'Gerçek kahramanlar zor anlarda belli olur. Hadi, birlikte başarabiliriz!'", image: "images/scene_cave_entrance_pixar.png" },
             { text: "Mağaraya adım attıkları anda şaşkınlıktan donakaldılar. İçerisi karanlık değil, tam tersine pırıl pırıldı! Duvarlar binlerce renkli kristalle kaplıydı ve her yer ışıl ışıl yanıyordu.", image: "images/scene_cave_crystals_pixar.png" },
             { text: "Ve işte orada! {{heroPetName}}, büyük, parlayan bir kristalin üzerine çıkmış, şaşkın şaşkın etrafı izliyordu. Onları görünce sevinçle zıpladı ve kucaklarına atladı.", image: "images/scene_cave_crystals_pixar.png" },
-            { text: "{{heroName}}, tüylü dostuna sıkıca sarıldı. 'Seni çok merak ettik yaramaz!' dedi. {{heroPetName}} ise mutlu mırıltılarla karşılık verdi. Artık hepsi bir aradaydı ve güvendeydiler.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "{{heroName}}, tüylü dostuna sıkıca sarıldı. 'Seni çok merak ettik yaramaz!' dedi. {{heroPetName}} ise mutlu mırıltılarla karşılık verdi. Artık hepsi bir aradaydı ve güvendeydiler.", image: "images/action_hugging_pet_crystal.png" },
             { text: "Mağaradan çıkarken bu kez korku değil, hayranlık hissediyorlardı. 'Keşke bu kristalleri {{friendName}} de görebilseydi,' dedi {{heroName}}. 'Buna asla inanmayacak!'", image: "images/scene_cave_crystals_pixar.png" },
             { text: "Ormana geri döndüklerinde, bir kayanın üzerinde oturan turuncu bir Tilki gördüler. Tilki onlara bilge gözlerle bakıyordu. 'Evinize dönen yolu mu arıyorsunuz küçük gezginler?' diye sordu.", image: "images/scene_fox_encounter_pixar.png" },
             { text: "{{siblingName}} şaşırdı ama bozuntuya vermedi. 'Evet,' dedi. 'Dostumuzu bulduk, şimdi dönmek istiyoruz.' Tilki gülümsedi. 'Cesaretiniz size yolu zaten gösterdi. Işığı takip edin.'", image: "images/scene_fox_encounter_pixar.png" },
@@ -37,29 +39,63 @@ const STORY_DB = [
             { text: "O gün öğrendikleri en önemli şey şuydu: Bilinmeyen yerler bazen korkutucu görünebilirdi. Ama yanında sevdiklerin ve kalbinde cesaret varsa, her yol aydınlığa çıkardı.", image: "images/masalmio_logo.png" },
             { text: "Ve böylece {{heroName}}, {{siblingName}} ve {{heroPetName}}'in macerası mutlu sonla bitti. Ama kim bilir? Belki de o mor kapı bir gün tekrar açılmayı bekliyordur...", image: "images/scene_portal_pixar.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Once upon a time, there was a cute friend named {{heroPetName}}. Its fur was shiny and eyes sparked with curiosity. Its favorite thing was chasing butterflies on sunny days.", image: "images/scene_garden_pixar.png" },
+            { text: "Its best friends were {{heroName}} and {{siblingName}}. {{siblingName}} was a smart and always prepared big sister. She loved protecting her sibling and cute friends more than anything.", image: "images/sibling_girl_1.png" },
+            { text: "{{heroName}} had dreams bigger than himself. His energy never ran out, his mind always on games and new discoveries. He especially loved building new worlds with blocks.", image: "images/hero_boy_1.png" },
+            { text: "It was a sunny afternoon. {{heroPetName}} was chasing a butterfly in the garden again. Behind the bushes, it noticed an old, glowing door it had never seen before!", image: "images/scene_garden_door_glow.png" },
+            { text: "The door was scattering purple lights and magic dust. {{heroPetName}} succumbed to curiosity. It touched the door with a paw and hop! Suddenly it passed through and vanished.", image: "images/scene_portal_pixar.png" },
+            { text: "When silence fell in the garden, {{siblingName}} and {{heroName}} got worried. '{{heroPetName}}! Where are you little friend?' they called. But no answer. They started searching frantically.", image: "images/scene_garden_pixar.png" },
+            { text: "The search led them to the far corner. {{heroName}}'s eyes widened: 'Look! Where did this door come from?' The purple light leaking from it illuminated their faces.", image: "images/scene_portal_pixar.png" },
+            { text: "{{siblingName}} held her sibling's hand tight. 'I think {{heroPetName}} is inside. We can't leave him alone, right?' {{heroName}} nodded. He was scared but had to be brave.", image: "images/scene_portal_pixar.png" },
+            { text: "Hand in hand, they stepped through the door. When they opened their eyes, they were in a completely different world! This was a Magical Forest covered in blue mist with trees reaching the sky.", image: "images/scene_forest_pixar.png" },
+            { text: "Fireflies were flying around, leaves whispering melodies. They heard a faint sound. 'That's {{heroPetName}}'s voice!' shouted {{heroName}}. It was coming from deep within.", image: "images/scene_forest_pixar.png" },
+            { text: "They rushed into the forest. It was getting dark but {{siblingName}} took out her flashlight. 'Don't worry,' she said, 'As long as we have light, we won't get lost.'", image: "images/action_running_forest_lantern.png" },
+            { text: "Walking, they saw giant mushrooms. But not ordinary ones! They glowed in neon blue and green. {{heroName}} said in awe, 'Like magic worlds in games!'", image: "images/scene_mushrooms_pixar.png" },
+            { text: "Following the lights, they reached a massive cave entrance. The sounds came from here. The mouth was dark and covered in vines.", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "{{heroName}} took a deep breath. 'We have to go in, right?' {{siblingName}} smiled: 'True heroes show themselves in hard times. Come on, we can do it!'", image: "images/scene_cave_entrance_pixar.png" },
+            { text: "Stepping inside, they froze in amazement. It wasn't dark, but sparkling bright! Walls were covered in thousands of colorful crystals.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "And there he was! {{heroPetName}}, sitting on a big glowing crystal, looking around confused. Seeing them, he jumped with joy into their arms.", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "{{heroName}} hugged his furry friend tight. 'We were so worried, you rascal!' {{heroPetName}} purred happily. They were all together and safe.", image: "images/action_hugging_pet_crystal.png" },
+            { text: "Leaving the cave, they felt awe instead of fear. 'I wish {{friendName}} could see these crystals,' said {{heroName}}. 'He'll never believe this!'", image: "images/scene_cave_crystals_pixar.png" },
+            { text: "Back in the forest, they saw an orange Fox sitting on a rock. It looked with wise eyes. 'Looking for the way home, little travelers?' it asked.", image: "images/scene_fox_encounter_pixar.png" },
+            { text: "{{siblingName}} was surprised. 'Yes,' she said. 'We found our friend, now we want to return.' The Fox smiled. 'Your courage already showed you the way. Follow the light.'", image: "images/scene_fox_encounter_pixar.png" },
+            { text: "Looking where the Fox pointed, they saw that familiar purple light filtering through trees. The door was there! The way home waited.", image: "images/scene_forest_pixar.png" },
+            { text: "Before leaving, they looked back one last time. {{heroName}} whispered, 'This was amazing. A bit scary, but amazing.'", image: "images/scene_portal_pixar.png" },
+            { text: "They closed their eyes and passed through the light. Opening them, they were back in their garden. Sun still shining, birds singing. As if no time had passed.", image: "images/scene_garden_pixar.png" },
+            { text: "Just then {{parentMomName}} came out. 'Kids, where are you? Cake is ready!' she called. They looked at each other and giggled. This was their little secret.", image: "images/scene_garden_pixar.png" },
+            { text: "In bed that night, {{heroName}} imagined the crystal cave in his nightlight. He wasn't afraid of the dark as much anymore.", image: "images/hero_boy_1.png" },
+            { text: "{{heroPetName}} was sleeping soundly at his feet. Maybe still chasing colorful butterflies in his dreams.", image: "images/pet_cat_1.png" },
+            { text: "{{siblingName}} peeked in. 'Goodnight superhero,' she whispered. {{heroName}} smiled. 'Goodnight sis. Adventure again tomorrow?'", image: "images/sibling_girl_1.png" },
+            { text: "The most important thing they learned: Unknown places can look scary. But with loved ones and courage in your heart, every path leads to light.", image: "images/masalmio_logo.png" },
+            { text: "And so ended the adventure of {{heroName}}, {{siblingName}} and {{heroPetName}}. But who knows? Maybe that purple door waits to open again...", image: "images/scene_portal_pixar.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "space_01",
         title: "Minik Astronotun Uzay Yolculuğu",
+        title_en: "Tiny Astronaut's Space Journey",
         summary: "3-2-1 Fırlatma! Yıldızların arasında dans etmeye hazır mısın?",
+        summary_en: "3-2-1 Blast off! Are you ready to dance among the stars?",
         genre: "adventure",
         coverColor: "#673AB7",
         requirements: [],
         pages: [
             { text: "{{heroName}}, o gece odasının penceresinden gökyüzüne bakarken yıldızların parlaklığına hayran kaldı. 'Acaba orada kimler yaşıyor?' diye düşündü.", image: "images/hero_boy_1.png" },
             { text: "Ertesi sabah hemen bahçeye koştu. En sevdiği büyük karton kutuyu buldu. 'İşte benim roketim!' dedi heyecanla.", image: "images/scene_space_launch.png" },
-            { text: "Kutuyu gümüş rengi boyalarla boyadı. Üzerine renkli kapaklardan düğmeler, kartondan pencereler yaptı.", image: "images/masalmio_logo.png" },
+            { text: "Kutuyu gümüş rengi boyalarla boyadı. Üzerine renkli kapaklardan düğmeler, kartondan pencereler yaptı.", image: "images/action_painting_box_space.png" },
             { text: "Roketin içine yumuşak minderler koydu. Uzun yolculuk için yanına bir paket bisküvi ve meyve suyu aldı.", image: "images/masalmio_logo.png" },
             { text: "Kaskını (yani bisiklet kaskını) başına taktı. Eldivenlerini giydi. Artık uçuşa tamamen hazırdı.", image: "images/hero_boy_1.png" },
-            { text: "Kokpite oturdu ve derin bir nefes aldı. Kontrol paneline (boyadığı kutuya) dokundu. 'Kule, fırlatma için izin istiyorum' dedi.", image: "images/masalmio_logo.png" },
+            { text: "Kokpite oturdu ve derin bir nefes aldı. Kontrol paneline (boyadığı kutuya) dokundu. 'Kule, fırlatma için izin istiyorum' dedi.", image: "images/scene_cardboard_cockpit.png" },
             { text: "Hayalindeki kule cevap verdi: 'İzin verildi kaptan! Geri sayım başlıyor.' {{heroName}}'in kalbi güm güm atıyordu.", image: "images/masalmio_logo.png" },
             { text: "'10.. 9.. 8.. 7.. 6..' Her sayıda heyecanı artıyordu. Motorların ısındığını hissedebiliyordu.", image: "images/masalmio_logo.png" },
             { text: "'5.. 4.. 3.. 2.. 1.. FIRLATMA!' {{heroName}} 'Vuuu!' diye bağırarak koltuğuna yapıştı.", image: "images/hero_boy_1.png" },
-            { text: "Roket bahçeden havalandı. Ağaçlar aşağıda küçücük kaldı. Kuşların bile üzerine çıktı.", image: "images/masalmio_logo.png" },
+            { text: "Roket bahçeden havalandı. Ağaçlar aşağıda küçücük kaldı. Kuşların bile üzerine çıktı.", image: "images/scene_space_launch_garden.png" },
             { text: "Bulutların arasından geçti. Pamuk gibi beyaz bulutlar penceresine değiyordu. Gökyüzü maviden mora dönmeye başladı.", image: "images/scene_space_stars.png" },
             { text: "Ve bir anda... Sessizlik. Artık uzaydaydı. Her yer kapkaranlık ama milyonlarca yıldızla doluydu.", image: "images/scene_space_stars.png" },
-            { text: "Yerçekimi yok olmuştu! {{heroName}} oturduğu yerden havalandığını hissetti. Bisküvisi bile havada yüzüyordu.", image: "images/masalmio_logo.png" },
+            { text: "Yerçekimi yok olmuştu! {{heroName}} oturduğu yerden havalandığını hissetti. Bisküvisi bile havada yüzüyordu.", image: "images/action_zero_gravity_cookie.png" },
             { text: "Pencereden Dünya'ya baktı. Kocaman, mavi ve beyaz bir bilye gibiydi. 'Ne kadar da güzel' diye fısıldadı.", image: "images/masalmio_logo.png" },
             { text: "İleride kırmızı bir gezegen gördü. Bu Mars olmalıydı! Etrafında minik uydular dönüyordu.", image: "images/scene_space_planet.png" },
             { text: "Dikkat! Karşıdan bir asteroid kuşağı geliyordu. Kaptan {{heroName}} direksiyonu sıkıca tuttu. Sağa, sola manevralar yaptı.", image: "images/masalmio_logo.png" },
@@ -73,12 +109,42 @@ const STORY_DB = [
             { text: "Annesi 'Yemek hazır!' diye seslendi. {{heroName}} gülümsedi. Uzay harikaydı ama evde olmak da güzeldi.", image: "images/hero_boy_1.png" },
             { text: "O gece yatağında yıldızlara bakarken onlara göz kırptı. 'Yarın görüşürüz arkadaşlar' dedi.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} admired the brightness of stars from his room window that night. 'Who lives there?' he wondered.", image: "images/hero_boy_1.png" },
+            { text: "Next morning he ran to the garden. Found his favorite big cardboard box. 'This is my rocket!' he said excitedly.", image: "images/scene_space_launch.png" },
+            { text: "He painted the box silver. Made buttons from colorful caps, windows from cardboard.", image: "images/action_painting_box_space.png" },
+            { text: "Put soft cushions inside. Took a pack of biscuits and juice for the long journey.", image: "images/masalmio_logo.png" },
+            { text: "Put on his helmet (bike helmet). Wore gloves. Ready for flight.", image: "images/hero_boy_1.png" },
+            { text: "Sat in cockpit, took deep breath. Touched control panel (painted box). 'Tower, requesting permission to launch.'", image: "images/scene_cardboard_cockpit.png" },
+            { text: "Imaginary tower replied: 'Permission granted captain! Countdown starting.' {{heroName}}'s heart pounded.", image: "images/masalmio_logo.png" },
+            { text: "'10.. 9.. 8.. 7.. 6..' Excitement grew. Engines warming up.", image: "images/masalmio_logo.png" },
+            { text: "'5.. 4.. 3.. 2.. 1.. BLAST OFF!' {{heroName}} shouted 'Whoosh!' sticking to his seat.", image: "images/hero_boy_1.png" },
+            { text: "Rocket lifted from garden. Trees looked tiny. Rose above birds.", image: "images/scene_space_launch_garden.png" },
+            { text: "Passed through clouds. White cotton clouds touched window. Sky turned from blue to purple.", image: "images/scene_space_stars.png" },
+            { text: "And suddenly... Silence. Now in space. Pitch black but full of millions of stars.", image: "images/scene_space_stars.png" },
+            { text: "Gravity gone! {{heroName}} felt floating. Even biscuit floated.", image: "images/masalmio_logo.png" },
+            { text: "Looked at Earth. Huge, blue and white marble. 'So beautiful' he whispered.", image: "images/masalmio_logo.png" },
+            { text: "Saw a red planet ahead. Must be Mars! Tiny moons orbiting it.", image: "images/scene_space_planet.png" },
+            { text: "Attention! Asteroid belt ahead. Captain {{heroName}} held wheel tight. Maneuvered left and right.", image: "images/masalmio_logo.png" },
+            { text: "Now Saturn ahead. Rings made of ice and rock shining like rainbow.", image: "images/scene_space_saturn.png" },
+            { text: "A green glowing saucer passed by. A spaceship! Tiny green hand waved.", image: "images/scene_space_aliens.png" },
+            { text: "{{heroName}} waved back. Aliens were friendly. Maybe kids looking for adventure too.", image: "images/scene_space_aliens.png" },
+            { text: "Long journey. Captain hungry. Caught floating juice and drank.", image: "images/scene_space_cockpit_eating.png" },
+            { text: "Time to return. Set course to beautiful blue planet Earth. Home journey began.", image: "images/masalmio_logo.png" },
+            { text: "Rocket shook entering atmosphere but {{heroName}} wasn't scared. Experienced pilot.", image: "images/masalmio_logo.png" },
+            { text: "Soft landing in garden. Opened hatch, smelled fresh grass.", image: "images/masalmio_logo.png" },
+            { text: "Mom called 'Dinner ready!'. {{heroName}} smiled. Space was great but home is good too.", image: "images/hero_boy_1.png" },
+            { text: "Winked at stars from bed that night. 'See you tomorrow friends'.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "submarine_01",
         title: "Derin Deniz Kaşifi",
+        title_en: "Deep Sea Explorer",
         summary: "Okyanusun en derinlerinde, ışıklı balıkların dünyasına dalıyoruz.",
+        summary_en: "Diving deep into the ocean, to the world of glowing fish.",
         genre: "adventure",
         coverColor: "#00BCD4",
         requirements: [],
@@ -87,7 +153,7 @@ const STORY_DB = [
             { text: "Hemen hayalindeki sarı denizaltısını çağırdı. Bu denizaltı çok güçlüydü ve en derinlere inebilirdi.", image: "images/masalmio_logo.png" },
             { text: "Tepesindeki kapağı açıp içeri girdi. Düğmelere bastı, ekranlar açıldı. 'Dalışa geçiyoruz!' diye anons yaptı.", image: "images/scene_submarine_cockpit.png" },
             { text: "Denizaltı yavaşça suya battı. Önce suyun rengi açık maviydi. Güneş ışıkları suda dans ediyordu.", image: "images/masalmio_logo.png" },
-            { text: "Pencereden baktığında renkli balık sürüleri gördü. Turuncu, sarı, çizgili balıklar ona 'Hoş geldin' der gibi bakıyorlardı.", image: "images/scene_underwater_coral.png" },
+            { text: "Pencereden baktığında renkli balık sürüleri gördü. Turuncu, sarı, çizgili balıklar ona 'Hoş geldin' der gibi bakıyorlardı.", image: "images/scene_submarine_cockpit_view.png" },
             { text: "Biraz daha aşağı indiler. Burada kocaman kayalar ve üzerlerinde salınan deniz bitkileri vardı. Bir yengeç kıskacını salladı.", image: "images/scene_underwater_coral.png" },
             { text: "Aniden büyük bir gölge belirdi. Bu sevimli bir deniz kaplumbağasıydı! Çok yavaş ve zarif yüzüyordu.", image: "images/masalmio_logo.png" },
             { text: "Derinlere indikçe suyun rengi koyulaştı. Mavi, laciverte dönüştü. Artık güneş ışığı buraya ulaşamıyordu.", image: "images/masalmio_logo.png" },
@@ -108,12 +174,41 @@ const STORY_DB = [
             { text: "Denizaltını kıyıya çekti. Ayakları kuma değdiğinde kendini gerçek bir kaşif gibi hissetti.", image: "images/masalmio_logo.png" },
             { text: "Eve dönerken gördüğü parlayan balıkları ve dev balinayı asla unutmayacağını biliyordu.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} sat on beach watching sea. 'What's at the very bottom?' he wondered.", image: "images/hero_boy_1.png" },
+            { text: "Summoned imaginary yellow submarine. Very strong, could go deepest.", image: "images/masalmio_logo.png" },
+            { text: "Opened top hatch, went in. Pressed buttons, screens on. 'Diving!'", image: "images/scene_submarine_cockpit.png" },
+            { text: "Submarine sank slowly. Water light blue first. Sun danced in water.", image: "images/masalmio_logo.png" },
+            { text: "Saw colorful fish schools. Orange, yellow, striped fish looked like saying 'Welcome'.", image: "images/scene_submarine_cockpit_view.png" },
+            { text: "Went deeper. Giant rocks, sea plants swaying. A crab waved claw.", image: "images/scene_underwater_coral.png" },
+            { text: "Sudden shadow. A cute sea turtle! Swimming slow and graceful.", image: "images/masalmio_logo.png" },
+            { text: "Water got darker deep down. Blue to navy. Sun couldn't reach here.", image: "images/masalmio_logo.png" },
+            { text: "Turned on lights. Couldn't believe it! Glowing creatures everywhere.", image: "images/scene_underwater_deep.png" },
+            { text: "Transparent jellyfish glowing neon. Pink, purple, green... Like underwater fireworks.", image: "images/scene_underwater_deep.png" },
+            { text: "Old wooden chest on sand. Pirate treasure?", image: "images/scene_underwater_treasure.png" },
+            { text: "Used robot arm to open lid. Not gold, but glowing pearls inside!", image: "images/scene_underwater_treasure.png" },
+            { text: "Giant octopus sleeping next to it. Opened one eye, yawned. {{heroName}} giggled.", image: "images/masalmio_logo.png" },
+            { text: "Saw a cave entrance. Walls covered in crystals.", image: "images/masalmio_logo.png" },
+            { text: "Giant sleeping whale at end of cave. Snoring shook waters.", image: "images/scene_underwater_whale.png" },
+            { text: "Backed away quietly. Amazing to see such giant.", image: "images/scene_underwater_whale.png" },
+            { text: "Checked air tanks. 'Oxygen low, time to go up'.", image: "images/masalmio_logo.png" },
+            { text: "Full power to engines. Rising fast with bubbles.", image: "images/masalmio_logo.png" },
+            { text: "Water brightening. Nice to see sun.", image: "images/masalmio_logo.png" },
+            { text: "Submarine 'Pop!' surfaced. Seagulls greeted.", image: "images/masalmio_logo.png" },
+            { text: "Breathed fresh air. Sea looked calm.", image: "images/hero_boy_1.png" },
+            { text: "But knew under surface was mysterious world.", image: "images/masalmio_logo.png" },
+            { text: "Pulled submarine to shore. Felt like real explorer.", image: "images/masalmio_logo.png" },
+            { text: "Would never forget glowing fish and giant whale.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "camp_01",
         title: "Ormandaki Çadır Kampı",
+        title_en: "Forest Tent Camp",
         summary: "Kamp ateşi, yıldızlar ve ormanın sesleri. Doğayla baş başa bir gece.",
+        summary_en: "Campfire, stars and forest sounds. A night alone with nature.",
         genre: "adventure",
         coverColor: "#795548",
         requirements: [],
@@ -143,12 +238,41 @@ const STORY_DB = [
             { text: "Kahvaltıda sıcak çaylarını içtiler. {{heroName}} ormanın enerjisiyle dolmuştu.", image: "images/masalmio_logo.png" },
             { text: "Eşyaları toplarken biraz üzüldü ama biliyordu ki, orman her zaman onları bekleyecekti.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Weekend finally came! Special for {{heroName}}, first time camping.", image: "images/hero_boy_1.png" },
+            { text: "Loaded car with pillows, sleeping bags, flashlights, food. Trunk full!", image: "images/masalmio_logo.png" },
+            { text: "Journey started. Buildings fewer, trees more. Smelled pine when opened window.", image: "images/masalmio_logo.png" },
+            { text: "Arrived at forest. {{heroName}} jumped out. Birds chirping. Air cool and clean.", image: "images/masalmio_logo.png" },
+            { text: "Dad said 'Let's set up tent'. Like giant puzzle.", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}} joined poles, hammered stakes. Felt strong using hammer.", image: "images/masalmio_logo.png" },
+            { text: "Tent ready! Went inside. Like a secret cloth castle.", image: "images/scene_camp_tent_sunny.png" },
+            { text: "Walked in forest as sun set. Dry leaves 'crunch crunch'.", image: "images/masalmio_logo.png" },
+            { text: "Saw strange footprints. 'Must be rabbit!' said {{heroName}}. Tracked like detective.", image: "images/masalmio_logo.png" },
+            { text: "Saw woodpecker 'tap tap tap'. Nature so alive.", image: "images/masalmio_logo.png" },
+            { text: "Returned to camp at dark. Fun part: Campfire!", image: "images/scene_camp_fire_night.png" },
+            { text: "Fire crackled. Orange flames danced. Felt warmth on face.", image: "images/scene_camp_fire_night.png" },
+            { text: "Roasted marshmallows. Crispy outside, soft inside. Yummy!", image: "images/scene_camp_fire_night.png" },
+            { text: "Looked at sky. Never seen so many stars in city. Like glitter spilled.", image: "images/masalmio_logo.png" },
+            { text: "Dad showed Big Dipper. Looked like coffee pot.", image: "images/masalmio_logo.png" },
+            { text: "Sudden 'Hoo-hoo!' from dark. An owl! Shivered a bit but not scared.", image: "images/scene_forest_owl_night.png" },
+            { text: "Two glowing eyes in bushes. Curious fox! Red fur in firelight.", image: "images/scene_forest_animals.png" },
+            { text: "Fox watched then left quietly. As if saying 'Goodnight'.", image: "images/scene_forest_animals.png" },
+            { text: "Fire turned to embers, went into tent. Sleeping bag warm. Wind shook trees outside.", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}} fell asleep listening to forest. Best sleep ever.", image: "images/masalmio_logo.png" },
+            { text: "Woke up to bird songs. Sun hit face when opened zipper.", image: "images/masalmio_logo.png" },
+            { text: "Dew drops on grass. Everything sparkling.", image: "images/masalmio_logo.png" },
+            { text: "Drank hot tea. Filled with forest energy.", image: "images/masalmio_logo.png" },
+            { text: "Sad to pack but knew forest would always wait.", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "holiday_01",
         title: "Unutulmaz Yaz Tatili",
+        title_en: "Unforgettable Summer Holiday",
         summary: "Kumsalda kumdan kaleler ve dondurma keyfi!",
+        summary_en: "Sand castles and ice cream joy at the beach!",
         genre: "adventure",
         coverColor: "#FFC107",
         requirements: [],
@@ -178,12 +302,41 @@ const STORY_DB = [
             { text: "Yarın yine yüzecek, yine kale yapacaktı. Tatil daha yeni başlıyordu.", image: "images/hero_boy_1.png" },
             { text: "Rüyasında yunuslarla yarıştığını, denizaltı krallığına gittiğini gördü.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} was so excited for summer holiday to start!", image: "images/hero_boy_1.png" },
+            { text: "Mom said 'Pack your bag'. Picked favorite shorts, bucket and sunglasses.", image: "images/masalmio_logo.png" },
+            { text: "Zipper barely closed but did it! Jumped to back seat of car.", image: "images/masalmio_logo.png" },
+            { text: "Long but fun journey. Sang along radio. Counted sheep outside.", image: "images/masalmio_logo.png" },
+            { text: "Finally saw blue line. Sea! {{heroName}} shouted 'Seaaaa!'", image: "images/masalmio_logo.png" },
+            { text: "Hotel room smelled like lavender. But mind was downstairs.", image: "images/masalmio_logo.png" },
+            { text: "Put on swim suit and sunscreen (didn't like it but had to). Ran to beach.", image: "images/masalmio_logo.png" },
+            { text: "Hot sand tickled feet. Jumped into cool water. So refreshing!", image: "images/scene_underwater_shallow.png" },
+            { text: "Water clear. Could see tiny silver fish under feet.", image: "images/scene_underwater_shallow.png" },
+            { text: "Got bucket and shovel. 'Will build biggest castle ever'.", image: "images/masalmio_logo.png" },
+            { text: "Filled bucket with wet sand, flipped. Towers rose.", image: "images/scene_beach_castle.png" },
+            { text: "Dug moat. Filled with sea water. Castle safe now.", image: "images/scene_beach_castle.png" },
+            { text: "Decorated walls with shells. Put seagull feather on top as flag.", image: "images/masalmio_logo.png" },
+            { text: "Crab approached. Looked at castle confused, walked away sideways.", image: "images/masalmio_logo.png" },
+            { text: "Ate boiled corn. Tasted great after salty water!", image: "images/masalmio_logo.png" },
+            { text: "Played ball in water with dad. Hit so hard it went far.", image: "images/masalmio_logo.png" },
+            { text: "Sunset time. Beach got empty. Sat on sand.", image: "images/scene_beach_sunset.png" },
+            { text: "Watched sun go down. Sky pink, purple, orange.", image: "images/scene_beach_sunset.png" },
+            { text: "Walked in bazaar after dinner. Lights everywhere, smelled like ice cream.", image: "images/masalmio_logo.png" },
+            { text: "Stopped at favorite ice cream shop. Bought huge cone. Yummy!", image: "images/masalmio_logo.png" },
+            { text: "Very tired going back to hotel. Sea air made sleepy.", image: "images/masalmio_logo.png" },
+            { text: "Heard waves from bed. 'Shhh... Shhh...' Sea singing lullaby.", image: "images/masalmio_logo.png" },
+            { text: "Swim again tomorrow, build castle again. Holiday just started.", image: "images/hero_boy_1.png" },
+            { text: "Dreamed racing dolphins, going to underwater kingdom.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "plane_01",
         title: "Bulutların Üzerinde Yolculuk",
+        title_en: "Journey Above Clouds",
         summary: "Kemerlerinizi bağlayın, uçuşa geçiyoruz!",
+        summary_en: "Fasten your seatbelts, we are taking off!",
         genre: "adventure",
         coverColor: "#03A9F4",
         requirements: [],
@@ -213,12 +366,41 @@ const STORY_DB = [
             { text: "Bavulunu sürüklerken kendini çok önemli bir iş adamı gibi hissetti.", image: "images/masalmio_logo.png" },
             { text: "Eve gittiklerinde yolculuğunu herkese anlattı. 'Bulutlar gerçekten pamuk şekere benziyor!' dedi.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Big day marked on calendar. Woke up early. First time flying!", image: "images/hero_boy_1.png" },
+            { text: "Airport was huge. People running like bees.", image: "images/masalmio_logo.png" },
+            { text: "Passed security. Bag went through machine. Interesting!", image: "images/masalmio_logo.png" },
+            { text: "Went to giant windows. Saw huge and small planes outside.", image: "images/scene_airport_window.png" },
+            { text: "Watched loading luggage, fueling. Very organized.", image: "images/scene_airport_window.png" },
+            { text: "Announcement: 'Plane ready for boarding'. Heart pounded.", image: "images/masalmio_logo.png" },
+            { text: "Hostess smiled at door. 'Welcome little traveler'.", image: "images/masalmio_logo.png" },
+            { text: "Found seat. Yes! Window seat. Sat and looked out.", image: "images/masalmio_logo.png" },
+            { text: "Fastened seatbelt 'Click'. Captain spoke: 'Flight time 2 hours'.", image: "images/masalmio_logo.png" },
+            { text: "Engines roared 'VUUUU'. Plane moved on runway. Faster, faster...", image: "images/masalmio_logo.png" },
+            { text: "Glued to seat! Wheels off ground. Flying! Laughed with amazement.", image: "images/masalmio_logo.png" },
+            { text: "Cars like toys below, houses like matchboxes. Roads like thin strings.", image: "images/masalmio_logo.png" },
+            { text: "City faded. Fields, rivers like map below. World looked different.", image: "images/masalmio_logo.png" },
+            { text: "Entered grey mist. Clouds! And pop, rose above clouds.", image: "images/scene_plane_clouds.png" },
+            { text: "Sunny here. Below white cotton field. Wanted to jump on it.", image: "images/scene_plane_clouds.png" },
+            { text: "Meal service started. Eating sandwich on plane cool. Sipped juice.", image: "images/masalmio_logo.png" },
+            { text: "Went to toilet. Tiny and loud 'whoosh'. Scared but funny.", image: "images/masalmio_logo.png" },
+            { text: "Pilot said 'Landing'. Plane shook slightly. Turbulence.", image: "images/masalmio_logo.png" },
+            { text: "Went under clouds. City lights appeared. Evening time.", image: "images/masalmio_logo.png" },
+            { text: "Wheels hit runway 'BUMP'. Plane slowed. Passengers applauded.", image: "images/masalmio_logo.png" },
+            { text: "Waved at pilot leaving. 'Will be pilot when I grow up'.", image: "images/scene_plane_cockpit.png" },
+            { text: "Looked at sky leaving airport. Was just there. Amazing.", image: "images/masalmio_logo.png" },
+            { text: "Felt like important businessman dragging luggage.", image: "images/masalmio_logo.png" },
+            { text: "Told everyone about trip at home. 'Clouds look like cotton candy!'", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "train_01",
         title: "Çuf Çuf Tren Gezisi",
+        title_en: "Choo Choo Train Ride",
         summary: "Rayların üzerindeki ritmik ses eşliğinde keyifli bir gezi.",
+        summary_en: "A delightful trip with rhythmic sounds on rails.",
         genre: "adventure",
         coverColor: "#FF5722",
         requirements: [],
@@ -248,12 +430,41 @@ const STORY_DB = [
             { text: "Dedesi onları karşılamaya gelmişti. Koşup dedesine sarıldı.", image: "images/hero_boy_1.png" },
             { text: "Bu tren yolculuğu, tatilin en güzel başlangıcı olmuştu.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Smelled iron and steam entering station. Smelled like history.", image: "images/hero_boy_1.png" },
+            { text: "Station crowded. Whistles, wheels, running people... Chaotic but exciting!", image: "images/masalmio_logo.png" },
+            { text: "Saw giant train resting on rails. Like iron snake. Locomotive looked strong.", image: "images/scene_train_station.png" },
+            { text: "Conductor punched tickets. 'Have a safe trip little passenger'.", image: "images/masalmio_logo.png" },
+            { text: "Found seats. Confortable and huge window.", image: "images/scene_train_compartment.png" },
+            { text: "Heard whistle 'Choo choo!'. Train moved shaking. Wheels turned.", image: "images/masalmio_logo.png" },
+            { text: "Accelerated slowly. Station behind. City passed by.", image: "images/masalmio_logo.png" },
+            { text: "Wheels made rhythmic sound 'clack-clack'. Loved this sound.", image: "images/masalmio_logo.png" },
+            { text: "City ended, fields started. Cows gazing. Tractors working.", image: "images/scene_train_landscape.png" },
+            { text: "Suddenly dark! Tunnel. Excitedly shouted 'Aaa!'. Saw reflection.", image: "images/masalmio_logo.png" },
+            { text: "Light came back. Blinded. Passing mountains now.", image: "images/masalmio_logo.png" },
+            { text: "Dad said 'Let's go to dining car'. Walking hard while shaking.", image: "images/masalmio_logo.png" },
+            { text: "Walked like penguin bumping sides. Laughed hard.", image: "images/masalmio_logo.png" },
+            { text: "Ate toast drank juice. Eating with view fun.", image: "images/scene_train_dining_car.png" },
+            { text: "Passed over bridge. Silver river below.", image: "images/masalmio_logo.png" },
+            { text: "Another train passed 'Vroom!'. Wind shook car.", image: "images/masalmio_logo.png" },
+            { text: "Read book, drew pictures. Time flew.", image: "images/masalmio_logo.png" },
+            { text: "Conductor shouted 'Last stop!'. Train slowed.", image: "images/masalmio_logo.png" },
+            { text: "Brakes squeaked. Stopped. Ready to leave.", image: "images/masalmio_logo.png" },
+            { text: "Legs numb but happy. Could still hear rail song.", image: "images/masalmio_logo.png" },
+            { text: "Loved Shakespeare, sounds and views.", image: "images/hero_boy_1.png" },
+            { text: "Looked back at train. 'Thanks big train'.", image: "images/masalmio_logo.png" },
+            { text: "Grandpa met them. Hugged grandpa.", image: "images/hero_boy_1.png" },
+            { text: "Best start to holiday.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "polar_01",
         title: "Karlı Kutup Bekçisi",
+        title_en: "Snowy Polar Guardian",
         summary: "Burası çok soğuk ama penguenler çok sıcakkanlı!",
+        summary_en: "It's cold here but penguins are very warm-blooded!",
         genre: "adventure",
         coverColor: "#E0F7FA",
         requirements: [],
@@ -283,12 +494,41 @@ const STORY_DB = [
             { text: "Pencereden dışarı baktı. Dışarıda yağmur yağıyordu ama o kar tanelerini hatırlıyordu.", image: "images/masalmio_logo.png" },
             { text: "Belki bir gün gerçekten oraya giderdi. Kim bilir?", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Watched snow on TV. 'Wish I was there' {{heroName}} said. Missed snow.", image: "images/hero_boy_1.png" },
+            { text: "Closed eyes listen wind. 'Whoosh'. Opened eyes in white place!", image: "images/scene_polar_landscape.png" },
+            { text: "Wearing thick coat, gloves, boots. This was Land of Snow.", image: "images/masalmio_logo.png" },
+            { text: "Snow crunched under feet. So soft sank in.", image: "images/masalmio_logo.png" },
+            { text: "Air freezing but not cold. Adventure warmed heart.", image: "images/masalmio_logo.png" },
+            { text: "Saw black white dots ahead. Penguins! Lots of them!", image: "images/scene_polar_penguins.png" },
+            { text: "Approached. Not scared. One tapped boot with beak.", image: "images/masalmio_logo.png" },
+            { text: "Kneeled down. 'Hello little friend'. Penguin flapped wings.", image: "images/masalmio_logo.png" },
+            { text: "Found ice slide. Penguins sliding on bellies. Tried too.", image: "images/masalmio_logo.png" },
+            { text: "Slid down fast. Wind on face. 'Yeeesss!'. So fun!", image: "images/masalmio_logo.png" },
+            { text: "Ice lake below. Seals sunbathing (sun not hot though).", image: "images/scene_polar_ice_lake.png" },
+            { text: "Green lights in sky. Dancing ribbons. Northern Lights!", image: "images/scene_polar_aurora.png" },
+            { text: "Sky like painting. Green, purple, pink. Watched amazed.", image: "images/masalmio_logo.png" },
+            { text: "Snow started falling. Big flakes on nose. Tried catching with tongue.", image: "images/masalmio_logo.png" },
+            { text: "Penguins huddled together. To keep warm.", image: "images/masalmio_logo.png" },
+            { text: "Joined them. Warm ball of love.", image: "images/masalmio_logo.png" },
+            { text: "Saw white bear far away. Didn't see them. Went fishing.", image: "images/scene_polar_bear.png" },
+            { text: "Tired, lied on back. Made snow angel.", image: "images/masalmio_logo.png" },
+            { text: "Time to go home. Hugged penguin friend. 'Will miss you'.", image: "images/masalmio_logo.png" },
+            { text: "Closed eyes. Snow sound faded. TV sound back.", image: "images/masalmio_logo.png" },
+            { text: "Back on couch. But still little snow on boots melting.", image: "images/hero_boy_1.png" },
+            { text: "Told mom 'Penguins walk so funny'.", image: "images/hero_boy_1.png" },
+            { text: "Looked out window. Raining but remembered snow flakes.", image: "images/masalmio_logo.png" },
+            { text: "Maybe go there one day. Who knows?", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "solo_day_01",
         title: "Cesur Kaşifin Tek Başına Macerası",
+        title_en: "Brave Explorer's Solo Adventure",
         summary: "Bazen en büyük maceralar, tek başına çıktığın yürüyüşlerde başlar.",
+        summary_en: "Sometimes biggest adventures start with a solo walk.",
         genre: "adventure",
         coverColor: "#2196F3",
         requirements: [],
@@ -318,12 +558,41 @@ const STORY_DB = [
             { text: "O, keşif gezisinin ganimetiydi.", image: "images/masalmio_logo.png" },
             { text: "Tek başına oynamanın da ne kadar keyifli olabileceğini öğrenmişti.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} was bored. Friends busy, no one to play with.", image: "images/hero_boy_1.png" },
+            { text: "'Will create my own adventure!' said determined. Prepared backpack.", image: "images/masalmio_logo.png" },
+            { text: "Put flashlight, magnifier, notebook in bag. Now an Explorer.", image: "images/masalmio_logo.png" },
+            { text: "Walked to back of garden with tall grass. 'Wild Forest' for him.", image: "images/masalmio_logo.png" },
+            { text: "Examined ground with magnifier. Saw ants marching. Disciplined.", image: "images/masalmio_logo.png" },
+            { text: "'Where are they going?' noted in book. Found ant nest.", image: "images/masalmio_logo.png" },
+            { text: "Saw something shiny in bushes. Treasure? Approached.", image: "images/masalmio_logo.png" },
+            { text: "Old metal toy car! Lost ears ago. Digged it out.", image: "images/masalmio_logo.png" },
+            { text: "'Lost Treasure found!' shouted. Put in pocket.", image: "images/masalmio_logo.png" },
+            { text: "Tried climbing tree. Held first branch pulled up.", image: "images/masalmio_logo.png" },
+            { text: "Garden looked different from up. Saw roofs, neighbor dog.", image: "images/masalmio_logo.png" },
+            { text: "Wind blew leaves rustled. Felt like lookout on ship.", image: "images/masalmio_logo.png" },
+            { text: "'Land hoy!' shouted to imaginary crew. No crew but okay.", image: "images/masalmio_logo.png" },
+            { text: "Climbed down. Hungry. Ate apple from bag. Tasted better outside.", image: "images/masalmio_logo.png" },
+            { text: "Collected interesting stones. One like heart, one star.", image: "images/masalmio_logo.png" },
+            { text: "Watched clouds. One like dragon, one ice cream. Imagination limitless.", image: "images/masalmio_logo.png" },
+            { text: "Evening shadows got long. Bushes looked scary.", image: "images/masalmio_logo.png" },
+            { text: "Lit flashlight. Light gave courage. 'I am brave explorer'.", image: "images/masalmio_logo.png" },
+            { text: "Found way home easily but took long way. Checked around.", image: "images/masalmio_logo.png" },
+            { text: "Mom asked 'Where were you?'. Smiled mysteriously.", image: "images/hero_boy_1.png" },
+            { text: "'Far away lands mom. Wild Forest'.", image: "images/hero_boy_1.png" },
+            { text: "Washed treasure car put on shelf. Not ordinary car anymore.", image: "images/masalmio_logo.png" },
+            { text: "It was trophy of expedition.", image: "images/masalmio_logo.png" },
+            { text: "Learned playing alone can be fun too.", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "pet_day_01",
         title: "Yaramaz Dostumun Sırrı",
+        title_en: "Naughty Friend's Secret",
         summary: "Evcil hayvanın bugün çok garip davranıyor, acaba ne saklıyor?",
+        summary_en: "Your pet is acting weird today, what is it hiding?",
         genre: "comedy",
         coverColor: "#FF9800",
         requirements: ["pet"],
@@ -353,12 +622,41 @@ const STORY_DB = [
             { text: "{{heroName}} onun yumuşak tüylerini sevdi. 'Sen dünyanın en iyi dedektifisin' dedi.", image: "images/hero_boy_1.png" },
             { text: "İkisi birlikte koltukta uyuyakaldılar. Macera bitmişti, huzur gelmişti.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} noticed something weird. {{heroPetName}} wasn't in room.", image: "images/hero_boy_1.png" },
+            { text: "Usually woke him up licking nose. Called '{{heroPetName}}? Where are you?'.", image: "images/masalmio_logo.png" },
+            { text: "Checked kitchen, garden. Gone. Heard noise.", image: "images/masalmio_logo.png" },
+            { text: "Noise from pantry door. Opened slowly.", image: "images/masalmio_logo.png" },
+            { text: "{{heroPetName}} was there! Holding something in mouth. Looked guilty.", image: "images/pet_cat_1.png" },
+            { text: "Ran between legs! Thing in mouth shiny. What was it?", image: "images/masalmio_logo.png" },
+            { text: "Chase started. 'Stop! Don't run!' followed.", image: "images/hero_boy_1.png" },
+            { text: "Passed living room. Mom shouted 'Be careful!'.", image: "images/masalmio_logo.png" },
+            { text: "{{heroPetName}} hid behind sofa. Tail visible. Approached quietly.", image: "images/masalmio_logo.png" },
+            { text: "'Gotcha!' but escaped again. A game?", image: "images/pet_cat_1.png" },
+            { text: "Climbed stairs. Followed. Went into bedroom.", image: "images/masalmio_logo.png" },
+            { text: "Went under bed. Bent down looked. Two eyes staring.", image: "images/masalmio_logo.png" },
+            { text: "'Come out little rascal, what are you hiding?' asked nicely.", image: "images/masalmio_logo.png" },
+            { text: "Came out slowly. Dropped thing. It was... dad's lost watch!", image: "images/masalmio_logo.png" },
+            { text: "Surprised. 'You found it? Dad looking for days!'", image: "images/masalmio_logo.png" },
+            { text: "So that was noise. Not thief but detective!", image: "images/pet_cat_1.png" },
+            { text: "Ran to dad with watch. {{heroPetName}} followed proudly.", image: "images/masalmio_logo.png" },
+            { text: "Dad very happy. 'Well done! Where did you find?'", image: "images/masalmio_logo.png" },
+            { text: "Pointed at {{heroPetName}}. 'He found it dad. Protector of house.'", image: "images/hero_boy_1.png" },
+            { text: "Dad petted head. Purred happily.", image: "images/pet_cat_1.png" },
+            { text: "Gave huge treat. Watched him eat.", image: "images/masalmio_logo.png" },
+            { text: "After food slept on lap. Tired.", image: "images/pet_cat_1.png" },
+            { text: "Petted soft fur. 'World's best detective'.", image: "images/hero_boy_1.png" },
+            { text: "Slept together on sofa. Adventure over, peace came.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "mentor_01",
         title: "Bilge Dede ile Zaman Yolculuğu",
+        title_en: "Time Travel with Wise Grandpa",
         summary: "Dedenin tavan arasından çıkan eski bir saat, sizi tarihin derinliklerine götürecek!",
+        summary_en: "An old watch from attic takes you to depths of history!",
         genre: "sci-fi",
         coverColor: "#9C27B0",
         requirements: ["mentor"],
@@ -389,12 +687,42 @@ const STORY_DB = [
             { text: "{{mentorName}} saatini kutusuna koydu. 'Aramızda kalsın, tamam mı?' dedi göz kırparak.", image: "images/mentor_grandpa_1.png" },
             { text: "O gün {{heroName}} tarihin sadece kitaplarda yazılı olmadığını, yaşanabilir bir macera olduğunu öğrendi.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} went to grandpa's farm. Grandpa 'Wise Person', knew everything.", image: "images/mentor_grandpa_1.png" },
+            { text: "Rainy afternoon. {{mentorName}} called. 'Come will show you my attic treasure'.", image: "images/mentor_grandpa_1.png" },
+            { text: "Attic dusty mysterious. Old maps, telescopes, machines.", image: "images/masalmio_logo.png" },
+            { text: "Saw golden pocket watch with symbols. 'What is this grandpa?'", image: "images/masalmio_logo.png" },
+            { text: "Smiled. 'My greatest invention. Time Key. Only brave can use'.", image: "images/mentor_grandpa_1.png" },
+            { text: "Touched watch. Hands turned backwards! 'Tick-tock!'", image: "images/masalmio_logo.png" },
+            { text: "Dust cleared, room changed. Not attic anymore!", image: "images/masalmio_logo.png" },
+            { text: "Green forest with giant ferns. Ground shaking BOOM BOOM!", image: "images/masalmio_logo.png" },
+            { text: "'Careful!' shouted {{mentorName}}. Dinosaur head through bushes.", image: "images/masalmio_logo.png" },
+            { text: "Diplodocus! Herbivore so harmless but still jaw dropping.", image: "images/mentor_grandpa_1.png" },
+            { text: "Dino ate leaves. Touched scaled skin holding grandpa's hand.", image: "images/masalmio_logo.png" },
+            { text: "'Come on more places to go'. Reset watch.", image: "images/mentor_grandpa_1.png" },
+            { text: "Lights flashed. Paved road. Horse carriages, people in togas.", image: "images/masalmio_logo.png" },
+            { text: "'Ancient Rome'. 'Look that is Colosseum'.", image: "images/masalmio_logo.png" },
+            { text: "Examined clothes. Sandals. Seller offered grapes.", image: "images/masalmio_logo.png" },
+            { text: "Marble statues, giant columns. Like history book.", image: "images/masalmio_logo.png" },
+            { text: "Watch rang. 'Time running out, one last stop'.", image: "images/mentor_grandpa_1.png" },
+            { text: "City with flying cars, skyscrapers above clouds.", image: "images/scene_plane_clouds.png" },
+            { text: "'Future!' said {{heroName}}. Robots cleaning, hoverboards.", image: "images/masalmio_logo.png" },
+            { text: "Kid passed ball floating in air. Low gravity?", image: "images/masalmio_logo.png" },
+            { text: "Looked at grandson. 'Learn from past, build future'.", image: "images/mentor_grandpa_1.png" },
+            { text: "Watch rang last time. Waved at future.", image: "images/masalmio_logo.png" },
+            { text: "Back in attic rain stopped. Like dream but still had imaginary ball.", image: "images/masalmio_logo.png" },
+            { text: "Put watch in box. 'Secret okay?' winked.", image: "images/mentor_grandpa_1.png" },
+            { text: "Learned history not just books, but adventure.", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "friend_01",
         title: "Gizli Hazine Adası",
+        title_en: "Secret Treasure Island",
         summary: "Eski bir harita, iki maceralı arkadaş ve çözülmesi gereken ipuçları...",
+        summary_en: "An old map, two adventurous friends and clues to solve...",
         genre: "adventure",
         coverColor: "#FFC107",
         requirements: ["friend"],
@@ -420,12 +748,37 @@ const STORY_DB = [
             { text: "'Tabii ki,' dedi {{heroName}}. 'Biz Macera Ekibiyiz, bizi hiçbir şey durduramaz!'", image: "images/hero_boy_1.png" },
             { text: "Akşam yıldızlar çıkarken, buldukları şeyin altından daha değerli olduğunu biliyorlardı.", image: "images/scene_space_stars.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "{{heroName}} and {{friendName}} found bottle on beach. Not ordinary day.", image: "images/hero_boy_1.png" },
+            { text: "Opened it. Old map inside with burnt edges!", image: "images/masalmio_logo.png" },
+            { text: "'Look! Map of our beach with X mark!' said {{friendName}}.", image: "images/friend_boy_1.png" },
+            { text: "Put on imaginary Adventure Hats. Treasure hunt on.", image: "images/masalmio_logo.png" },
+            { text: "First clue 'Whispering Rocks'. Had to climb rocks.", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}} helped friend. 'Hold hand, we can do it!'", image: "images/hero_boy_1.png" },
+            { text: "Wind spoke on top. Found note under stone.", image: "images/masalmio_logo.png" },
+            { text: "Note: 'Dig under Lonely Palm when shadow longest'.", image: "images/masalmio_logo.png" },
+            { text: "'Lonely Palm? The only tree on beach!' shouted {{friendName}}.", image: "images/friend_boy_1.png" },
+            { text: "Ran to beach. Sun setting shadows long.", image: "images/scene_beach_sunset.png" },
+            { text: "Dug sand with hands under tree. Fast.", image: "images/masalmio_logo.png" },
+            { text: "'Click!' Hit something hard. Small wooden box!", image: "images/masalmio_logo.png" },
+            { text: "Pulled out breathless. Opened lid slowly...", image: "images/masalmio_logo.png" },
+            { text: "Not gold. Old toys, marbles and funny photos.", image: "images/masalmio_logo.png" },
+            { text: "Note: 'Real treasure is friendship you shared finding this. -Captain Beardless'", image: "images/masalmio_logo.png" },
+            { text: "Laughed together. Captain right.", image: "images/friend_boy_1.png" },
+            { text: "Shared marbles. Looked at photos.", image: "images/masalmio_logo.png" },
+            { text: "Walked back shoulder to shoulder. 'New adventure tomorrow?'", image: "images/friend_boy_1.png" },
+            { text: "'Of course. We are Adventure Team!'", image: "images/hero_boy_1.png" },
+            { text: "Knew friendship more valuable than gold.", image: "images/scene_space_stars.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "sibling_01",
         title: "Kayıp Oyuncağın Gizemi",
+        title_en: "Mystery of Lost Toy",
         summary: "Evde sevilen bir oyuncak kayboldu. İki kardeş dedektif olup ipuçlarını takip ediyor!",
+        summary_en: "A favorite toy is lost. Two sibling detectives follow clues!",
         genre: "mystery",
         coverColor: "#607D8B",
         requirements: ["sibling"],
@@ -451,12 +804,37 @@ const STORY_DB = [
             { text: "O akşam {{siblingName}}, abisine/kardeşine teşekkür etti. 'Sen olmasan bulamazdım,' dedi.", image: "images/sibling_girl_1.png" },
             { text: "{{heroName}} büyütecini kenara koydu. 'Kardeşler bunun içindir,' dedi. Dava kapanmıştı.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Crisis in morning. {{siblingName}}'s favorite 'Mr Honey' bear missing!", image: "images/sibling_girl_1.png" },
+            { text: "'Left it on bed now gone!' she cried.", image: "images/sibling_girl_1.png" },
+            { text: "{{heroName}} put on detective hat. 'Don't worry Detective {{heroName}} on duty!'", image: "images/hero_boy_1.png" },
+            { text: "'You are my partner' gave magnifier.", image: "images/masalmio_logo.png" },
+            { text: "Crime Scene: Bedroom. Found wool pieces. 'Clue one!'", image: "images/masalmio_logo.png" },
+            { text: "Tracks going to door. Followed on carpet.", image: "images/masalmio_logo.png" },
+            { text: "Vase tipped over in corridor. Criminal in rush.", image: "images/masalmio_logo.png" },
+            { text: "Heard noise from kitchen. 'Shhh hiding there'.", image: "images/sibling_girl_1.png" },
+            { text: "Sneaked into kitchen. Behind counter... No one. Just open cupboard.", image: "images/masalmio_logo.png" },
+            { text: "Half eaten cookie inside. 'Hmm criminal hungry'.", image: "images/hero_boy_1.png" },
+            { text: "Garden door open. 'Went outside!'", image: "images/sibling_girl_1.png" },
+            { text: "Saw tracks on grass.", image: "images/scene_garden_pixar.png" },
+            { text: "Followed tracks to dog house.", image: "images/masalmio_logo.png" },
+            { text: "Looked inside. Mr Honey there! Next to sleeping dog.", image: "images/masalmio_logo.png" },
+            { text: "Dog felt lonely borrowed bear.", image: "images/masalmio_logo.png" },
+            { text: "Took toy back gently. Covered dog with blanket.", image: "images/sibling_girl_1.png" },
+            { text: "'Mr Honey saved!' hugged brother/sister.", image: "images/hero_boy_1.png" },
+            { text: "Mom congratulated. 'Great job detectives!'", image: "images/parent_mom_1.png" },
+            { text: "Thanked sibling in evening. 'Couldn't find without you'.", image: "images/sibling_girl_1.png" },
+            { text: "'That's what siblings for'. Case closed.", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "mom_01",
         title: "Süper Anne'nin Mutfak Sırları",
+        title_en: "Super Mom's Kitchen Secrets",
         summary: "Bugün mutfak bir laboratuvar, yemek yapmak ise bir sihir! Afiyet olsun!",
+        summary_en: "Today kitchen is a lab, cooking is magic! Bon appetit!",
         genre: "comedy",
         coverColor: "#E91E63",
         requirements: ["mom"],
@@ -480,12 +858,35 @@ const STORY_DB = [
             { text: "{{parentMomName}} de onu öptü. 'Sen de benim süper yardımcımsın.'", image: "images/parent_mom_1.png" },
             { text: "Mutfak biraz dağılmıştı ama kimin umrunda? O gün en güzel anılarını pişirmişlerdi.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Rainy Sunday. Bored in kitchen. 'Nothing to dooo'.", image: "images/hero_boy_1.png" },
+            { text: "{{parentMomName}} put on apron. 'Who says? Today Kitchen Magic day!'", image: "images/parent_mom_1.png" },
+            { text: "'Magic?' eyes sparked. Got apron and ladle wand.", image: "images/masalmio_logo.png" },
+            { text: "'Gather ingredients for potion'. Flour (white dust), Sugar (crystals), Eggs (dragon eggs).", image: "images/masalmio_logo.png" },
+            { text: "Poured into cauldron (bowl). 'Mix apprentice!'", image: "images/parent_mom_1.png" },
+            { text: "Mixed hard. Changing color bubbling.", image: "images/hero_boy_1.png" },
+            { text: "Flour flew everywhere. Covered in white. Laughed like ghosts.", image: "images/masalmio_logo.png" },
+            { text: "'Secret ingredient!' cinnamon. Smelled great.", image: "images/masalmio_logo.png" },
+            { text: "Shaped dough. Stars, hearts, dinosaurs.", image: "images/masalmio_logo.png" },
+            { text: "Put in Magic Oven. Waiting time.", image: "images/masalmio_logo.png" },
+            { text: "Drank hot chocolate waiting. Mom told stories.", image: "images/parent_mom_1.png" },
+            { text: "'Ding!' Magic done!", image: "images/masalmio_logo.png" },
+            { text: "Smelled amazing house wide. Cookies golden.", image: "images/masalmio_logo.png" },
+            { text: "Tasted magic made with love.", image: "images/masalmio_logo.png" },
+            { text: "Served everyone. 'Best cookie ever!'", image: "images/masalmio_logo.png" },
+            { text: "Hugged Mom. 'You are super hero Mom'.", image: "images/hero_boy_1.png" },
+            { text: "She kissed him. 'You are super helper'.", image: "images/parent_mom_1.png" },
+            { text: "Kitchen messy but who cares. Baked memories.", image: "images/masalmio_logo.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     },
     {
         id: "dad_01",
         title: "Baba ile Büyük Tamirat",
+        title_en: "Great Repair with Dad",
         summary: "Eski bir bisiklet, bir sürü alet ve babayla geçen harika bir gün.",
+        summary_en: "An old bike, lots of tools and a great day with dad.",
         genre: "adventure",
         coverColor: "#3F51B5",
         requirements: ["dad"],
@@ -508,6 +909,26 @@ const STORY_DB = [
             { text: "O gün sadece bisikleti tamir etmemişler, birlikte harika bir anı inşa etmişlerdi.", image: "images/masalmio_logo.png" },
             { text: "{{heroName}} artık biliyordu ki, bozulan şeyler atılmaz, sevgi ve emekle yenilenirdi.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
+        ],
+        pages_en: [
+            { text: "Found old rusty bike flat tire in garage. Sad.", image: "images/hero_boy_1.png" },
+            { text: "{{parentDadName}} came. 'Why sad champion?'", image: "images/parent_dad_1.png" },
+            { text: "'Bike broken dad can't ride'.", image: "images/hero_boy_1.png" },
+            { text: "'Needs some attention. Repair Team assemble!'", image: "images/parent_dad_1.png" },
+            { text: "Opened tool box. Wrenches, oil... Everything there.", image: "images/masalmio_logo.png" },
+            { text: "'Take off wheel'. Held wrench. Dad helped turn.", image: "images/masalmio_logo.png" },
+            { text: "Hands oily but didn't care. Mechanical cool.", image: "images/hero_boy_1.png" },
+            { text: "Patched inflated tire. Hope inflated too.", image: "images/masalmio_logo.png" },
+            { text: "Rusty chain. 'Magic Potion (oil)'.", image: "images/parent_dad_1.png" },
+            { text: "Chain shined pedals turned smooth. Squeak gone.", image: "images/masalmio_logo.png" },
+            { text: "Washed it. Looked brand new in foam.", image: "images/masalmio_logo.png" },
+            { text: "Dad wiped sweat. 'How is it?'", image: "images/parent_dad_1.png" },
+            { text: "Rode it. Like flying! Fast and silent.", image: "images/hero_boy_1.png" },
+            { text: "'Thanks Dad! You can fix everything!'", image: "images/hero_boy_1.png" },
+            { text: "Laughed. 'We did it together. Dirty hands worth it right?'", image: "images/parent_dad_1.png" },
+            { text: "Built wonderful memory not just bike.", image: "images/masalmio_logo.png" },
+            { text: "Broken things not thrown, renewed with love.", image: "images/hero_boy_1.png" },
+            { text: "THE END", image: "images/masalmio_logo.png" }
         ]
     }
 ];
@@ -519,6 +940,18 @@ class StoryEngine {
 
         // Clone story to avoid mutating DB
         const story = JSON.parse(JSON.stringify(template));
+
+        // --- Language Support ---
+        // Switch to English content if requested and available
+        if (config.lang === 'en') {
+            if (story.title_en) story.title = story.title_en;
+            if (story.summary_en) story.summary = story.summary_en;
+            // Important: We must clone pages_en to story.pages to work on them
+            if (story.pages_en) {
+                story.pages = JSON.parse(JSON.stringify(story.pages_en));
+            }
+        }
+
         const reqs = story.requirements || [];
 
         // --- Dynamic Role Swapping Logic ---
@@ -536,18 +969,24 @@ class StoryEngine {
             swapDadToMom = true;
         }
 
-        // 1. Swap Title
+        // 1. Swap Title (Localized)
         if (swapMomToDad) {
-            story.title = story.title.replace(/Anne/g, "Baba").replace(/Süper Anne/g, "Süper Baba"); // Handle specific titles if needed
+            // TR
+            story.title = story.title.replace(/Anne/g, "Baba").replace(/Süper Anne/g, "Süper Baba");
+            // EN
+            story.title = story.title.replace(/Mom/g, "Dad").replace(/Super Mom/g, "Super Dad");
         } else if (swapDadToMom) {
+            // TR
             story.title = story.title.replace(/Baba/g, "Anne");
+            // EN
+            story.title = story.title.replace(/Dad/g, "Mom");
         }
 
         // 2. Prepare Replacement Names/Text
         // If swapping, we use the EXISTING parent's name/title for the MISSING parent's token.
         // e.g. {{parentMomName}} in a mom-story becomes Dad's name if swapping.
-        let momName = config.family.mom.name || "Anne";
-        let dadName = config.family.dad.name || "Baba";
+        let momName = config.family.mom.name || (config.lang === 'en' ? "Mom" : "Anne");
+        let dadName = config.family.dad.name || (config.lang === 'en' ? "Dad" : "Baba");
 
         if (swapMomToDad) {
             // In the story text, {{parentMomName}} should be replaced by Dad's name (or "Baba")
@@ -561,19 +1000,21 @@ class StoryEngine {
         story.pages.forEach(page => {
             // Apply Role Swap to Text Content FIRST (Simple Word Replacement)
             if (swapMomToDad) {
-                page.text = page.text.replace(/Anne/g, "Baba").replace(/anne/g, "baba");
+                page.text = page.text.replace(/Anne/g, "Baba").replace(/anne/g, "baba")
+                    .replace(/Mom/g, "Dad").replace(/mom/g, "dad");
             } else if (swapDadToMom) {
-                page.text = page.text.replace(/Baba/g, "Anne").replace(/baba/g, "anne");
+                page.text = page.text.replace(/Baba/g, "Anne").replace(/baba/g, "anne")
+                    .replace(/Dad/g, "Mom").replace(/dad/g, "mom");
             }
 
             // Then replace tokens
             page.text = page.text
-                .replace(/{{heroName}}/g, config.hero.name || "Kahraman")
-                .replace(/{{siblingName}}/g, config.family.sibling.name || "Kardeş")
-                .replace(/{{friendName}}/g, config.family.friend.name || "Arkadaş")
+                .replace(/{{heroName}}/g, config.hero.name || (config.lang === 'en' ? "Hero" : "Kahraman"))
+                .replace(/{{siblingName}}/g, config.family.sibling.name || (config.lang === 'en' ? "Sibling" : "Kardeş"))
+                .replace(/{{friendName}}/g, config.family.friend.name || (config.lang === 'en' ? "Friend" : "Arkadaş"))
                 .replace(/{{parentMomName}}/g, momName)
                 .replace(/{{parentDadName}}/g, dadName)
-                .replace(/{{mentorName}}/g, config.family.mentor.name || "Bilge Kişi")
+                .replace(/{{mentorName}}/g, config.family.mentor.name || (config.lang === 'en' ? "Mentor" : "Bilge Kişi"))
                 .replace(/{{heroPetName}}/g, config.pets.heroPet.name || "Boncuk");
         });
 
@@ -597,12 +1038,11 @@ class StoryEngine {
                 page.image = config.family.mom.avatar;
             } else if (page.image === "images/parent_dad_1.png") {
                 page.image = config.family.dad.avatar;
+            } else if (page.image === "images/mentor_grandpa_1.png") {
+                page.image = config.family.mentor.avatar;
             }
 
-            // ... (rest of the specific scene logic remains the same)
-            // Note: I need to preserve the rest of the existing logic for gender variants etc.
-            // I will copy the existing checks here.
-
+            // SCENE SWAPS (Gender/Pet specific)
             if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
                 page.image = "images/action_forest_walk_boy.png";
             } else if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'girl') {
@@ -620,19 +1060,18 @@ class StoryEngine {
             }
 
             if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
-                if (page.text.includes("uyuyordu") || page.text.includes("uyku")) {
+                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
                     page.image = "images/action_sleeping_pet_cat.png";
                 }
             }
             if (page.image === "images/pet_dog_1.png" && config.pets.heroPet.type === 'dog') {
-                if (page.text.includes("uyuyordu") || page.text.includes("uyku")) {
+                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
                     page.image = "images/action_sleeping_pet_dog.png";
                 }
             }
         });
 
         // --- Cover Page Injection ---
-        // Find a nice cover image (first scene or default)
         let coverImg = "images/masalmio_logo.png";
         const firstScene = story.pages.find(p => p.image.includes('scene_'));
         if (firstScene) coverImg = firstScene.image;

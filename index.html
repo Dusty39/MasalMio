@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>StoryMaker - Kendi Masalını Yaz</title>
-    <link rel="stylesheet" href="style.css?v=3.2">
+    <link rel="stylesheet" href="style.css?v=3.3">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="images/masalmio_icon_premium.png">
     <link rel="apple-touch-icon" href="images/masalmio_icon_premium.png">
@@ -32,9 +32,12 @@
 
         <!-- 1. WELCOME SCREEN -->
         <section id="view-welcome" class="view active-view" style="justify-content: center; align-items: center;">
-            <div style="position: absolute; top: 20px; right: 20px; z-index: 100;">
+            <div style="position: absolute; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px;">
+                <button class="nav-icon-btn" onclick="app.toggleLanguage()">
+                    <span class="lang-icon-text" style="font-size: 1.2rem;">🇹🇷</span>
+                </button>
                 <button class="nav-icon-btn" onclick="app.toggleTheme()">
-                    <span id="theme-icon" style="font-size: 1.2rem;">🌓</span>
+                    <span class="theme-icon-text" style="font-size: 1.2rem;">🌓</span>
                 </button>
             </div>
             <div class="glass-card hero-card">
@@ -80,8 +83,16 @@
                     </svg>
                 </button>
 
-                <div class="user-chip">
-                    <span id="dash-hero-name">Kahraman</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <button class="nav-icon-btn" onclick="app.toggleLanguage()">
+                        <span class="lang-icon-text" style="font-size: 1.2rem;">🇹🇷</span>
+                    </button>
+                    <button class="nav-icon-btn" onclick="app.toggleTheme()">
+                        <span class="theme-icon-text" style="font-size: 1.2rem;">🌓</span>
+                    </button>
+                    <div class="user-chip">
+                        <span id="dash-hero-name">Kahraman</span>
+                    </div>
                 </div>
             </div>
             <div class="story-grid" id="story-list">
@@ -130,8 +141,8 @@
         </div>
     </div>
 
-    <script src="stories.js?v=3.2"></script>
-    <script src="app.js?v=3.2"></script>
+    <script src="stories.js?v=3.3"></script>
+    <script src="app.js?v=3.3"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
