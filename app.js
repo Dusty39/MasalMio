@@ -645,6 +645,15 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
             }
         } else {
             validStories.forEach((story, index) => {
+                // Localized Strings
+                let displayTitle = story.title;
+                let displaySummary = story.summary;
+
+                if (StoryConfig.lang === 'en') {
+                    if (story.title_en) displayTitle = story.title_en;
+                    if (story.summary_en) displaySummary = story.summary_en;
+                }
+
                 const card = document.createElement('div');
                 // Logic for Featured vs Normal
                 const isFeatured = index === 0; // Always feature the first recommendation
@@ -658,8 +667,8 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
                     <div class="hero-story-bg" style="background-image: url('${coverImage}');">
                         <div class="hero-story-overlay">
                             <div class="hero-story-content">
-                                <h3 class="hero-story-title">${story.title}</h3>
-                                <p class="hero-story-subtitle">${story.summary}</p>
+                                <h3 class="hero-story-title">${displayTitle}</h3>
+                                <p class="hero-story-subtitle">${displaySummary}</p>
                                 <button class="btn-primary big-pulse-btn" onclick="loadStoryReader('${story.id}')" style="width: auto; padding: 15px 40px; font-size: 1.2rem;">${app.T('startStory')}</button>
                             </div>
                         </div>
@@ -676,8 +685,8 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
                     <div style="display:flex; align-items:center;">
                         <div style="width: 60px; height: 60px; border-radius: 12px; background: ${story.coverColor}; margin-right: 15px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">📖</div>
                         <div>
-                            <h4 style="margin-bottom:3px; color: var(--text);">${story.title}</h4>
-                            <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${story.summary}</p>
+                            <h4 style="margin-bottom:3px; color: var(--text);">${displayTitle}</h4>
+                            <p style="font-size:0.85rem; opacity:0.7; line-height:1.2;">${displaySummary}</p>
                         </div>
                     </div>
                 `;
