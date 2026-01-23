@@ -40,6 +40,7 @@ const TRANSLATIONS = {
         petNamePlaceholder: "Name...",
         selectMom: "Select Mom",
         selectDad: "Select Dad",
+        selectMentor: "Select Mentor",
         createStoryBtn: "Create Story ✨",
         newStoryCardTitle: "Write a New Story 🪄",
         newStoryCardDesc: "Ready to create your own adventure?",
@@ -77,6 +78,7 @@ const TRANSLATIONS = {
         petNamePlaceholder: "İsmi...",
         selectMom: "Anne Seçimi",
         selectDad: "Baba Seçimi",
+        selectMentor: "Bilge Kişi Seçimi",
         createStoryBtn: "Hikaye Oluştur ✨",
         newStoryCardTitle: "Yeni Bir Masal Yaz 🪄",
         newStoryCardDesc: "Kendi maceranı oluşturmaya hazır mısın?",
@@ -332,7 +334,9 @@ function renderCombinedStep(container) {
                 `;
             }).join('');
 
-            const selectTitle = key === 'mom' ? app.T('selectMom') : app.T('selectDad');
+            let selectTitle = app.T('selectDad'); // Default
+            if (key === 'mom') selectTitle = app.T('selectMom');
+            if (key === 'mentor') selectTitle = app.T('selectMentor');
 
             return `
             <div class="family-row" style="margin-bottom:20px; text-align:left;">
@@ -340,6 +344,14 @@ function renderCombinedStep(container) {
                 <div style="display:flex; gap:15px; overflow-x:auto; padding: 5px; scrollbar-width:none;">
                     ${avatarsHtml}
                 </div>
+                ${key === 'mentor' && member.included ? `
+                <div class="animate-in" style="margin-top:10px; max-width: 200px; margin-left: 5px;">
+                    <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem;" 
+                           placeholder="${app.T('namePlaceholder')}" autocomplete="off"
+                           value="${member.name}" 
+                           oninput="StoryConfig.family['${key}'].name = this.value">
+                </div>
+                ` : ''}
             </div>
             `;
         }
