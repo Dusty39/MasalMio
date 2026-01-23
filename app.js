@@ -17,6 +17,17 @@ const AVATAR_OPTIONS = {
         { id: 'mentor2', src: 'images/mentor_grandma_1.png' },
         { id: 'mentor3', src: 'images/mentor_man_1.png' },
         { id: 'mentor4', src: 'images/mentor_woman_1.png' }
+    ],
+    sibling: [
+        { id: 'sib1', src: 'images/sibling_girl_1.png', type: 'girl' },
+        { id: 'sib2', src: 'images/sibling_girl_2.png', type: 'girl' },
+        { id: 'sib3', src: 'images/sibling_boy_1.png', type: 'boy' },
+        { id: 'sib4', src: 'images/sibling_boy_2.png', type: 'boy' }
+    ],
+    friend: [
+        { id: 'friend1', src: 'images/friend_boy_1.png', type: 'boy' },
+        { id: 'friend2', src: 'images/friend_boy_2.png', type: 'boy' },
+        { id: 'friend3', src: 'images/friend_girl_1.png', type: 'girl' }
     ]
 };
 
@@ -41,6 +52,8 @@ const TRANSLATIONS = {
         selectMom: "Select Mom",
         selectDad: "Select Dad",
         selectMentor: "Select Mentor",
+        selectSibling: "Select Sibling",
+        selectFriend: "Select Friend",
         createStoryBtn: "Create Story ✨",
         newStoryCardTitle: "Write a New Story 🪄",
         newStoryCardDesc: "Ready to create your own adventure?",
@@ -79,6 +92,8 @@ const TRANSLATIONS = {
         selectMom: "Anne Seçimi",
         selectDad: "Baba Seçimi",
         selectMentor: "Bilge Kişi Seçimi",
+        selectSibling: "Kardeş Seçimi",
+        selectFriend: "Arkadaş Seçimi",
         createStoryBtn: "Hikaye Oluştur ✨",
         newStoryCardTitle: "Yeni Bir Masal Yaz 🪄",
         newStoryCardDesc: "Kendi maceranı oluşturmaya hazır mısın?",
@@ -337,6 +352,10 @@ function renderCombinedStep(container) {
             let selectTitle = app.T('selectDad'); // Default
             if (key === 'mom') selectTitle = app.T('selectMom');
             if (key === 'mentor') selectTitle = app.T('selectMentor');
+            if (key === 'sibling') selectTitle = app.T('selectSibling');
+            if (key === 'friend') selectTitle = app.T('selectFriend');
+
+            const showNameInput = (key === 'mentor' || key === 'sibling' || key === 'friend') && member.included;
 
             return `
             <div class="family-row" style="margin-bottom:20px; text-align:left;">
@@ -344,7 +363,7 @@ function renderCombinedStep(container) {
                 <div style="display:flex; gap:15px; overflow-x:auto; padding: 5px; scrollbar-width:none;">
                     ${avatarsHtml}
                 </div>
-                ${key === 'mentor' && member.included ? `
+                ${showNameInput ? `
                 <div class="animate-in" style="margin-top:10px; max-width: 200px; margin-left: 5px;">
                     <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem;" 
                            placeholder="${app.T('namePlaceholder')}" autocomplete="off"

@@ -1032,6 +1032,8 @@ class StoryEngine {
                 page.image = config.hero.avatar;
             } else if (page.image === "images/sibling_girl_1.png") {
                 page.image = config.family.sibling.avatar;
+            } else if (page.image === "images/friend_boy_1.png") {
+                page.image = config.family.friend.avatar;
             } else if (page.image === "images/pet_cat_1.png") {
                 page.image = config.pets.heroPet.avatar;
             } else if (page.image === "images/parent_mom_1.png") {

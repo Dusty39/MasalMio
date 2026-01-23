@@ -1,10 +1,10 @@
-const CACHE_NAME = 'masalmio-v3.3.1';
+const CACHE_NAME = 'masalmio-v3.3.2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
-    './style.css?v=3.3.1',
-    './app.js?v=3.3.1',
-    './stories.js?v=3.3.1',
+    './style.css?v=3.3.2',
+    './app.js?v=3.3.2',
+    './stories.js?v=3.3.2',
     './manifest.json',
     './images/masalmio_icon_premium.png',
     './images/masalmio_logo.png',
