@@ -1079,6 +1079,11 @@ class StoryEngine {
                 page.image = "images/action_forest_walk_girl.png";
             }
 
+            /* 
+             * Temporarily disabled missing action scenes to prevent broken images
+             * TODO: Generate these images
+             */
+            /*
             if (page.image === "images/scene_cave_entrance_pixar.png") {
                 if (config.hero.gender === 'boy') page.image = "images/action_cave_discovery_boy.png";
                 else page.image = "images/action_cave_discovery_girl.png";
@@ -1099,6 +1104,7 @@ class StoryEngine {
                     page.image = "images/action_sleeping_pet_dog.png";
                 }
             }
+            */
         });
 
         // --- Cover Page Injection ---
