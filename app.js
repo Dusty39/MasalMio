@@ -13,10 +13,10 @@ const AVATAR_OPTIONS = {
         { id: 'dad4', src: 'images/parent_dad_4_glasses.png' }
     ],
     mentor: [
-        { id: 'mentor1', src: 'images/mentor_grandpa_1.png' },
-        { id: 'mentor2', src: 'images/mentor_grandma_1.png' },
-        { id: 'mentor3', src: 'images/mentor_man_1.png' },
-        { id: 'mentor4', src: 'images/mentor_woman_1.png' }
+        { id: 'mentor1', src: 'images/mentor_grandpa_1.png', type: 'male' },
+        { id: 'mentor2', src: 'images/mentor_grandma_1.png', type: 'female' },
+        { id: 'mentor3', src: 'images/mentor_man_1.png', type: 'male' },
+        { id: 'mentor4', src: 'images/mentor_woman_1.png', type: 'female' }
     ],
     sibling: [
         { id: 'sib1', src: 'images/sibling_girl_1.png', type: 'girl' },
@@ -453,6 +453,17 @@ function toggleFamilyMember(key) {
 
 function selectParentAvatar(key, src) {
     const member = StoryConfig.family[key];
+    const options = AVATAR_OPTIONS[key];
+    const selectedOption = options.find(o => o.src === src);
+
+    // Update Gender if valid
+    if (selectedOption && selectedOption.type) {
+        // Map 'girl'/'boy' to 'girl'/'boy' or whatever StoryConfig uses
+        // StoryConfig uses 'gender'.
+        member.gender = selectedOption.type;
+        // Special case for mentor variants if needed, or just rely on avatar check in stories
+        // For mentor, type might be missing in my previous update? Let's check AVATAR_OPTIONS for mentor.
+    }
 
     // Logic: If clicking the ALREADY selected one -> Toggle inclusion
     if (member.avatar === src) {

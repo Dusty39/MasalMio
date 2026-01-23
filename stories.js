@@ -427,7 +427,7 @@ const STORY_DB = [
             { text: "Trenden inerken bacakları biraz uyuşmuştu ama mutluydu. Rayların şarkısını hala duyabiliyordu.", image: "images/masalmio_logo.png" },
             { text: "Trendeki o sallantıyı, o sesleri ve manzaraları çok sevmişti.", image: "images/hero_boy_1.png" },
             { text: "İstasyondan çıkarken arkasına dönüp trene baktı. 'Teşekkürler koca tren' dedi.", image: "images/masalmio_logo.png" },
-            { text: "Dedesi onları karşılamaya gelmişti. Koşup dedesine sarıldı.", image: "images/hero_boy_1.png" },
+            { text: "{{mentorName}} onları karşılamaya gelmişti. Koşup ona sarıldı.", image: "images/hero_boy_1.png" },
             { text: "Bu tren yolculuğu, tatilin en güzel başlangıcı olmuştu.", image: "images/masalmio_logo.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
         ],
@@ -454,7 +454,7 @@ const STORY_DB = [
             { text: "Legs numb but happy. Could still hear rail song.", image: "images/masalmio_logo.png" },
             { text: "Loved Shakespeare, sounds and views.", image: "images/hero_boy_1.png" },
             { text: "Looked back at train. 'Thanks big train'.", image: "images/masalmio_logo.png" },
-            { text: "Grandpa met them. Hugged grandpa.", image: "images/hero_boy_1.png" },
+            { text: "{{mentorName}} met them. Hugged {{mentorName}}.", image: "images/hero_boy_1.png" },
             { text: "Best start to holiday.", image: "images/masalmio_logo.png" },
             { text: "THE END", image: "images/masalmio_logo.png" }
         ]
@@ -653,35 +653,35 @@ const STORY_DB = [
     },
     {
         id: "mentor_01",
-        title: "Bilge Dede ile Zaman Yolculuğu",
-        title_en: "Time Travel with Wise Grandpa",
-        summary: "Dedenin tavan arasından çıkan eski bir saat, sizi tarihin derinliklerine götürecek!",
+        title: "Bilge Kişi ile Zaman Yolculuğu",
+        title_en: "Time Travel with Wise Mentor",
+        summary: "Gizemli tavan arasından çıkan eski bir saat, sizi tarihin derinliklerine götürecek!",
         summary_en: "An old watch from attic takes you to depths of history!",
         genre: "sci-fi",
         coverColor: "#9C27B0",
         requirements: ["mentor"],
         pages: [
-            { text: "{{heroName}}, yaz tatilinde dedesinin çiftliğine gitmişti. Dedesi, herkesin 'Bilge Kişi' dediği, çok okuyan, çok bilen tonton bir adamdı.", image: "images/mentor_grandpa_1.png" },
+            { text: "{{heroName}}, yaz tatilinde o gizemli çiftliğe, {{mentorName}} yanına gitmişti. {{mentorName}}, herkesin 'Bilge Kişi' dediği, çok okuyan, çok bilen tonton biriydi.", image: "images/mentor_grandpa_1.png" },
             { text: "Bir yağmurlu öğleden sonra, {{mentorName}} onu yanına çağırdı. 'Gel evlat, sana tavan arasındaki hazinemi göstereyim.'", image: "images/mentor_grandpa_1.png" },
             { text: "Tavan arası tozlu ama gizemliydi. Eski haritalar, teleskoplar ve garip makinelerle doluydu.", image: "images/masalmio_logo.png" },
-            { text: "{{heroName}}'in gözüne altın kaplamalı, üzerinde garip semboller olan bir köstekli saat takıldı. 'Bu da ne dede?'", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}}'in gözüne altın kaplamalı, üzerinde garip semboller olan bir köstekli saat takıldı. 'Bu da ne {{mentorName}}?'", image: "images/masalmio_logo.png" },
             { text: "{{mentorName}} gülümsedi. 'Bu benim en büyük icadım. Ama sadece cesur olanlar kullanabilir. O bir Zaman Anahtarı.'", image: "images/mentor_grandpa_1.png" },
             { text: "{{heroName}} saate dokundu. İbreleri geriye doğru hızla dönmeye başladı! 'Tik-tak, tik-tak!'", image: "images/masalmio_logo.png" },
             { text: "Birden etrafındaki toz bulutu dağıldı, oda değişti. Artık tavan arasında değillerdi!", image: "images/masalmio_logo.png" },
             { text: "Yemyeşil, dev eğrelti otlarıyla dolu bir ormandaydılar. Ve yer sarsılıyordu: GÜM! GÜM!", image: "images/masalmio_logo.png" },
             { text: "'Dikkat et!' diye bağırdı {{mentorName}}. Çalıların arasından kocaman bir dinozor kafası uzandı.", image: "images/masalmio_logo.png" },
             { text: "Bu bir Diplodocus'tu! Otçul olduğu için onlara zarar vermezdi ama {{heroName}} yine de ağzı açık kalmıştı.", image: "images/mentor_grandpa_1.png" },
-            { text: "Dinozor yavaşça yaprakları yedi. {{heroName}}, dedesinin elini tutarak dinozorun pullu derisine dokundu.", image: "images/masalmio_logo.png" },
+            { text: "Dinozor yavaşça yaprakları yedi. {{heroName}}, onun elini tutarak dinozorun pullu derisine dokundu.", image: "images/masalmio_logo.png" },
             { text: "'Haydi, daha gidilecek çok yer var' dedi {{mentorName}} ve saati tekrar kurdu.", image: "images/mentor_grandpa_1.png" },
             { text: "Işıklar çaktı ve kendilerini taş döşeli bir yolda buldular. Etrafta at arabaları ve togalı insanlar vardı.", image: "images/masalmio_logo.png" },
-            { text: "'Burası Antik Roma' dedi dedesi. 'Bak, şu ilerideki büyük yapı Kolezyum.'", image: "images/masalmio_logo.png" },
+            { text: "'Burası Antik Roma' dedi {{mentorName}}. 'Bak, şu ilerideki büyük yapı Kolezyum.'", image: "images/masalmio_logo.png" },
             { text: "{{heroName}} insanların kıyafetlerini inceledi. Herkes sandalet giyiyordu. Bir satıcı ona üzüm ikram etti.", image: "images/masalmio_logo.png" },
             { text: "Sokaklarda mermer heykeller, devasa sütunlar vardı. Her şey tarih kitabından fırlamış gibiydi.", image: "images/masalmio_logo.png" },
             { text: "Saatin zili çaldı. {{mentorName}}, 'Zaman azalıyor, son bir durağımız var' dedi.", image: "images/mentor_grandpa_1.png" },
             { text: "Bu sefer kendilerini uçan arabaların olduğu, gökdelenlerin bulutları geçtiği bir şehirde buldular.", image: "images/scene_plane_clouds.png" },
             { text: "'Burası Gelecek!' dedi {{heroName}}. Robotlar sokakları temizliyor, insanlar uçan kaykaylarla geziyordu.", image: "images/masalmio_logo.png" },
             { text: "Bir çocuk yanlarına yaklaştı ve havada asılı duran bir topla onlara pas attı. Yerçekimi burada daha azdı sanki.", image: "images/masalmio_logo.png" },
-            { text: "{{mentorName}} torununa baktı. 'Geçmişten ders alıp, geleceği sen inşa edeceksin evlat.'", image: "images/mentor_grandpa_1.png" },
+            { text: "{{mentorName}} ona baktı. 'Geçmişten ders alıp, geleceği sen inşa edeceksin evlat.'", image: "images/mentor_grandpa_1.png" },
             { text: "Saat son kez çaldı. Dönüş vakti gelmişti. {{heroName}} geleceğe el salladı.", image: "images/masalmio_logo.png" },
             { text: "Tavan arasına döndüklerinde yağmur dinmişti. Her şey rüya gibiydi ama {{heroName}}'in elinde hala gelecekten gelen o top vardı (şaka şaka, sadece hayali kalmıştı).", image: "images/masalmio_logo.png" },
             { text: "{{mentorName}} saatini kutusuna koydu. 'Aramızda kalsın, tamam mı?' dedi göz kırparak.", image: "images/mentor_grandpa_1.png" },
@@ -689,17 +689,17 @@ const STORY_DB = [
             { text: "SON", image: "images/masalmio_logo.png" }
         ],
         pages_en: [
-            { text: "{{heroName}} went to grandpa's farm. Grandpa 'Wise Person', knew everything.", image: "images/mentor_grandpa_1.png" },
+            { text: "{{heroName}} went to the mysterious farm. {{mentorName}}, known as 'Wise Person', knew everything.", image: "images/mentor_grandpa_1.png" },
             { text: "Rainy afternoon. {{mentorName}} called. 'Come will show you my attic treasure'.", image: "images/mentor_grandpa_1.png" },
             { text: "Attic dusty mysterious. Old maps, telescopes, machines.", image: "images/masalmio_logo.png" },
-            { text: "Saw golden pocket watch with symbols. 'What is this grandpa?'", image: "images/masalmio_logo.png" },
+            { text: "Saw golden pocket watch with symbols. 'What is this {{mentorName}}?'", image: "images/masalmio_logo.png" },
             { text: "Smiled. 'My greatest invention. Time Key. Only brave can use'.", image: "images/mentor_grandpa_1.png" },
             { text: "Touched watch. Hands turned backwards! 'Tick-tock!'", image: "images/masalmio_logo.png" },
             { text: "Dust cleared, room changed. Not attic anymore!", image: "images/masalmio_logo.png" },
             { text: "Green forest with giant ferns. Ground shaking BOOM BOOM!", image: "images/masalmio_logo.png" },
             { text: "'Careful!' shouted {{mentorName}}. Dinosaur head through bushes.", image: "images/masalmio_logo.png" },
             { text: "Diplodocus! Herbivore so harmless but still jaw dropping.", image: "images/mentor_grandpa_1.png" },
-            { text: "Dino ate leaves. Touched scaled skin holding grandpa's hand.", image: "images/masalmio_logo.png" },
+            { text: "Dino ate leaves. Touched scaled skin holding {{mentorName}}'s hand.", image: "images/masalmio_logo.png" },
             { text: "'Come on more places to go'. Reset watch.", image: "images/mentor_grandpa_1.png" },
             { text: "Lights flashed. Paved road. Horse carriages, people in togas.", image: "images/masalmio_logo.png" },
             { text: "'Ancient Rome'. 'Look that is Colosseum'.", image: "images/masalmio_logo.png" },
@@ -709,7 +709,7 @@ const STORY_DB = [
             { text: "City with flying cars, skyscrapers above clouds.", image: "images/scene_plane_clouds.png" },
             { text: "'Future!' said {{heroName}}. Robots cleaning, hoverboards.", image: "images/masalmio_logo.png" },
             { text: "Kid passed ball floating in air. Low gravity?", image: "images/masalmio_logo.png" },
-            { text: "Looked at grandson. 'Learn from past, build future'.", image: "images/mentor_grandpa_1.png" },
+            { text: "Looked at the little hero. 'Learn from past, build future'.", image: "images/mentor_grandpa_1.png" },
             { text: "Watch rang last time. Waved at future.", image: "images/masalmio_logo.png" },
             { text: "Back in attic rain stopped. Like dream but still had imaginary ball.", image: "images/masalmio_logo.png" },
             { text: "Put watch in box. 'Secret okay?' winked.", image: "images/mentor_grandpa_1.png" },
@@ -1007,6 +1007,34 @@ class StoryEngine {
                     .replace(/Dad/g, "Mom").replace(/dad/g, "mom");
             }
 
+            // --- Smart Mentor Name Logic ---
+            let mentorName = config.family.mentor.name;
+            if (!mentorName) {
+                const avatarSrc = config.family.mentor.avatar || "";
+                if (config.lang === 'en') {
+                    if (avatarSrc.includes('grandma')) mentorName = "Grandma";
+                    else if (avatarSrc.includes('grandpa')) mentorName = "Grandpa";
+                    else if (avatarSrc.includes('woman')) mentorName = "Aunt";
+                    else if (avatarSrc.includes('man')) mentorName = "Uncle";
+                    else mentorName = "Mentor";
+                } else {
+                    // Turkish
+                    if (avatarSrc.includes('grandma')) mentorName = "Nine";
+                    else if (avatarSrc.includes('grandpa')) mentorName = "Dede";
+                    else if (avatarSrc.includes('woman')) mentorName = "Teyze";
+                    else if (avatarSrc.includes('man')) mentorName = "Amca";
+                    else mentorName = "Bilge Kişi";
+                }
+            }
+
+            // Gender-based replacements for Sibling
+            if (config.family.sibling.gender === 'boy') {
+                page.text = page.text
+                    .replace(/Abla/g, "Abi").replace(/abla/g, "abi")
+                    .replace(/Sister/g, "Brother").replace(/sister/g, "brother")
+                    .replace(/Big sister/g, "Big brother");
+            }
+
             // Then replace tokens
             page.text = page.text
                 .replace(/{{heroName}}/g, config.hero.name || (config.lang === 'en' ? "Hero" : "Kahraman"))
@@ -1014,7 +1042,7 @@ class StoryEngine {
                 .replace(/{{friendName}}/g, config.family.friend.name || (config.lang === 'en' ? "Friend" : "Arkadaş"))
                 .replace(/{{parentMomName}}/g, momName)
                 .replace(/{{parentDadName}}/g, dadName)
-                .replace(/{{mentorName}}/g, config.family.mentor.name || (config.lang === 'en' ? "Mentor" : "Bilge Kişi"))
+                .replace(/{{mentorName}}/g, mentorName)
                 .replace(/{{heroPetName}}/g, config.pets.heroPet.name || "Boncuk");
         });
 
