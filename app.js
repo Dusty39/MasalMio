@@ -575,10 +575,16 @@ app.renderDashboard = function (showRecommendations = false) { // Default false 
             card.style.justifyContent = 'space-between';
             card.style.alignItems = 'center';
 
+            // Localized Title for My Stories
+            let displayTitle = story.title;
+            if (StoryConfig.lang === 'en' && story.title_en) {
+                displayTitle = story.title_en;
+            }
+
             // Click handling: Text content opens story, Star toggles favorite
             card.innerHTML = `
                 <div style="flex:1; cursor:pointer;" onclick="loadStoryReader('${id}', ${progress.page})">
-                    <h4 style="margin-bottom:5px; color: var(--primary);">${story.title}</h4>
+                    <h4 style="margin-bottom:5px; color: var(--primary);">${displayTitle}</h4>
                     <p style="font-size:0.9rem; opacity:0.8;">${app.T('page')} ${progress.page + 1} / ${story.pages.length}</p>
                 </div>
                 <div style="display:flex; flex-direction: column; align-items:center; gap:5px; margin-left: 10px;">
