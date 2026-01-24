@@ -1063,79 +1063,78 @@ class StoryEngine {
         story.pages.forEach(page => {
             page.text = processText(page.text);
 
-            // Dynamic Avatar/Scene Logic
-            story.pages.forEach(page => {
-                // Swap Base Images if needed
-                if (swapMomToDad && page.image === "images/parent_mom_1.png") {
-                    page.image = "images/parent_dad_1.png";
-                } else if (swapDadToMom && page.image === "images/parent_dad_1.png") {
-                    page.image = "images/parent_mom_1.png";
-                }
 
-                // Normal Avatar Replacement
-                if (page.image === "images/hero_boy_1.png") {
-                    page.image = config.hero.avatar;
-                } else if (page.image === "images/sibling_girl_1.png") {
-                    page.image = config.family.sibling.avatar;
-                } else if (page.image === "images/friend_boy_1.png") {
-                    page.image = config.family.friend.avatar;
-                } else if (page.image === "images/pet_cat_1.png") {
-                    page.image = config.pets.heroPet.avatar;
-                } else if (page.image === "images/parent_mom_1.png") {
-                    page.image = config.family.mom.avatar;
-                } else if (page.image === "images/parent_dad_1.png") {
-                    page.image = config.family.dad.avatar;
-                } else if (page.image === "images/mentor_grandpa_1.png") {
-                    page.image = config.family.mentor.avatar;
-                }
+            // Swap Base Images if needed
+            if (swapMomToDad && page.image === "images/parent_mom_1.png") {
+                page.image = "images/parent_dad_1.png";
+            } else if (swapDadToMom && page.image === "images/parent_dad_1.png") {
+                page.image = "images/parent_mom_1.png";
+            }
 
-                // SCENE SWAPS (Gender/Pet specific)
-                if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
-                    page.image = "images/action_forest_walk_boy.png";
-                } else if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'girl') {
-                    page.image = "images/action_forest_walk_girl.png";
-                }
+            // Normal Avatar Replacement
+            if (page.image === "images/hero_boy_1.png") {
+                page.image = config.hero.avatar;
+            } else if (page.image === "images/sibling_girl_1.png") {
+                page.image = config.family.sibling.avatar;
+            } else if (page.image === "images/friend_boy_1.png") {
+                page.image = config.family.friend.avatar;
+            } else if (page.image === "images/pet_cat_1.png") {
+                page.image = config.pets.heroPet.avatar;
+            } else if (page.image === "images/parent_mom_1.png") {
+                page.image = config.family.mom.avatar;
+            } else if (page.image === "images/parent_dad_1.png") {
+                page.image = config.family.dad.avatar;
+            } else if (page.image === "images/mentor_grandpa_1.png") {
+                page.image = config.family.mentor.avatar;
+            }
 
-                /* 
-                 * Temporarily disabled missing action scenes to prevent broken images
-                 * TODO: Generate these images
-                 */
-                /*
-                if (page.image === "images/scene_cave_entrance_pixar.png") {
-                    if (config.hero.gender === 'boy') page.image = "images/action_cave_discovery_boy.png";
-                    else page.image = "images/action_cave_discovery_girl.png";
-                }
-    
-                if (page.image === "images/scene_portal_pixar.png") {
-                    if (config.hero.gender === 'boy') page.image = "images/action_portal_interaction_boy.png";
-                    else page.image = "images/action_portal_interaction_girl.png";
-                }
-    
-                if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
-                    if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
-                        page.image = "images/action_sleeping_pet_cat.png";
-                    }
-                }
-                if (page.image === "images/pet_dog_1.png" && config.pets.heroPet.type === 'dog') {
-                    if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
-                        page.image = "images/action_sleeping_pet_dog.png";
-                    }
-                }
-                */
-            });
+            // SCENE SWAPS (Gender/Pet specific)
+            if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
+                page.image = "images/action_forest_walk_boy.png";
+            } else if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'girl') {
+                page.image = "images/action_forest_walk_girl.png";
+            }
 
-            // --- Cover Page Injection ---
-            let coverImg = "images/masalmio_logo.png";
-            const firstScene = story.pages.find(p => p.image.includes('scene_'));
-            if (firstScene) coverImg = firstScene.image;
+            /* 
+             * Temporarily disabled missing action scenes to prevent broken images
+             * TODO: Generate these images
+             */
+            /*
+            if (page.image === "images/scene_cave_entrance_pixar.png") {
+                if (config.hero.gender === 'boy') page.image = "images/action_cave_discovery_boy.png";
+                else page.image = "images/action_cave_discovery_girl.png";
+            }
+ 
+            if (page.image === "images/scene_portal_pixar.png") {
+                if (config.hero.gender === 'boy') page.image = "images/action_portal_interaction_boy.png";
+                else page.image = "images/action_portal_interaction_girl.png";
+            }
+ 
+            if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
+                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
+                    page.image = "images/action_sleeping_pet_cat.png";
+                }
+            }
+            if (page.image === "images/pet_dog_1.png" && config.pets.heroPet.type === 'dog') {
+                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
+                    page.image = "images/action_sleeping_pet_dog.png";
+                }
+            }
+            */
+        });
 
-            const coverPage = {
-                text: `<strong style="font-size:1.5em; display:block; margin-bottom:10px;">${story.title}</strong>${story.summary}`,
-                image: coverImg
-            };
+        // --- Cover Page Injection ---
+        let coverImg = "images/masalmio_logo.png";
+        const firstScene = story.pages.find(p => p.image.includes('scene_'));
+        if (firstScene) coverImg = firstScene.image;
 
-            story.pages.unshift(coverPage);
+        const coverPage = {
+            text: `<strong style="font-size:1.5em; display:block; margin-bottom:10px;">${story.title}</strong>${story.summary}`,
+            image: coverImg
+        };
 
-            return story;
-        }
+        story.pages.unshift(coverPage);
+
+        return story;
+    }
 }

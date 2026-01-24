@@ -136,8 +136,60 @@
         </div>
     </div>
 
-    <script src="stories.js?v=3.3.2"></script>
-    <script src="app.js?v=3.3.2"></script>
+    <!-- Avatar Studio Modal -->
+    <div id="avatar-studio-modal" class="modal-overlay hidden">
+        <div class="glass-card modal-card animate-in-up" style="max-width: 500px; width: 90%;">
+            <div class="studio-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <h3>Karakter Stüdyosu 🎨</h3>
+                <button class="btn-icon"
+                    onclick="document.getElementById('avatar-studio-modal').classList.add('hidden')">✕</button>
+            </div>
+
+            <div class="studio-content" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Preview Area -->
+                <div class="avatar-preview-container"
+                    style="text-align: center; background: #eef2f5; border-radius: 20px; padding: 20px;">
+                    <img id="avatar-preview-img" src="" alt="Avatar Preview"
+                        style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>
+
+                <!-- Controls -->
+                <div class="studio-controls">
+                    <!-- Gender Toggles (Hidden or Auto-set based on Wizard?) -->
+                    <!-- We will set it from Wizard logic -->
+
+                    <!-- Skin Tone -->
+                    <div class="control-group">
+                        <label style="font-size:0.9rem; color:#666; margin-bottom:5px; display:block;">Ten Rengi</label>
+                        <div class="options-row" style="display:flex; gap:10px; justify-content: center;">
+                            <button id="opt-skin-light" class="option-btn skin-option"
+                                onclick="avatarStudio.setSkin('light')"
+                                style="width:40px; height:40px; border-radius:50%; background:#f5d0b0; border:2px solid transparent; cursor:pointer;"></button>
+                            <button id="opt-skin-dark" class="option-btn skin-option"
+                                onclick="avatarStudio.setSkin('dark')"
+                                style="width:40px; height:40px; border-radius:50%; background:#8d5524; border:2px solid transparent; cursor:pointer;"></button>
+                        </div>
+                    </div>
+
+                    <!-- Hair Style -->
+                    <div class="control-group" style="margin-top:15px;">
+                        <label style="font-size:0.9rem; color:#666; margin-bottom:5px; display:block;">Saç
+                            Modeli</label>
+                        <div id="hair-options-container" class="options-row"
+                            style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="app.confirmAvatarSelection()">Karakteri Seç ✅</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="stories.js?v=3.5.0"></script>
+    <script src="avatar_studio.js?v=3.5.0"></script>
+    <script src="app.js?v=3.5.0"></script>
 
     <script>
         if ('serviceWorker' in navigator) {

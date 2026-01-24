@@ -245,6 +245,30 @@ const app = {
             localStorage.clear();
             window.location.reload(true);
         }
+    },
+
+    // --- Avatar Studio Integration ---
+    openAvatarStudio() {
+        const modal = document.getElementById('avatar-studio-modal');
+        if (!modal) return;
+
+        // Init Studio with current gender
+        if (window.avatarStudio) {
+            window.avatarStudio.setGender(StoryConfig.hero.gender);
+            // Optionally try to match current avatar to studio state? 
+            // For now just fresh start or default state is fine.
+        }
+
+        modal.classList.remove('hidden');
+    },
+
+    confirmAvatarSelection() {
+        if (window.avatarStudio) {
+            const newAvatar = window.avatarStudio.getSelectedAvatar();
+            StoryConfig.hero.avatar = newAvatar;
+            wizard.render(); // Update wizard UI
+            document.getElementById('avatar-studio-modal').classList.add('hidden');
+        }
     }
 };
 
@@ -307,17 +331,25 @@ function renderCombinedStep(container) {
                 value="${StoryConfig.hero.name}" 
                 oninput="StoryConfig.hero.name = this.value">
         </div>
-        <div class="avatar-grid" style="margin-bottom: 30px;">
-            <div class="avatar-option ${StoryConfig.hero.gender === 'boy' ? 'selected' : ''}" 
-                 onclick="selectHeroGender('boy')">
-                 <img src="images/hero_boy_1.png" class="avatar-img">
-                 <span>${app.T('boy')}</span>
+        <div class="avatar-hero-container" style="text-align:center; margin-bottom: 30px;">
+            <!-- Gender Toggle -->
+            <div style="display:flex; justify-content:center; gap:20px; margin-bottom:15px;">
+                <button class="btn-secondary ${StoryConfig.hero.gender === 'boy' ? 'active-gender' : ''}" 
+                        onclick="selectHeroGender('boy')" style="padding: 5px 15px; font-size: 0.9rem; ${StoryConfig.hero.gender === 'boy' ? 'background: #2196F3; color: white; border-color: #2196F3;' : ''}">
+                    ${app.T('boy')}
+                </button>
+                <button class="btn-secondary ${StoryConfig.hero.gender === 'girl' ? 'active-gender' : ''}" 
+                        onclick="selectHeroGender('girl')" style="padding: 5px 15px; font-size: 0.9rem; ${StoryConfig.hero.gender === 'girl' ? 'background: #E91E63; color: white; border-color: #E91E63;' : ''}">
+                    ${app.T('girl')}
+                </button>
             </div>
-            <div class="avatar-option ${StoryConfig.hero.gender === 'girl' ? 'selected' : ''}" 
-                 onclick="selectHeroGender('girl')">
-                 <img src="images/hero_girl_1.png" class="avatar-img">
-                 <span>${app.T('girl')}</span>
+            
+            <!-- Avatar Preview & Edit Button -->
+            <div style="position:relative; display:inline-block;">
+                <img src="${StoryConfig.hero.avatar}" style="width:120px; height:120px; border-radius:50%; border:4px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.1); object-fit: cover; background: #fff;">
+                <button onclick="app.openAvatarStudio()" style="position:absolute; bottom:0; right:0; background:#FFC107; color:#333; border:none; border-radius:50%; width:40px; height:40px; cursor:pointer; font-size:1.2rem; box-shadow:0 4px 6px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center;">✏️</button>
             </div>
+            <div style="margin-top:10px; font-size:0.8rem; opacity:0.7;">Karakterini düzenlemek için kaleme tıkla</div>
         </div>
     `;
 
