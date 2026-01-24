@@ -831,8 +831,8 @@ const STORY_DB = [
     },
     {
         id: "mom_01",
-        title: "Süper Anne'nin Mutfak Sırları",
-        title_en: "Super Mom's Kitchen Secrets",
+        title: "Mutfak Sırları",
+        title_en: "Kitchen Secrets",
         summary: "Bugün mutfak bir laboratuvar, yemek yapmak ise bir sihir! Afiyet olsun!",
         summary_en: "Today kitchen is a lab, cooking is magic! Bon appetit!",
         genre: "comedy",
@@ -883,10 +883,10 @@ const STORY_DB = [
     },
     {
         id: "dad_01",
-        title: "Baba ile Büyük Tamirat",
-        title_en: "Great Repair with Dad",
-        summary: "Eski bir bisiklet, bir sürü alet ve babayla geçen harika bir gün.",
-        summary_en: "An old bike, lots of tools and a great day with dad.",
+        title: "Büyük Tamirat",
+        title_en: "Great Repair",
+        summary: "Eski bir bisiklet, bir sürü alet ve {{parentsActor}} ile geçen harika bir gün.",
+        summary_en: "An old bike, lots of tools and a great day with {{parentsActor}}.",
         genre: "adventure",
         coverColor: "#3F51B5",
         requirements: ["dad"],
@@ -969,100 +969,82 @@ class StoryEngine {
             swapDadToMom = true;
         }
 
-        // 1. Swap Title (Localized)
-        if (swapMomToDad) {
-            // TR
-            story.title = story.title.replace(/Anne/g, "Baba").replace(/Süper Anne/g, "Süper Baba");
-            // EN
-            story.title = story.title.replace(/Mom/g, "Dad").replace(/Super Mom/g, "Super Dad");
-        } else if (swapDadToMom) {
-            // TR
-            story.title = story.title.replace(/Baba/g, "Anne");
-            // EN
-            story.title = story.title.replace(/Dad/g, "Mom");
-        }
-
-        // 2. Prepare Replacement Names/Text
-        // If swapping, we use the EXISTING parent's name/title for the MISSING parent's token.
-        // e.g. {{parentMomName}} in a mom-story becomes Dad's name if swapping.
+        // 2. Prepare Replacement Names
         let momName = config.family.mom.name || (config.lang === 'en' ? "Mom" : "Anne");
         let dadName = config.family.dad.name || (config.lang === 'en' ? "Dad" : "Baba");
 
+        // Swap Logic (Legacy support for swapped constraints if needed, but mainly for consistent names)
         if (swapMomToDad) {
-            // In the story text, {{parentMomName}} should be replaced by Dad's name (or "Baba")
-            // And "Anne" word should be replaced by "Baba"
             momName = dadName;
         } else if (swapDadToMom) {
             dadName = momName;
         }
 
-        // Replace Placeholders
-        story.pages.forEach(page => {
-            // Apply Role Swap to Text Content FIRST (Simple Word Replacement)
+        // --- Smart Mentor Name Logic ---
+        let mentorName = config.family.mentor.name;
+        if (!mentorName) {
+            const avatarSrc = config.family.mentor.avatar || "";
+            if (config.lang === 'en') {
+                if (avatarSrc.includes('grandma')) mentorName = "Grandma";
+                else if (avatarSrc.includes('grandpa')) mentorName = "Grandpa";
+                else if (avatarSrc.includes('woman')) mentorName = "Aunt";
+                else if (avatarSrc.includes('man')) mentorName = "Uncle";
+                else mentorName = "Mentor";
+            } else {
+                // Turkish
+                if (avatarSrc.includes('grandma')) mentorName = "Nine";
+                else if (avatarSrc.includes('grandpa')) mentorName = "Dede";
+                else if (avatarSrc.includes('woman')) mentorName = "Teyze";
+                else if (avatarSrc.includes('man')) mentorName = "Amca";
+                else mentorName = "Bilge Kişi";
+            }
+        }
+
+        // Smart Parents Logic
+        let parentsActor = "";
+        if (config.family.mom.included && config.family.dad.included) {
+            parentsActor = config.lang === 'en' ? "Mom and Dad" : "Annesi ve Babası";
+        } else if (config.family.mom.included) {
+            parentsActor = config.lang === 'en' ? "Mom" : "Annesi";
+        } else if (config.family.dad.included) {
+            parentsActor = config.lang === 'en' ? "Dad" : "Babası";
+        } else {
+            parentsActor = config.lang === 'en' ? "The family" : "Ailesi";
+        }
+
+        const processText = (text) => {
+            if (!text) return "";
+
+            // Role Swaps in Text (Backwards compatibility / Safety)
             if (swapMomToDad) {
-                page.text = page.text.replace(/Anne/g, "Baba").replace(/anne/g, "baba")
+                text = text.replace(/Anne/g, "Baba").replace(/anne/g, "baba")
                     .replace(/Mom/g, "Dad").replace(/mom/g, "dad");
             } else if (swapDadToMom) {
-                page.text = page.text.replace(/Baba/g, "Anne").replace(/baba/g, "anne")
+                text = text.replace(/Baba/g, "Anne").replace(/baba/g, "anne")
                     .replace(/Dad/g, "Mom").replace(/dad/g, "mom");
             }
 
-            // --- Smart Mentor Name Logic ---
-            let mentorName = config.family.mentor.name;
-            if (!mentorName) {
-                const avatarSrc = config.family.mentor.avatar || "";
-                if (config.lang === 'en') {
-                    if (avatarSrc.includes('grandma')) mentorName = "Grandma";
-                    else if (avatarSrc.includes('grandpa')) mentorName = "Grandpa";
-                    else if (avatarSrc.includes('woman')) mentorName = "Aunt";
-                    else if (avatarSrc.includes('man')) mentorName = "Uncle";
-                    else mentorName = "Mentor";
-                } else {
-                    // Turkish
-                    if (avatarSrc.includes('grandma')) mentorName = "Nine";
-                    else if (avatarSrc.includes('grandpa')) mentorName = "Dede";
-                    else if (avatarSrc.includes('woman')) mentorName = "Teyze";
-                    else if (avatarSrc.includes('man')) mentorName = "Amca";
-                    else mentorName = "Bilge Kişi";
-                }
-            }
-
-            // Gender-based replacements for Sibling
+            // Sibling Gender Swaps
             if (config.family.sibling.gender === 'boy') {
-                page.text = page.text
+                text = text
                     .replace(/Abla/g, "Abi").replace(/abla/g, "abi")
                     .replace(/Sister/g, "Brother").replace(/sister/g, "brother")
                     .replace(/Big sister/g, "Big brother");
             }
 
-            // Process Conditionals {{#if role}}...{{/if}}
-            page.text = page.text.replace(/{{#if\s+(\w+)}}([\s\S]*?){{\/if}}/g, (match, role, content) => {
+            // Conditionals {{#if role}}...{{/if}}
+            text = text.replace(/{{#if\s+(\w+)}}([\s\S]*?){{\/if}}/g, (match, role, content) => {
                 let show = false;
                 if (role === 'mom') show = config.family.mom.included;
                 else if (role === 'dad') show = config.family.dad.included;
                 else if (role === 'sibling') show = config.family.sibling.included;
                 else if (role === 'friend') show = config.family.friend.included;
                 else if (role === 'pet') show = config.pets.heroPet.included;
-
                 return show ? content : "";
             });
 
-            // Smart Parents Logic
-            let parentsActor = "";
-            if (config.family.mom.included && config.family.dad.included) {
-                parentsActor = config.lang === 'en' ? "Mom and Dad" : "Annesi ve Babası";
-            } else if (config.family.mom.included) {
-                parentsActor = config.lang === 'en' ? "Mom" : "Annesi";
-            } else if (config.family.dad.included) {
-                parentsActor = config.lang === 'en' ? "Dad" : "Babası";
-            } else {
-                // Fallback if neither selected but story needs a parent? 
-                // Default to Dad as per original story or generic "Ailesi/Family"
-                parentsActor = config.lang === 'en' ? "The family" : "Ailesi";
-            }
-
-            // Then replace tokens
-            page.text = page.text
+            // Token Replacements
+            return text
                 .replace(/{{heroName}}/g, config.hero.name || (config.lang === 'en' ? "Hero" : "Kahraman"))
                 .replace(/{{siblingName}}/g, config.family.sibling.name || (config.lang === 'en' ? "Sibling" : "Kardeş"))
                 .replace(/{{friendName}}/g, config.family.friend.name || (config.lang === 'en' ? "Friend" : "Arkadaş"))
@@ -1071,81 +1053,89 @@ class StoryEngine {
                 .replace(/{{parentsActor}}/g, parentsActor)
                 .replace(/{{mentorName}}/g, mentorName)
                 .replace(/{{heroPetName}}/g, config.pets.heroPet.name || "Boncuk");
-        });
-
-        // Dynamic Avatar/Scene Logic
-        story.pages.forEach(page => {
-            // Swap Base Images if needed
-            if (swapMomToDad && page.image === "images/parent_mom_1.png") {
-                page.image = "images/parent_dad_1.png";
-            } else if (swapDadToMom && page.image === "images/parent_dad_1.png") {
-                page.image = "images/parent_mom_1.png";
-            }
-
-            // Normal Avatar Replacement
-            if (page.image === "images/hero_boy_1.png") {
-                page.image = config.hero.avatar;
-            } else if (page.image === "images/sibling_girl_1.png") {
-                page.image = config.family.sibling.avatar;
-            } else if (page.image === "images/friend_boy_1.png") {
-                page.image = config.family.friend.avatar;
-            } else if (page.image === "images/pet_cat_1.png") {
-                page.image = config.pets.heroPet.avatar;
-            } else if (page.image === "images/parent_mom_1.png") {
-                page.image = config.family.mom.avatar;
-            } else if (page.image === "images/parent_dad_1.png") {
-                page.image = config.family.dad.avatar;
-            } else if (page.image === "images/mentor_grandpa_1.png") {
-                page.image = config.family.mentor.avatar;
-            }
-
-            // SCENE SWAPS (Gender/Pet specific)
-            if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
-                page.image = "images/action_forest_walk_boy.png";
-            } else if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'girl') {
-                page.image = "images/action_forest_walk_girl.png";
-            }
-
-            /* 
-             * Temporarily disabled missing action scenes to prevent broken images
-             * TODO: Generate these images
-             */
-            /*
-            if (page.image === "images/scene_cave_entrance_pixar.png") {
-                if (config.hero.gender === 'boy') page.image = "images/action_cave_discovery_boy.png";
-                else page.image = "images/action_cave_discovery_girl.png";
-            }
-
-            if (page.image === "images/scene_portal_pixar.png") {
-                if (config.hero.gender === 'boy') page.image = "images/action_portal_interaction_boy.png";
-                else page.image = "images/action_portal_interaction_girl.png";
-            }
-
-            if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
-                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
-                    page.image = "images/action_sleeping_pet_cat.png";
-                }
-            }
-            if (page.image === "images/pet_dog_1.png" && config.pets.heroPet.type === 'dog') {
-                if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
-                    page.image = "images/action_sleeping_pet_dog.png";
-                }
-            }
-            */
-        });
-
-        // --- Cover Page Injection ---
-        let coverImg = "images/masalmio_logo.png";
-        const firstScene = story.pages.find(p => p.image.includes('scene_'));
-        if (firstScene) coverImg = firstScene.image;
-
-        const coverPage = {
-            text: `<strong style="font-size:1.5em; display:block; margin-bottom:10px;">${story.title}</strong>${story.summary}`,
-            image: coverImg
         };
 
-        story.pages.unshift(coverPage);
+        // Apply to Metadata (Cover)
+        story.title = processText(story.title);
+        story.summary = processText(story.summary);
 
-        return story;
-    }
+        // Apply to Pages
+        story.pages.forEach(page => {
+            page.text = processText(page.text);
+
+            // Dynamic Avatar/Scene Logic
+            story.pages.forEach(page => {
+                // Swap Base Images if needed
+                if (swapMomToDad && page.image === "images/parent_mom_1.png") {
+                    page.image = "images/parent_dad_1.png";
+                } else if (swapDadToMom && page.image === "images/parent_dad_1.png") {
+                    page.image = "images/parent_mom_1.png";
+                }
+
+                // Normal Avatar Replacement
+                if (page.image === "images/hero_boy_1.png") {
+                    page.image = config.hero.avatar;
+                } else if (page.image === "images/sibling_girl_1.png") {
+                    page.image = config.family.sibling.avatar;
+                } else if (page.image === "images/friend_boy_1.png") {
+                    page.image = config.family.friend.avatar;
+                } else if (page.image === "images/pet_cat_1.png") {
+                    page.image = config.pets.heroPet.avatar;
+                } else if (page.image === "images/parent_mom_1.png") {
+                    page.image = config.family.mom.avatar;
+                } else if (page.image === "images/parent_dad_1.png") {
+                    page.image = config.family.dad.avatar;
+                } else if (page.image === "images/mentor_grandpa_1.png") {
+                    page.image = config.family.mentor.avatar;
+                }
+
+                // SCENE SWAPS (Gender/Pet specific)
+                if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'boy') {
+                    page.image = "images/action_forest_walk_boy.png";
+                } else if (page.image === "images/scene_forest_pixar.png" && config.hero.gender === 'girl') {
+                    page.image = "images/action_forest_walk_girl.png";
+                }
+
+                /* 
+                 * Temporarily disabled missing action scenes to prevent broken images
+                 * TODO: Generate these images
+                 */
+                /*
+                if (page.image === "images/scene_cave_entrance_pixar.png") {
+                    if (config.hero.gender === 'boy') page.image = "images/action_cave_discovery_boy.png";
+                    else page.image = "images/action_cave_discovery_girl.png";
+                }
+    
+                if (page.image === "images/scene_portal_pixar.png") {
+                    if (config.hero.gender === 'boy') page.image = "images/action_portal_interaction_boy.png";
+                    else page.image = "images/action_portal_interaction_girl.png";
+                }
+    
+                if (page.image === "images/pet_cat_1.png" && config.pets.heroPet.type === 'cat') {
+                    if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
+                        page.image = "images/action_sleeping_pet_cat.png";
+                    }
+                }
+                if (page.image === "images/pet_dog_1.png" && config.pets.heroPet.type === 'dog') {
+                    if (page.text.includes("uyuyordu") || page.text.includes("sleeping")) {
+                        page.image = "images/action_sleeping_pet_dog.png";
+                    }
+                }
+                */
+            });
+
+            // --- Cover Page Injection ---
+            let coverImg = "images/masalmio_logo.png";
+            const firstScene = story.pages.find(p => p.image.includes('scene_'));
+            if (firstScene) coverImg = firstScene.image;
+
+            const coverPage = {
+                text: `<strong style="font-size:1.5em; display:block; margin-bottom:10px;">${story.title}</strong>${story.summary}`,
+                image: coverImg
+            };
+
+            story.pages.unshift(coverPage);
+
+            return story;
+        }
 }
