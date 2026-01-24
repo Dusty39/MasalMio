@@ -1,4 +1,4 @@
-const CACHE_NAME = 'masalmio-v3.3.3';
+const CACHE_NAME = 'masalmio-v3.3.4';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -7,6 +7,7 @@ const ASSETS_TO_CACHE = [
     './stories.js?v=3.3.3',
     './manifest.json',
     // Auto-injected images below
+    './images/friend_girl_2.png',
     './images/action_forest_walk_boy.png',
     './images/action_forest_walk_girl.png',
     './images/action_hugging_pet_crystal_1769146562353.png',
