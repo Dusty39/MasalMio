@@ -216,19 +216,19 @@ const STORY_DB = [
             { text: "Hafta sonu nihayet gelmişti! {{heroName}} için bu hafta sonu çok özeldi, çünkü ilk kez kampa gideceklerdi.", image: "images/hero_boy_1.png" },
             { text: "Arabaya yastıklar, uyku tulumları, fenerler ve bolca yiyecek yüklediler. Bagaj tıka basa dolmuştu!", image: "images/masalmio_logo.png" },
             { text: "Yolculuk başladı. Şehirden uzaklaştıkça binalar azaldı, ağaçlar çoğaldı. Camı açtığında mis gibi çam kokusu geldi.", image: "images/masalmio_logo.png" },
-            { text: "Ormanlık alana vardıklarında {{heroName}} arabadan fırladı. Kuşlar cıvıl cıvıl ötüyordu. Hava serin ve tertemizdi.", image: "images/masalmio_logo.png" },
-            { text: "Babası 'Hadi bakalım, önce çadırımızı kuralım' dedi. Çadır kurmak dev bir yapboz yapmak gibiydi.", image: "images/masalmio_logo.png" },
-            { text: "{{heroName}} çubukları birleştirdi, kazıkları yere çaktı. Çekiç kullanmak onu çok güçlü hissettirdi.", image: "images/masalmio_logo.png" },
+            { text: "Ormanlık alana vardıklarında {{heroName}} {{#if pet}}ve {{heroPetName}}{{/if}} arabadan fırladı. Kuşlar cıvıl cıvıl ötüyordu. Hava serin ve tertemizdi.", image: "images/masalmio_logo.png" },
+            { text: "{{parentsActor}} 'Hadi bakalım, önce çadırımızı kuralım' dedi. Çadır kurmak dev bir yapboz yapmak gibiydi.", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}} {{#if sibling}}ve {{siblingName}}{{/if}} çubukları birleştirdi, kazıkları yere çaktı. Çekiç kullanmak onu çok güçlü hissettirdi.", image: "images/masalmio_logo.png" },
             { text: "Sonunda çadır hazırdı! İçine girip yerleşti. Burası sanki kumaştan yapılmış gizli bir kale gibiydi.", image: "images/scene_camp_tent_sunny.png" },
             { text: "Güneş yavaş yavaş batarken ormanda bir yürüyüşe çıktılar. Kuru yaprakların üzerinde yürümek 'hışır hışır' sesler çıkarıyordu.", image: "images/masalmio_logo.png" },
             { text: "Yerde değişik ayak izleri gördü. 'Bu bir tavşan izi olmalı!' dedi {{heroName}}. Doğada bir dedektif gibi iz sürdü.", image: "images/masalmio_logo.png" },
-            { text: "Bir ağaçkakanın 'tak tak tak' diye ağacı gagaladığını gördüler. Doğa ne kadar da canlıydı.", image: "images/masalmio_logo.png" },
+            { text: "Bir ağaçkakanın 'tak tak tak' diye ağacı gagaladığını gördüler. {{#if pet}}{{heroPetName}} sesi duyunca havladı (veya miyavladı).{{/if}} Doğa ne kadar da canlıydı.", image: "images/masalmio_logo.png" },
             { text: "Hava karardığında kamp alanına döndüler. Şimdi en eğlenceli kısım gelmişti: Kamp ateşi!", image: "images/scene_camp_fire_night.png" },
             { text: "Ateş çıtırdayarak yandı. Turuncu alevler dans ediyordu. {{heroName}} ateşin sıcaklığını yüzünde hissetti.", image: "images/scene_camp_fire_night.png" },
             { text: "Çubuklara taktıkları marşmelovları ateşte kızarttılar. Dışı kıtır, içi yumuşacık olmuştu. Çok lezzetliydi!", image: "images/scene_camp_fire_night.png" },
             { text: "Gökyüzüne baktığında şaşırdı. Şehirde hiç bu kadar çok yıldız görmemişti. Sanki biri gökyüzüne sim dökmüştü.", image: "images/masalmio_logo.png" },
-            { text: "Babası ona Büyükaıyı takımyıldızını gösterdi. Gerçekten de bir cezveye benziyordu.", image: "images/masalmio_logo.png" },
-            { text: "Aniden karanlığın içinden 'Uu-huuu!' diye bir ses geldi. Bu bir baykuştu! {{heroName}} biraz ürperdi ama korkmadı.", image: "images/scene_forest_owl_night.png" },
+            { text: "{{parentsActor}} ona Büyükaıyı takımyıldızını gösterdi. Gerçekten de bir cezveye benziyordu.", image: "images/masalmio_logo.png" },
+            { text: "Aniden karanlığın içinden 'Uu-huuu!' diye bir ses geldi. Bu bir baykuştu! {{heroName}} {{#if sibling}}ve {{siblingName}}{{/if}} biraz ürperdi ama korkmadı.", image: "images/scene_forest_owl_night.png" },
             { text: "Çalılıkların arasından parlayan iki göz onlara baktı. Meraklı bir tilki! Ateşin ışığında tüyleri kızıla çalıyordu.", image: "images/scene_forest_animals.png" },
             { text: "Tilki bir süre onları izledi, sonra sessizce ormana geri döndü. Sanki 'İyi geceler' demişti.", image: "images/scene_forest_animals.png" },
             { text: "Ateş köz haline gelince çadıra girdiler. Uyku tulumu sıcacıktı. Dışarıda rüzgar ağaçları sallıyordu.", image: "images/masalmio_logo.png" },
@@ -243,18 +243,18 @@ const STORY_DB = [
             { text: "Weekend finally came! Special for {{heroName}}, first time camping.", image: "images/hero_boy_1.png" },
             { text: "Loaded car with pillows, sleeping bags, flashlights, food. Trunk full!", image: "images/masalmio_logo.png" },
             { text: "Journey started. Buildings fewer, trees more. Smelled pine when opened window.", image: "images/masalmio_logo.png" },
-            { text: "Arrived at forest. {{heroName}} jumped out. Birds chirping. Air cool and clean.", image: "images/masalmio_logo.png" },
-            { text: "Dad said 'Let's set up tent'. Like giant puzzle.", image: "images/masalmio_logo.png" },
-            { text: "{{heroName}} joined poles, hammered stakes. Felt strong using hammer.", image: "images/masalmio_logo.png" },
+            { text: "Arrived at forest. {{heroName}} {{#if pet}}and {{heroPetName}}{{/if}} jumped out. Birds chirping. Air cool and clean.", image: "images/masalmio_logo.png" },
+            { text: "{{parentsActor}} said 'Let's set up tent'. Like giant puzzle.", image: "images/masalmio_logo.png" },
+            { text: "{{heroName}} {{#if sibling}}and {{siblingName}}{{/if}} joined poles, hammered stakes. Felt strong using hammer.", image: "images/masalmio_logo.png" },
             { text: "Tent ready! Went inside. Like a secret cloth castle.", image: "images/scene_camp_tent_sunny.png" },
             { text: "Walked in forest as sun set. Dry leaves 'crunch crunch'.", image: "images/masalmio_logo.png" },
             { text: "Saw strange footprints. 'Must be rabbit!' said {{heroName}}. Tracked like detective.", image: "images/masalmio_logo.png" },
-            { text: "Saw woodpecker 'tap tap tap'. Nature so alive.", image: "images/masalmio_logo.png" },
+            { text: "Saw woodpecker 'tap tap tap'. {{#if pet}}{{heroPetName}} barked (or meowed) at noise.{{/if}} Nature so alive.", image: "images/masalmio_logo.png" },
             { text: "Returned to camp at dark. Fun part: Campfire!", image: "images/scene_camp_fire_night.png" },
             { text: "Fire crackled. Orange flames danced. Felt warmth on face.", image: "images/scene_camp_fire_night.png" },
             { text: "Roasted marshmallows. Crispy outside, soft inside. Yummy!", image: "images/scene_camp_fire_night.png" },
             { text: "Looked at sky. Never seen so many stars in city. Like glitter spilled.", image: "images/masalmio_logo.png" },
-            { text: "Dad showed Big Dipper. Looked like coffee pot.", image: "images/masalmio_logo.png" },
+            { text: "{{parentsActor}} showed Big Dipper. Looked like coffee pot.", image: "images/masalmio_logo.png" },
             { text: "Sudden 'Hoo-hoo!' from dark. An owl! Shivered a bit but not scared.", image: "images/scene_forest_owl_night.png" },
             { text: "Two glowing eyes in bushes. Curious fox! Red fur in firelight.", image: "images/scene_forest_animals.png" },
             { text: "Fox watched then left quietly. As if saying 'Goodnight'.", image: "images/scene_forest_animals.png" },
@@ -1035,6 +1035,32 @@ class StoryEngine {
                     .replace(/Big sister/g, "Big brother");
             }
 
+            // Process Conditionals {{#if role}}...{{/if}}
+            page.text = page.text.replace(/{{#if\s+(\w+)}}([\s\S]*?){{\/if}}/g, (match, role, content) => {
+                let show = false;
+                if (role === 'mom') show = config.family.mom.included;
+                else if (role === 'dad') show = config.family.dad.included;
+                else if (role === 'sibling') show = config.family.sibling.included;
+                else if (role === 'friend') show = config.family.friend.included;
+                else if (role === 'pet') show = config.pets.heroPet.included;
+
+                return show ? content : "";
+            });
+
+            // Smart Parents Logic
+            let parentsActor = "";
+            if (config.family.mom.included && config.family.dad.included) {
+                parentsActor = config.lang === 'en' ? "Mom and Dad" : "Annesi ve Babası";
+            } else if (config.family.mom.included) {
+                parentsActor = config.lang === 'en' ? "Mom" : "Annesi";
+            } else if (config.family.dad.included) {
+                parentsActor = config.lang === 'en' ? "Dad" : "Babası";
+            } else {
+                // Fallback if neither selected but story needs a parent? 
+                // Default to Dad as per original story or generic "Ailesi/Family"
+                parentsActor = config.lang === 'en' ? "The family" : "Ailesi";
+            }
+
             // Then replace tokens
             page.text = page.text
                 .replace(/{{heroName}}/g, config.hero.name || (config.lang === 'en' ? "Hero" : "Kahraman"))
@@ -1042,6 +1068,7 @@ class StoryEngine {
                 .replace(/{{friendName}}/g, config.family.friend.name || (config.lang === 'en' ? "Friend" : "Arkadaş"))
                 .replace(/{{parentMomName}}/g, momName)
                 .replace(/{{parentDadName}}/g, dadName)
+                .replace(/{{parentsActor}}/g, parentsActor)
                 .replace(/{{mentorName}}/g, mentorName)
                 .replace(/{{heroPetName}}/g, config.pets.heroPet.name || "Boncuk");
         });
