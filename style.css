@@ -664,3 +664,73 @@ h3 {
         transform: translateY(0) scale(1);
     }
 }
+/* --- Avatar Studio Styles --- */
+.avatar-preview-container {
+    transition: transform 0.3s ease;
+}
+.avatar-preview-container:hover {
+    transform: scale(1.02);
+}
+
+.option-btn {
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Skin Options */
+.skin-option {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+}
+.skin-option:hover {
+    transform: scale(1.1);
+}
+.skin-option.selected {
+    border: 3px solid #4CAF50 !important;
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.skin-option.selected::after {
+    content: '✓';
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: #4CAF50;
+    color: white;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hair Options */
+.hair-option {
+    background: rgba(255,255,255,0.6);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.hair-option:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: var(--text);
+}
+.hair-option.selected {
+    border-color: var(--primary);
+    background: #FFF9C4; /* Light Gold */
+    color: var(--text);
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}

@@ -1081,9 +1081,9 @@ class StoryEngine {
             } else if (page.image === "images/pet_cat_1.png") {
                 page.image = config.pets.heroPet.avatar;
             } else if (page.image === "images/parent_mom_1.png") {
-                page.image = config.family.mom.avatar;
+                page.image = config.hero.avatar; // Use Hero instead of Mom
             } else if (page.image === "images/parent_dad_1.png") {
-                page.image = config.family.dad.avatar;
+                page.image = config.hero.avatar; // Use Hero instead of Dad
             } else if (page.image === "images/mentor_grandpa_1.png") {
                 page.image = config.family.mentor.avatar;
             }
