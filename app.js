@@ -27,7 +27,8 @@ const AVATAR_OPTIONS = {
     friend: [
         { id: 'friend1', src: 'images/friend_boy_1.png', type: 'boy' },
         { id: 'friend2', src: 'images/friend_boy_2.png', type: 'boy' },
-        { id: 'friend3', src: 'images/friend_girl_1.png', type: 'girl' }
+        { id: 'friend3', src: 'images/friend_girl_1.png', type: 'girl' },
+        { id: 'friend4', src: 'images/friend_girl_2.png', type: 'girl' }
     ]
 };
 
