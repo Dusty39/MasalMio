@@ -1075,9 +1075,9 @@ class StoryEngine {
             if (page.image === "images/hero_boy_1.png") {
                 page.image = config.hero.avatar;
             } else if (page.image === "images/sibling_girl_1.png") {
-                page.image = config.family.sibling.avatar;
+                page.image = config.hero.avatar; // Use Hero instead of Sibling
             } else if (page.image === "images/friend_boy_1.png") {
-                page.image = config.family.friend.avatar;
+                page.image = config.hero.avatar; // Use Hero instead of Friend
             } else if (page.image === "images/pet_cat_1.png") {
                 page.image = config.pets.heroPet.avatar;
             } else if (page.image === "images/parent_mom_1.png") {
@@ -1085,7 +1085,7 @@ class StoryEngine {
             } else if (page.image === "images/parent_dad_1.png") {
                 page.image = config.hero.avatar; // Use Hero instead of Dad
             } else if (page.image === "images/mentor_grandpa_1.png") {
-                page.image = config.family.mentor.avatar;
+                page.image = config.hero.avatar; // Use Hero instead of Mentor
             }
 
             // SCENE SWAPS (Gender/Pet specific)

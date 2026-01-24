@@ -353,89 +353,69 @@ function renderCombinedStep(container) {
         </div>
     `;
 
-    // 2. Family & Friends Section
-    // Helper to render a family member row
-    const renderRow = (key, label, avatarPath) => {
-        const member = StoryConfig.family[key];
-        const isSelected = member.included;
+    // 2. Family & Friends Section (Simplified)
 
-        // Special Layout for Roles with Multiple Avatars (Sibling, Friend, Mentor)
-        // Note: Mom and Dad are now handled separately below with simple toggles to reduce clutter.
-        if (AVATAR_OPTIONS[key] && key !== 'mom' && key !== 'dad') {
-            const options = AVATAR_OPTIONS[key];
-            let avatarsHtml = options.map(opt => {
-                const isActive = member.included && member.avatar === opt.src;
-                const isCurrent = member.avatar === opt.src;
-                const showCheck = isCurrent && member.included;
-
-                return `
-                <div onclick="selectParentAvatar('${key}', '${opt.src}')" 
-                     class="avatar-selectable"
-                     style="position:relative; width: 55px; height: 55px; border-radius: 50%; border: 3px solid ${showCheck ? '#4CAF50' : 'transparent'}; cursor: pointer; flex-shrink: 0; opacity: ${showCheck || !member.included ? '1' : '0.5'}; transform: scale(${showCheck ? '1.1' : '1'}); transition: all 0.2s;">
-                    <img src="${opt.src}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
-                    ${showCheck ? '<span style="position:absolute; bottom:-5px; right:-5px; background:#4CAF50; color:white; border-radius:50%; width:18px; height:18px; font-size:10px; display:flex; align-items:center; justify-content:center;">✓</span>' : ''}
-                </div>
-                `;
-            }).join('');
-
-            let selectTitle = app.T('selectDad'); // Default
-            if (key === 'mom') selectTitle = app.T('selectMom');
-            if (key === 'mentor') selectTitle = app.T('selectMentor');
-            if (key === 'sibling') selectTitle = app.T('selectSibling');
-            if (key === 'friend') selectTitle = app.T('selectFriend');
-
-            const showNameInput = (key === 'mentor' || key === 'sibling' || key === 'friend') && member.included;
-
-            return `
-            <div class="family-row" style="margin-bottom:20px; text-align:left;">
-                <div style="font-size:0.9rem; margin-bottom:8px; opacity:0.9; padding-left:5px;">${selectTitle}</div>
-                <div style="display:flex; gap:15px; overflow-x:auto; padding: 5px; scrollbar-width:none;">
-                    ${avatarsHtml}
-                </div>
-                ${showNameInput ? `
-                <div class="animate-in" style="margin-top:10px; max-width: 200px; margin-left: 5px;">
-                    <input type="text" class="glass-input" style="padding:8px; font-size:0.9rem;" 
-                           placeholder="${app.T('namePlaceholder')}" autocomplete="off"
-                           value="${member.name}" 
-                           oninput="StoryConfig.family['${key}'].name = this.value">
-                </div>
-                ` : ''}
-            </div>
-            `;
-        }
-
-        // Fallback for others if any
-        return '';
-    };
-
-    // Simplified Parent Selection (Text Buttons)
+    // Helpers for simple parent toggles
     const momIncluded = StoryConfig.family.mom.included;
     const dadIncluded = StoryConfig.family.dad.included;
+
+    // Helper to render extended toggles for Sibling/Friend/Mentor (Button + Name Input)
+    const renderSimpleMember = (key, label, emoji) => {
+        const member = StoryConfig.family[key];
+        const included = member.included;
+        const borderColor = included ? '#FFEB3B' : 'transparent'; // Yellow border if selected
+        const bg = included ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)';
+
+        return `
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; transition:all 0.3s;">
+            <!-- Toggle Button -->
+            <button onclick="toggleFamilyMember('${key}')"
+                    style="flex:1; padding:12px; border-radius:12px; border: 2px solid ${borderColor}; cursor:pointer; font-size:0.95rem; font-weight:500; display:flex; align-items:center; justify-content:flex-start; gap:10px; transition:all 0.3s; background:${bg}; color:white;">
+                <span style="font-size:1.2rem;">${emoji}</span>
+                <span>${label}</span>
+                ${included ? '<span style="margin-left:auto; color:#4CAF50;">✓</span>' : ''}
+            </button>
+            
+            <!-- Name Input (Shows if Included) -->
+            ${included ? `
+            <div class="animate-in" style="flex:1.2;">
+                <input type="text" class="glass-input" 
+                       style="padding:12px; font-size:0.9rem; border:1px solid rgba(255,235,59,0.5);" 
+                       placeholder="${label} ${app.T('namePlaceholder')}" autocomplete="off"
+                       value="${member.name}" 
+                       oninput="StoryConfig.family['${key}'].name = this.value">
+            </div>
+            ` : ''}
+        </div>
+        `;
+    };
 
     const familySection = `
         <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">${app.T('lovedOnes')}</h3>
         
-        <!-- Simplified Parents -->
-        <div style="display:flex; gap:15px; margin-bottom: 25px;">
-            <button onclick="toggleParent('mom')" 
-                    style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
-                    ${momIncluded ? 'background:linear-gradient(135deg, #E91E63, #d81b60); color:white; box-shadow:0 5px 15px rgba(233,30,99,0.4);' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
-                <span>👩</span> ${app.T('mom')}
-                ${momIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
-            </button>
-            <button onclick="toggleParent('dad')" 
-                    style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
-                    ${dadIncluded ? 'background:linear-gradient(135deg, #2196F3, #1976D2); color:white; box-shadow:0 5px 15px rgba(33,150,243,0.4);' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
-                <span>👨</span> ${app.T('dad')}
-                ${dadIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
-            </button>
-        </div>
-
         <div class="family-list" style="padding-right:5px; margin-bottom: 30px;">
+            <!-- Simplified Parents: Mom & Dad -->
+            <div style="display:flex; gap:15px; margin-bottom: 25px;">
+                <button onclick="toggleParent('mom')" 
+                        style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
+                        ${momIncluded ? 'background:linear-gradient(135deg, #E91E63, #d81b60); color:white; box-shadow:0 5px 15px rgba(233,30,99,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
+                    <span>👩</span> ${app.T('mom')}
+                    ${momIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
+                </button>
+                <button onclick="toggleParent('dad')" 
+                        style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
+                        ${dadIncluded ? 'background:linear-gradient(135deg, #2196F3, #1976D2); color:white; box-shadow:0 5px 15px rgba(33,150,243,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
+                    <span>👨</span> ${app.T('dad')}
+                    ${dadIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
+                </button>
+            </div>
+
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-            ${renderRow('sibling', app.T('sibling'), StoryConfig.family.sibling.avatar)}
-            ${renderRow('friend', app.T('friend'), StoryConfig.family.friend.avatar)}
-            ${renderRow('mentor', app.T('mentor'), StoryConfig.family.mentor.avatar)}
+            
+            <!-- Simplified Others: Sibling, Friend, Mentor -->
+            ${renderSimpleMember('sibling', app.T('sibling'), '👶')}
+            ${renderSimpleMember('friend', app.T('friend'), '🎈')}
+            ${renderSimpleMember('mentor', app.T('mentor'), '🦉')}
         </div>
     `;
 
@@ -477,6 +457,15 @@ function selectHeroGender(gender) {
 function toggleFamilyMember(key) {
     const member = StoryConfig.family[key];
     member.included = !member.included;
+
+    // Ensure default avatar is set if included
+    // This ensures valid asset reference, even though we removed visual selection
+    if (member.included) {
+        if (AVATAR_OPTIONS[key] && AVATAR_OPTIONS[key].length > 0) {
+            member.avatar = AVATAR_OPTIONS[key][0].src;
+        }
+    }
+
     wizard.render();
 }
 
