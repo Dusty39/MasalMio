@@ -1,4 +1,4 @@
-const CACHE_NAME = 'masalmio-v3.7.8';
+const CACHE_NAME = 'masalmio-v3.7.9';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -11,6 +11,10 @@ const ASSETS_TO_CACHE = [
     './images/action_forest_walk_boy.png',
     './images/action_forest_walk_girl.png',
     './images/action_hugging_pet_crystal_1769146562353.png',
+    './images/scene_space_engines_warmup_v3.png',
+    './images/scene_space_asteroid_belt_v3.png',
+    './images/scene_space_saturn_v3.png',
+    './images/scene_space_turbulence_v3.png',
     './images/action_painting_box_space_fix.png',
     './images/action_painting_box_space_1769146425369.png',
     './images/action_running_forest_lantern_1769146543682.png',
