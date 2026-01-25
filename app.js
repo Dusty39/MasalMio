@@ -363,24 +363,26 @@ function renderCombinedStep(container) {
     const renderSimpleMember = (key, label, emoji) => {
         const member = StoryConfig.family[key];
         const included = member.included;
-        const borderColor = included ? '#FFEB3B' : 'transparent'; // Yellow border if selected
-        const bg = included ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)';
+        const borderColor = included ? '#FFD700' : 'rgba(0,0,0,0.1)';
+        // Use darker text color for visibility on light backgrounds
+        const textColor = 'var(--text)';
+        const bg = included ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255,255,255, 0.5)';
 
         return `
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; transition:all 0.3s;">
             <!-- Toggle Button -->
             <button onclick="toggleFamilyMember('${key}')"
-                    style="flex:1; padding:12px; border-radius:12px; border: 2px solid ${borderColor}; cursor:pointer; font-size:0.95rem; font-weight:500; display:flex; align-items:center; justify-content:flex-start; gap:10px; transition:all 0.3s; background:${bg}; color:white;">
+                    style="flex:1; padding:12px; border-radius:12px; border: 2px solid ${borderColor}; cursor:pointer; font-size:0.95rem; font-weight:600; display:flex; align-items:center; justify-content:flex-start; gap:10px; transition:all 0.3s; background:${bg}; color:${textColor}; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                 <span style="font-size:1.2rem;">${emoji}</span>
                 <span>${label}</span>
-                ${included ? '<span style="margin-left:auto; color:#4CAF50;">✓</span>' : ''}
+                ${included ? '<span style="margin-left:auto; color:green;">✓</span>' : ''}
             </button>
             
             <!-- Name Input (Shows if Included) -->
             ${included ? `
             <div class="animate-in" style="flex:1.2;">
                 <input type="text" class="glass-input" 
-                       style="padding:12px; font-size:0.9rem; border:1px solid rgba(255,235,59,0.5);" 
+                       style="padding:12px; font-size:0.9rem; border:1px solid rgba(78, 52, 46, 0.3); color: var(--text); background: rgba(255,255,255,0.8);" 
                        placeholder="${label} ${app.T('namePlaceholder')}" autocomplete="off"
                        value="${member.name}" 
                        oninput="StoryConfig.family['${key}'].name = this.value">
@@ -391,20 +393,20 @@ function renderCombinedStep(container) {
     };
 
     const familySection = `
-        <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px;">${app.T('lovedOnes')}</h3>
+        <h3 style="margin: 0 0 20px; opacity: 0.9; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; color: var(--text);">${app.T('lovedOnes')}</h3>
         
         <div class="family-list" style="padding-right:5px; margin-bottom: 30px;">
             <!-- Simplified Parents: Mom & Dad -->
             <div style="display:flex; gap:15px; margin-bottom: 25px;">
                 <button onclick="toggleParent('mom')" 
                         style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
-                        ${momIncluded ? 'background:linear-gradient(135deg, #E91E63, #d81b60); color:white; box-shadow:0 5px 15px rgba(233,30,99,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
+                        ${momIncluded ? 'background:linear-gradient(135deg, #E91E63, #d81b60); color:white; box-shadow:0 5px 15px rgba(233,30,99,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.5); color:var(--text); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 2px 5px rgba(0,0,0,0.05);'}">
                     <span>👩</span> ${app.T('mom')}
                     ${momIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
                 </button>
                 <button onclick="toggleParent('dad')" 
                         style="flex:1; padding:15px; border-radius:15px; border:none; cursor:pointer; font-size:1rem; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.3s;
-                        ${dadIncluded ? 'background:linear-gradient(135deg, #2196F3, #1976D2); color:white; box-shadow:0 5px 15px rgba(33,150,243,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);'}">
+                        ${dadIncluded ? 'background:linear-gradient(135deg, #2196F3, #1976D2); color:white; box-shadow:0 5px 15px rgba(33,150,243,0.4); border: 2px solid white;' : 'background:rgba(255,255,255,0.5); color:var(--text); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 2px 5px rgba(0,0,0,0.05);'}">
                     <span>👨</span> ${app.T('dad')}
                     ${dadIncluded ? '<span style="font-size:0.8rem; margin-left:5px;">✓</span>' : ''}
                 </button>
