@@ -1,4 +1,4 @@
-const CACHE_NAME = 'masalmio-v3.3.4';
+const CACHE_NAME = 'masalmio-v3.7.8';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -11,8 +11,10 @@ const ASSETS_TO_CACHE = [
     './images/action_forest_walk_boy.png',
     './images/action_forest_walk_girl.png',
     './images/action_hugging_pet_crystal_1769146562353.png',
+    './images/action_painting_box_space_fix.png',
     './images/action_painting_box_space_1769146425369.png',
     './images/action_running_forest_lantern_1769146543682.png',
+    './images/action_zero_gravity_cookie_fix.png',
     './images/action_zero_gravity_cookie_1769146479284.png',
     './images/aras_character.jpg',
     './images/aras_minecraft.png',
@@ -59,6 +61,7 @@ const ASSETS_TO_CACHE = [
     './images/scene_beach_sunset.png',
     './images/scene_camp_fire_night.png',
     './images/scene_camp_tent_sunny.png',
+    './images/scene_cardboard_cockpit_fix.png',
     './images/scene_cardboard_cockpit_1769146444219.png',
     './images/scene_cave_crystals_pixar.png',
     './images/scene_cave_entrance_pixar.png',
@@ -83,6 +86,7 @@ const ASSETS_TO_CACHE = [
     './images/scene_space_cockpit_eating.png',
     './images/scene_space_cockpit_eating_1769113227225.png',
     './images/scene_space_launch.png',
+    './images/scene_space_launch_garden_fix.png',
     './images/scene_space_launch_garden_1769146462043.png',
     './images/scene_space_planet.png',
     './images/scene_space_saturn.png',
