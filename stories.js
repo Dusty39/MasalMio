@@ -10,12 +10,12 @@ const STORY_DB = [
         requirements: ["sibling", "pet"],
         pages: [
             { text: "Bir zamanlar {{heroPetName}} adında çok sevimli bir dostumuz vardı. Tüyleri pırıl pırıl, gözleri ise merakla parlıyordu. En sevdiği şey, güneşli günlerde bahçedeki renkli kelebeklerin peşinden koşmaktı.", image: "images/scene_garden_pixar.png" },
-            { text: "Onun en yakın arkadaşları {{heroName}} ve {{siblingName}} idi. {{siblingName}}, akıllı ve her zaman hazırlıklı bir ablaydı. Kardeşini ve sevimli dostlarını korumayı her şeyden çok severdi.", image: "images/sibling_girl_1.png" },
+            { text: "Onun en yakın arkadaşları {{heroName}} ve {{siblingName}} idi. {{siblingName}}, akıllı ve her zaman hazırlıklı biriydi. Kardeşini ve sevimli dostlarını korumayı her şeyden çok severdi.", image: "images/sibling_girl_1.png" },
             { text: "{{heroName}}'in hayalleri boyundan büyüktü. Enerjisi hiç bitmez, aklı hep oyunlarda ve yeni keşiflerdeydi. Özellikle bloklarla yeni dünyalar inşa etmeye bayılırdı.", image: "images/hero_boy_1.png" },
             { text: "Güneşli bir öğleden sonraydı. {{heroPetName}} bahçenin uzak köşesinde yine bir kelebeğin peşine düşmüştü. Çalıların arasında daha önce hiç görmediği, parıl parıl parlayan eski bir kapı fark etti!", image: "images/scene_garden_door_glow.png" },
             { text: "Kapı, etrafına mor ışıklar ve sihirli tozlar saçıyordu. {{heroPetName}} merakına yenik düştü. Patiyle kapıya hafifçe dokundu ve hop! Bir anda kapının içinden geçip gözden kayboldu.", image: "images/scene_portal_pixar.png" },
             { text: "Bahçede sessizlik olunca {{siblingName}} ve {{heroName}} endişelendi. '{{heroPetName}}! Neredesin küçük dostum?' diye seslendiler. Ama yanıt gelmedi. İkisi de telaşla bahçeyi aramaya başladı.", image: "images/scene_garden_pixar.png" },
-            { text: "Aramaları onları bahçenin en köşesine götürdü. {{heroName}}'in gözleri büyüdü: 'Abla bak! Bu kapı da nereden çıktı?' Kapıdan sızan mor ışık, ikisinin de yüzünü aydınlatıyordu.", image: "images/scene_portal_pixar.png" },
+            { text: "Aramaları onları bahçenin en köşesine götürdü. {{heroName}}'in gözleri büyüdü: '{{siblingName}} bak! Bu kapı da nereden çıktı?' Kapıdan sızan mor ışık, ikisinin de yüzünü aydınlatıyordu.", image: "images/scene_portal_pixar.png" },
             { text: "{{siblingName}}, kardeşinin elini sıkıca tuttu. 'Sanırım {{heroPetName}} içeride. Onu yalnız bırakamayız, değil mi?' dedi. {{heroName}} başını salladı. Korkuyordu ama dostunu kurtarmak için cesur olmalıydı.", image: "images/scene_portal_pixar.png" },
             { text: "İkisi el ele tutuşup kapıdan geçtiler. Gözlerini açtıklarında, kendilerini bambaşka bir dünyada buldular! Burası mavi sislerle kaplı, ağaçların gökyüzüne uzandığı Büyülü Bir Orman'dı.", image: "images/scene_forest_pixar.png" },
             { text: "Etrafta ateş böcekleri uçuşuyor, yapraklar kendi kendine melodiler fısıldıyordu. Uzaktan cılız bir ses duydular. 'Bu {{heroPetName}}'in sesi!' diye bağırdı {{heroName}}. Ses ormanın derinliklerinden geliyordu.", image: "images/scene_forest_pixar.png" },
@@ -35,7 +35,7 @@ const STORY_DB = [
             { text: "Tam o sırada {{parentsActor}} bahçeye çıktı. 'Çocuklar, neredesiniz? Kek yaptım!' diye seslendi. İkisi birbirine bakıp kıkırdadılar. Bu macera onların küçük sırrı olacaktı.", image: "images/scene_garden_pixar.png" },
             { text: "O akşam {{heroName}} yatağına yattığında, odasındaki gece lambasının ışığında kristal mağarayı hayal etti. Artık karanlıktan eskisi kadar korkmuyordu.", image: "images/hero_boy_1.png" },
             { text: "{{heroPetName}} ise {{heroName}}'in ayakucuna kıvrılmış mışıl mışıl uyuyordu. Rüyasında belki de hala o renkli kelebekleri kovalıyordu.", image: "images/pet_cat_1.png" },
-            { text: "{{siblingName}} kapıdan başını uzattı. 'İyi geceler süper kahraman,' dedi fısıldayarak. {{heroName}} gülümsedi. 'İyi geceler abla. Yarın yine macera var mı?'", image: "images/sibling_girl_1.png" },
+            { text: "{{siblingName}} kapıdan başını uzattı. 'İyi geceler süper kahraman,' dedi fısıldayarak. {{heroName}} gülümsedi. 'İyi geceler {{siblingName}}. Yarın yine macera var mı?'", image: "images/sibling_girl_1.png" },
             { text: "O gün öğrendikleri en önemli şey şuydu: Bilinmeyen yerler bazen korkutucu görünebilirdi. Ama yanında sevdiklerin ve kalbinde cesaret varsa, her yol aydınlığa çıkardı.", image: "images/masalmio_logo.png" },
             { text: "Ve böylece {{heroName}}, {{siblingName}} ve {{heroPetName}}'in macerası mutlu sonla bitti. Ama kim bilir? Belki de o mor kapı bir gün tekrar açılmayı bekliyordur...", image: "images/scene_portal_pixar.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
@@ -801,7 +801,7 @@ const STORY_DB = [
             { text: "{{siblingName}} oyuncağını yavaşça aldı. Köpeği uyandırmadı, onun yerine eski bir battaniye örttü üzerine.", image: "images/sibling_girl_1.png" },
             { text: "'Bay Bal kurtarıldı!' diye sevinçle sarıldı kardeşine. {{heroName}} gururla gülümsedi.", image: "images/hero_boy_1.png" },
             { text: "Eve döndüklerinde anneleri onları tebrik etti. 'Harika iş çıkardınız dedektifler!'", image: "images/parent_mom_1.png" },
-            { text: "O akşam {{siblingName}}, abisine/kardeşine teşekkür etti. 'Sen olmasan bulamazdım,' dedi.", image: "images/sibling_girl_1.png" },
+            { text: "O akşam {{siblingName}}, ona teşekkür etti. 'Sen olmasan bulamazdım,' dedi.", image: "images/sibling_girl_1.png" },
             { text: "{{heroName}} büyütecini kenara koydu. 'Kardeşler bunun içindir,' dedi. Dava kapanmıştı.", image: "images/hero_boy_1.png" },
             { text: "SON", image: "images/masalmio_logo.png" }
         ],
@@ -1025,12 +1025,8 @@ class StoryEngine {
             }
 
             // Sibling Gender Swaps
-            if (config.family.sibling.gender === 'boy') {
-                text = text
-                    .replace(/Abla/g, "Abi").replace(/abla/g, "abi")
-                    .replace(/Sister/g, "Brother").replace(/sister/g, "brother")
-                    .replace(/Big sister/g, "Big brother");
-            }
+            // Sibling Gender Swaps - REMOVED (User request: Use name only)
+            // if (config.family.sibling.gender === 'boy') { ... }
 
             // Conditionals {{#if role}}...{{/if}}
             text = text.replace(/{{#if\s+(\w+)}}([\s\S]*?){{\/if}}/g, (match, role, content) => {
