@@ -38,7 +38,7 @@ const STORY_DB = [
             { text: "{{siblingName}} kapıdan başını uzattı. 'İyi geceler süper kahraman,' dedi fısıldayarak. {{heroName}} gülümsedi. 'İyi geceler {{siblingName}}. Yarın yine macera var mı?'", image: "images/sibling_girl_1.png" },
             { text: "O gün öğrendikleri en önemli şey şuydu: Bilinmeyen yerler bazen korkutucu görünebilirdi. Ama yanında sevdiklerin ve kalbinde cesaret varsa, her yol aydınlığa çıkardı.", image: "images/masalmio_logo.png" },
             { text: "Ve böylece {{heroName}}, {{siblingName}} ve {{heroPetName}}'in macerası mutlu sonla bitti. Ama kim bilir? Belki de o mor kapı bir gün tekrar açılmayı bekliyordur...", image: "images/scene_portal_pixar.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Once upon a time, there was a cute friend named {{heroPetName}}. Its fur was shiny and eyes sparked with curiosity. Its favorite thing was chasing butterflies on sunny days.", image: "images/scene_garden_pixar.png" },
@@ -70,7 +70,7 @@ const STORY_DB = [
             { text: "{{siblingName}} peeked in. 'Goodnight superhero,' she whispered. {{heroName}} smiled. 'Goodnight sis. Adventure again tomorrow?'", image: "images/sibling_girl_1.png" },
             { text: "The most important thing they learned: Unknown places can look scary. But with loved ones and courage in your heart, every path leads to light.", image: "images/masalmio_logo.png" },
             { text: "And so ended the adventure of {{heroName}}, {{siblingName}} and {{heroPetName}}. But who knows? Maybe that purple door waits to open again...", image: "images/scene_portal_pixar.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -173,7 +173,7 @@ const STORY_DB = [
             { text: "Ama {{heroName}} artık biliyordu ki, o sakin yüzeyin altında rengarenk, gizemli bir dünya vardı.", image: "images/masalmio_logo.png" },
             { text: "Denizaltını kıyıya çekti. Ayakları kuma değdiğinde kendini gerçek bir kaşif gibi hissetti.", image: "images/masalmio_logo.png" },
             { text: "Eve dönerken gördüğü parlayan balıkları ve dev balinayı asla unutmayacağını biliyordu.", image: "images/masalmio_logo.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} sat on beach watching sea. 'What's at the very bottom?' he wondered.", image: "images/hero_boy_1.png" },
@@ -200,7 +200,7 @@ const STORY_DB = [
             { text: "But knew under surface was mysterious world.", image: "images/masalmio_logo.png" },
             { text: "Pulled submarine to shore. Felt like real explorer.", image: "images/masalmio_logo.png" },
             { text: "Would never forget glowing fish and giant whale.", image: "images/masalmio_logo.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -237,7 +237,7 @@ const STORY_DB = [
             { text: "Çimenlerin üzerinde çiy damlaları parlıyordu. Her şey pırıl pırıldı.", image: "images/masalmio_logo.png" },
             { text: "Kahvaltıda sıcak çaylarını içtiler. {{heroName}} ormanın enerjisiyle dolmuştu.", image: "images/masalmio_logo.png" },
             { text: "Eşyaları toplarken biraz üzüldü ama biliyordu ki, orman her zaman onları bekleyecekti.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Weekend finally came! Special for {{heroName}}, first time camping.", image: "images/hero_boy_1.png" },
@@ -264,7 +264,7 @@ const STORY_DB = [
             { text: "Dew drops on grass. Everything sparkling.", image: "images/masalmio_logo.png" },
             { text: "Drank hot tea. Filled with forest energy.", image: "images/masalmio_logo.png" },
             { text: "Sad to pack but knew forest would always wait.", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -301,7 +301,7 @@ const STORY_DB = [
             { text: "Yatağına yattığında hala dalgaların sesini duyabiliyordu. 'Hışşşt... Hışşşt...' diye ninniler söylüyordu deniz.", image: "images/masalmio_logo.png" },
             { text: "Yarın yine yüzecek, yine kale yapacaktı. Tatil daha yeni başlıyordu.", image: "images/hero_boy_1.png" },
             { text: "Rüyasında yunuslarla yarıştığını, denizaltı krallığına gittiğini gördü.", image: "images/masalmio_logo.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} was so excited for summer holiday to start!", image: "images/hero_boy_1.png" },
@@ -328,7 +328,7 @@ const STORY_DB = [
             { text: "Heard waves from bed. 'Shhh... Shhh...' Sea singing lullaby.", image: "images/masalmio_logo.png" },
             { text: "Swim again tomorrow, build castle again. Holiday just started.", image: "images/hero_boy_1.png" },
             { text: "Dreamed racing dolphins, going to underwater kingdom.", image: "images/masalmio_logo.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -365,7 +365,7 @@ const STORY_DB = [
             { text: "Havalimanından çıkarken başını kaldırıp gökyüzüne baktı. Az önce oradaydı. Bu inanılmazdı.", image: "images/masalmio_logo.png" },
             { text: "Bavulunu sürüklerken kendini çok önemli bir iş adamı gibi hissetti.", image: "images/masalmio_logo.png" },
             { text: "Eve gittiklerinde yolculuğunu herkese anlattı. 'Bulutlar gerçekten pamuk şekere benziyor!' dedi.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Big day marked on calendar. Woke up early. First time flying!", image: "images/hero_boy_1.png" },
@@ -392,7 +392,7 @@ const STORY_DB = [
             { text: "Looked at sky leaving airport. Was just there. Amazing.", image: "images/masalmio_logo.png" },
             { text: "Felt like important businessman dragging luggage.", image: "images/masalmio_logo.png" },
             { text: "Told everyone about trip at home. 'Clouds look like cotton candy!'", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -429,7 +429,7 @@ const STORY_DB = [
             { text: "İstasyondan çıkarken arkasına dönüp trene baktı. 'Teşekkürler koca tren' dedi.", image: "images/masalmio_logo.png" },
             { text: "{{mentorName}} onları karşılamaya gelmişti. Koşup ona sarıldı.", image: "images/hero_boy_1.png" },
             { text: "Bu tren yolculuğu, tatilin en güzel başlangıcı olmuştu.", image: "images/masalmio_logo.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Smelled iron and steam entering station. Smelled like history.", image: "images/hero_boy_1.png" },
@@ -456,7 +456,7 @@ const STORY_DB = [
             { text: "Looked back at train. 'Thanks big train'.", image: "images/masalmio_logo.png" },
             { text: "{{mentorName}} met them. Hugged {{mentorName}}.", image: "images/hero_boy_1.png" },
             { text: "Best start to holiday.", image: "images/masalmio_logo.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -493,7 +493,7 @@ const STORY_DB = [
             { text: "{{parentsActor}}'na 'Penguenler çok komik yürüyor' dedi gülerek.", image: "images/hero_boy_1.png" },
             { text: "Pencereden dışarı baktı. Dışarıda yağmur yağıyordu ama o kar tanelerini hatırlıyordu.", image: "images/masalmio_logo.png" },
             { text: "Belki bir gün gerçekten oraya giderdi. Kim bilir?", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Watched snow on TV. 'Wish I was there' {{heroName}} said. Missed snow.", image: "images/hero_boy_1.png" },
@@ -520,7 +520,7 @@ const STORY_DB = [
             { text: "Told {{parentsActor}} 'Penguins walk so funny'.", image: "images/hero_boy_1.png" },
             { text: "Looked out window. Raining but remembered snow flakes.", image: "images/masalmio_logo.png" },
             { text: "Maybe go there one day. Who knows?", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -557,7 +557,7 @@ const STORY_DB = [
             { text: "Hazine arabasını yıkayıp rafına koydu. Artık o sıradan bir araba değildi.", image: "images/masalmio_logo.png" },
             { text: "O, keşif gezisinin ganimetiydi.", image: "images/masalmio_logo.png" },
             { text: "Tek başına oynamanın da ne kadar keyifli olabileceğini öğrenmişti.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} was bored. Friends busy, no one to play with.", image: "images/hero_boy_1.png" },
@@ -584,7 +584,7 @@ const STORY_DB = [
             { text: "Washed treasure car put on shelf. Not ordinary car anymore.", image: "images/masalmio_logo.png" },
             { text: "It was trophy of expedition.", image: "images/masalmio_logo.png" },
             { text: "Learned playing alone can be fun too.", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -621,7 +621,7 @@ const STORY_DB = [
             { text: "Yemekten sonra {{heroPetName}} gelip {{heroName}}'in kucağına yattı. Yorulmuştu.", image: "images/pet_cat_1.png" },
             { text: "{{heroName}} onun yumuşak tüylerini sevdi. 'Sen dünyanın en iyi dedektifisin' dedi.", image: "images/hero_boy_1.png" },
             { text: "İkisi birlikte koltukta uyuyakaldılar. Macera bitmişti, huzur gelmişti.", image: "images/masalmio_logo.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} noticed something weird. {{heroPetName}} wasn't in room.", image: "images/hero_boy_1.png" },
@@ -648,7 +648,7 @@ const STORY_DB = [
             { text: "After food slept on lap. Tired.", image: "images/pet_cat_1.png" },
             { text: "Petted soft fur. 'World's best detective'.", image: "images/hero_boy_1.png" },
             { text: "Slept together on sofa. Adventure over, peace came.", image: "images/masalmio_logo.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -686,7 +686,7 @@ const STORY_DB = [
             { text: "Tavan arasına döndüklerinde yağmur dinmişti. Her şey rüya gibiydi ama {{heroName}}'in elinde hala gelecekten gelen o top vardı (şaka şaka, sadece hayali kalmıştı).", image: "images/masalmio_logo.png" },
             { text: "{{mentorName}} saatini kutusuna koydu. 'Aramızda kalsın, tamam mı?' dedi göz kırparak.", image: "images/mentor_grandpa_1.png" },
             { text: "O gün {{heroName}} tarihin sadece kitaplarda yazılı olmadığını, yaşanabilir bir macera olduğunu öğrendi.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} went to the mysterious farm. {{mentorName}}, known as 'Wise Person', knew everything.", image: "images/mentor_grandpa_1.png" },
@@ -714,7 +714,7 @@ const STORY_DB = [
             { text: "Back in attic rain stopped. Like dream but still had imaginary ball.", image: "images/masalmio_logo.png" },
             { text: "Put watch in box. 'Secret okay?' winked.", image: "images/mentor_grandpa_1.png" },
             { text: "Learned history not just books, but adventure.", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -747,7 +747,7 @@ const STORY_DB = [
             { text: "Geri dönerken omuz omuza verdiler. 'Yarın yeni bir macera bulalım mı?' diye sordu {{friendName}}.", image: "images/friend_boy_1.png" },
             { text: "'Tabii ki,' dedi {{heroName}}. 'Biz Macera Ekibiyiz, bizi hiçbir şey durduramaz!'", image: "images/hero_boy_1.png" },
             { text: "Akşam yıldızlar çıkarken, buldukları şeyin altından daha değerli olduğunu biliyorlardı.", image: "images/scene_space_stars.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "{{heroName}} and {{friendName}} found bottle on beach. Not ordinary day.", image: "images/hero_boy_1.png" },
@@ -770,7 +770,7 @@ const STORY_DB = [
             { text: "Walked back shoulder to shoulder. 'New adventure tomorrow?'", image: "images/friend_boy_1.png" },
             { text: "'Of course. We are Adventure Team!'", image: "images/hero_boy_1.png" },
             { text: "Knew friendship more valuable than gold.", image: "images/scene_space_stars.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -803,7 +803,7 @@ const STORY_DB = [
             { text: "Eve döndüklerinde anneleri onları tebrik etti. 'Harika iş çıkardınız dedektifler!'", image: "images/parent_mom_1.png" },
             { text: "O akşam {{siblingName}}, ona teşekkür etti. 'Sen olmasan bulamazdım,' dedi.", image: "images/sibling_girl_1.png" },
             { text: "{{heroName}} büyütecini kenara koydu. 'Kardeşler bunun içindir,' dedi. Dava kapanmıştı.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Crisis in morning. {{siblingName}}'s favorite 'Mr Honey' bear missing!", image: "images/sibling_girl_1.png" },
@@ -826,7 +826,7 @@ const STORY_DB = [
             { text: "Mom congratulated. 'Great job detectives!'", image: "images/parent_mom_1.png" },
             { text: "Thanked sibling in evening. 'Couldn't find without you'.", image: "images/sibling_girl_1.png" },
             { text: "'That's what siblings for'. Case closed.", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -857,7 +857,7 @@ const STORY_DB = [
             { text: "{{heroName}} Annesine sarıldı. 'Sen gerçekten bir süper kahramansın anne,' dedi.", image: "images/hero_boy_1.png" },
             { text: "{{parentMomName}} de onu öptü. 'Sen de benim süper yardımcımsın.'", image: "images/parent_mom_1.png" },
             { text: "Mutfak biraz dağılmıştı ama kimin umrunda? O gün en güzel anılarını pişirmişlerdi.", image: "images/masalmio_logo.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Rainy Sunday. Bored in kitchen. 'Nothing to dooo'.", image: "images/hero_boy_1.png" },
@@ -878,7 +878,7 @@ const STORY_DB = [
             { text: "Hugged Mom. 'You are super hero Mom'.", image: "images/hero_boy_1.png" },
             { text: "She kissed him. 'You are super helper'.", image: "images/parent_mom_1.png" },
             { text: "Kitchen messy but who cares. Baked memories.", image: "images/masalmio_logo.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     },
     {
@@ -908,7 +908,7 @@ const STORY_DB = [
             { text: "Babası güldü. 'Birlikte yaptık evlat. Ellerimiz kirlendi ama değdi, değil mi?'", image: "images/parent_dad_1.png" },
             { text: "O gün sadece bisikleti tamir etmemişler, birlikte harika bir anı inşa etmişlerdi.", image: "images/masalmio_logo.png" },
             { text: "{{heroName}} artık biliyordu ki, bozulan şeyler atılmaz, sevgi ve emekle yenilenirdi.", image: "images/hero_boy_1.png" },
-            { text: "SON", image: "images/masalmio_logo.png" }
+            { text: "SON", image: "images/scene_the_end_card.png" }
         ],
         pages_en: [
             { text: "Found old rusty bike flat tire in garage. Sad.", image: "images/hero_boy_1.png" },
@@ -928,7 +928,7 @@ const STORY_DB = [
             { text: "Laughed. 'We did it together. Dirty hands worth it right?'", image: "images/parent_dad_1.png" },
             { text: "Built wonderful memory not just bike.", image: "images/masalmio_logo.png" },
             { text: "Broken things not thrown, renewed with love.", image: "images/hero_boy_1.png" },
-            { text: "THE END", image: "images/masalmio_logo.png" }
+            { text: "THE END", image: "images/scene_the_end_card.png" }
         ]
     }
 ];
