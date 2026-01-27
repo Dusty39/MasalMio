@@ -275,6 +275,18 @@ const app = {
 // Initialize Theme on Load
 document.addEventListener('DOMContentLoaded', () => {
     app.initTheme();
+
+    // Global Image Error Handler (Fallback to Logo)
+    document.body.addEventListener('error', (e) => {
+        if (e.target.tagName === 'IMG') {
+            // Prevent infinite loop if logo is also missing
+            if (!e.target.src.includes('masalmio_logo.png')) {
+                console.warn('Image failed to load, falling back to logo:', e.target.src);
+                e.target.src = 'images/masalmio_logo.png';
+                e.target.classList.add('fallback-image');
+            }
+        }
+    }, true); // Use capture to catch non-bubbling error events
 });
 
 // --- Wizard Logic ---
